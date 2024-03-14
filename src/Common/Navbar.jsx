@@ -28,9 +28,9 @@ const Navbar = () => {
 
   const navItems = [
     { link: "Home", path: "/" },
-    { link: "About", path: "/about" },
+    { link: "About", path: "/#about" },
     { link: "News", path: "/news" },
-    { link: "Services", path: "/service" },
+    { link: "Connect", path: "/#connect" },
   ];
 
   return (
@@ -41,16 +41,16 @@ const Navbar = () => {
         <div className="flex items-center pl-8">
     
           <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
-          <span className="text-black text-2xl font-medium">Crisis</span>
+          <span className="text-red-600 text-2xl font-medium">Crisis</span>
           <span className="text-red-500 font-semibold pt-2"> collab</span>
           
         </div>
         </Link>
         <ul className="md:flex space-x-10 font-medium ml-42 text-base font-itim hidden">
           {navItems.map(({ link, path }) => (
-            <Link key={path} to={path}
-              className="block text-base  uppercase cursor-pointer text-black font-semibold  hover:text-red-600 hover:text-xl"
-            >{link} </Link>
+            <a key={path} href={path}
+              className="block text-base  uppercase cursor-pointer text-red-700 font-semibold  hover:text-red-600 hover:text-xl"
+            >{link} </a>
           ))}
         </ul>
         <div className=' space-x-2 hidden lg:block'>

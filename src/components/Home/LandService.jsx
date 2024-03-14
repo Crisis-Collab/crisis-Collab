@@ -18,7 +18,7 @@ const LandService = () => {
         <img
           src={img3}
           alt="Image 1"
-          className="w-full h-auto mb-4 shadow-2xl"
+          className="w-full h-auto mb-4 shadow-2xl rounded-xl"
           data-aos="zoom-in"
         />
 
@@ -27,13 +27,13 @@ const LandService = () => {
           <img
             src={img4}
             alt="Image 2"
-            className="w-1/2 h-auto mr-2 shadow-2xl"
+            className="w-1/2 h-auto mr-2 shadow-2xl rounded-xl"
             data-aos="fade-right"
           />
           <img
             src={img5}
             alt="Image 3"
-            className="w-1/2 h-auto ml-2 m-6 shadow-2xl"
+            className="w-1/2 h-auto ml-2 m-6 shadow-2xl rounded-xl"
             data-aos="fade-left"
           />
         </div>
@@ -66,7 +66,7 @@ const LandService = () => {
             </p>
             <a
               href="/service"
-              className=" mt-8 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-800 rounded-lg hover:bg-gray-950 focus:ring-4 focus:outline-none  "
+              className=" mt-8 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-950 focus:ring-4 focus:outline-none  "
             >
               Read more
               <svg
@@ -78,9 +78,9 @@ const LandService = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
@@ -99,7 +99,7 @@ const LandService = () => {
             </p>
             <a
               href="/service"
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-800 rounded-lg hover:bg-gray-950  "
+              className="inline-flex items-center px-3 py-2 mt-6 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-950  "
             >
               Read more
               <svg
@@ -111,9 +111,9 @@ const LandService = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>

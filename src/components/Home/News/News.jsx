@@ -58,7 +58,7 @@ const News = () => {
             </p>
             
           </div>
-          <img src={img4} alt="Your Image" className=" p-6 relative ml-96 bottom-56 left-96 h-56" />
+          <img src={img4} alt="Your Image" className=" p-6 relative rounded-2xl ml-96 bottom-56 left-96 h-56" />
        
         </SwiperSlide>
         

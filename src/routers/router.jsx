@@ -4,7 +4,7 @@ import {
   } from "react-router-dom";
   import App from '../App';
   import Home from "../Pages/Home"
-  import AboutUs from "../about/AboutUs"
+  import AboutUs from "../Pages/AboutUs.jsx"
   import MainNews from "../Pages/MainNews"
   import Service from "../Pages/Service"
   import ContactUs from "../Pages/ContactUs";

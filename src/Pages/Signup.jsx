@@ -38,7 +38,26 @@ const Signup = () => {
 
     <div className="min-h-screen  px-4 flex  gap-20 sm:py-12 bg-cover bg-center " style={{ backgroundImage: 'url("/src/assets/fireman.jpg")' }}
     >
-      <div className=' flex  justify-between items-center mx-16 my-4 p-4 absolute inset-0 bg-gray-400 bg-opacity-20 shadow-md  '>
+      <div className=' 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      '>
        <div className='flex flex-col items-center h-[50%] w-[50%] ml-36 gap-4 '>
         <div>
         <h2 className='text-4xl text-orange-600 font-semibold '>Sign-Up</h2>

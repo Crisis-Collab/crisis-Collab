@@ -1,14 +1,15 @@
 import React from 'react'
 import Map from '../assets/map.jpg'
+import img1 from '../assets/register3.png'
 
 const Service = () => {
   return (
     <div className='mt-16 '>
       <div className='text-5xl font-bold  flex items-center justify-center'><h1>Our Services</h1></div>
-      <section class="text-gray-400 bg-white body-font">
+      <section class="text-gray-600 bg-white body-font">
   <div class="container mx-auto flex px-5 py-8 md:flex-row flex-col items-center">
     <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 md:mb-0 mb-10">
-      <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600"/>
+      <img class=" object-center rounded" alt="hero" src={img1}/>
     </div>
     <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
       <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-black"> Unified Registration System
@@ -34,7 +35,7 @@ const Service = () => {
     </div>
   </div>
 </section>
-<section class="text-gray-400 bg-white body-font">
+<section class="text-gray-600 bg-white body-font">
   <div class="container mx-auto flex px-5 py-8 md:flex-row flex-col items-center">
     <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 md:mb-0 mb-10">
       <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600"/>

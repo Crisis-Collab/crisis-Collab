@@ -1,123 +1,92 @@
 import React, { useState, useRef } from "react";
-import logo from '../assets/img14.jpg'
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthProvider";
+import { Link } from "react-router-dom";
+import { Button } from "flowbite-react";
+import Logo from "../assets/LOGO2.png";
+import LoginOtpModal from "../components/Auth/LoginOtpModal";
 
 const Login = () => {
-
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [isOtpRequested, setIsOtpRequested] = useState(false);
-  const [otp, setOtp] = useState("");
-  const navigate = useNavigate();
-  const { setUpRecaptcha } = useAuth();
-  const [result, setResult] = useState("");
-
-
-  const requestOtp = async (e) => {
-    e.preventDefault();
-    setPhoneNumber("");
-    console.log(phoneNumber)
-    if (phoneNumber === "" || phoneNumber === undefined)
-      return console.log("Please enter a valid phone number!");
-    try {
-      const response = await setUpRecaptcha(phoneNumber);
-      setResult(response);
-      setIsOtpRequested(true);
-    } catch (error) {
-      console.error("Error signing in with phonenumber");
-    }
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [otpModal, setOtpModal] = useState(false);
+  const handleOnClose = () => {
+    setOtpModal(false);
   };
-
-  const verifyOtp = async (e) => {
-    e.preventDefault();
-    if (otp === "" || otp === null) {
-      console.log("Invalid OTP");
-      return;
-    }
-
-    try {
-      await result.confirm(otp);
-      navigate("/");
-    } catch (error) {
-      console.error("Error with OTP confirmation:", error);
-    }
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center py-6 flex justify-center  items-center sm:py-12"
-      style={{ backgroundImage: 'url("/src/assets/fireman.jpg")' }}>
-      <div className="relative  py-6 sm:max-w-xl sm:mx-auto">
-        <div className="bg-white bg-opacity-60 p-16 sm:p-6   rounded shadow-md w-auto mx-4 md:mx-auto  ">
-
-          <div className=" mb-6 flex items-center  justify-center text-3xl font-semibold "><span className="text-orange-500 ">Welcome to</span> <span className="text-cyan-900 pl-2">Crisis Collab</span></div>
-          <div className='flex items-center justify-center'>
-            <img src={logo} alt="" className='w-20 h-20' />
-          </div>
-          <form onSubmit={requestOtp} >
-
-            {!isOtpRequested ?
-              (<div>
-
-                {/* Your login form content goes here */}
-                <div className=" text-semibold  font-medium flex items-center justify-center"> <p>Enter your Phone Number</p></div>
-                <div className='  flex items-center justify-center'>
-                  <input
-                    //  type="text"
-                    value={phoneNumber}
-                    className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
-
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                </div>
-                <div id="recaptcha-container"></div>
-
-                <div className='flex pt-6 items-center justify-center'>
-                  <button onClick={requestOtp}
-                    type="submit"
-                    className="bg-cyan-900 text-white font-medium px-4 py-2  rounded-md hover:bg-cyan-700"
-                  >
-                    Request OTP
-                  </button>
-
-                </div>
-              </div>) :
-              (
-                <div className="flex flex-col font-medium items-center justify-center">
-                  <div>Enter the OTP:</div>
-                  <div className="flex mb-4 pt-4">
-                    <input
-
-                      className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
-                      type="otp"
-                      placeholder="Enter OTP"
-                      onChange={(e) => setOtp(e.target.value)} />
-
-                  </div>
-
-
-                  <button onClick={verifyOtp} type="submit" className="bg-green-500    text-white p-2 rounded-md hover:bg-green-600">
-                    Verify OTP
-                  </button>
-
-                </div>
-              )
-            }
-
-          </form>
-          <div className="pl-8 pt-6 font-medium">
-            <p>
-              Don't have an account. Please {" "}
-              <Link to="/signup" className="text-blue-600">
-                Signup
-              </Link>
-
-            </p>
-          </div>
+    <div
+      className="relative min-h-screen bg-cover bg-center py-2 sm:py-12"
+      id="login"
+      style={{ backgroundImage: 'url("/src/assets/map3.jpg")' }}
+    >
+      <Link to="/">
+        <div className=" flex pl-8  ">
+          <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
+          <span className="text-red-600 text-2xl font-medium">Crisis</span>
+          <span className="text-red-500 font-semibold pt-2"> collab</span>
         </div>
-
+      </Link>
+      <div className="animate-bounce  border-2 border-black absolute top-[20%] left-[44%] transform -translate-x-1/2 -translate-y-1/2 max-w-full  h-32 w-32 m-4 rounded-full  bg-white flex text-center">
+        <h1 className="absolute top-[35%] left-[20%] text-3xl font-bold ">
+          Login
+        </h1>
       </div>
+      <div className=" flex items-center justify-center py-6 mt-48 sm:max-w-xl   sm:mx-auto">
+        <div className="relative inline-block text-left ">
+          <button
+            type="button"
+            onClick={toggleDropdown}
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75"
+          >
+            Select Role
+            <svg
+              className="w-5 h-5 ml-2 -mr-1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 0 1 1.414 0L10 11.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          {isOpen && (
+            <div className="  mt-2 w-50 rounded-md shadow-lg  ">
+              <div
+                className="py-1  flex flex-col space-y-2 rounded-2xl items-center justify-center"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="options-menu"
+              >
+                <Button
+                  onClick={() => {
+                    setUser("Citizen"), setOtpModal(true);
+                  }}
+                  className="hover:bg-red-400 px-4"
+                >
+                  Citizen
+                </Button>
+                <Button
+                  onClick={() => {
+                    setOpenAdminModal(true), setUser("Admin");
+                  }}
+                  className="hover:bg-red-400 px-4"
+                >
+                  Admin
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      {otpModal && <LoginOtpModal user={user} onClose={handleOnClose} />}
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
