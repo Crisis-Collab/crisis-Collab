@@ -38,7 +38,7 @@ const LoginOtpModal = ({ user ,onClose}) => {
 
     try {
       await result.confirm(otp);
-      navigate("/");
+      navigate("/citizenDashboard");
     } catch (error) {
       console.error("Error with OTP confirmation:", error);
     }
@@ -49,9 +49,7 @@ const LoginOtpModal = ({ user ,onClose}) => {
       {user === "Citizen" ? (
         
         <div className="bg-red-600 shadow-2xl rounded-full p-16   flex items-center flex-col  w-auto mx-4   ">
-          {/* <div className="flex items-center justify-center">
-            <img src={logo} alt="" className="w-20 h-20" />
-          </div> */}
+         
           <form onSubmit={requestOtp}>
             {!isOtpRequested ? (
               <div>
