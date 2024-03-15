@@ -17,9 +17,8 @@ const Login = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-cover bg-center py-2 sm:py-12"
+      className="relative min-h-screen bg-cover bg-center py-2 sm:py-12 bgMapImage"
       id="login"
-      style={{ backgroundImage: 'url("/src/assets/map3.jpg")' }}
     >
       <Link to="/">
         <div className=" flex pl-8  ">
