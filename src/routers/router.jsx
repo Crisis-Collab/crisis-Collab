@@ -9,10 +9,8 @@ import {
   import Service from "../Pages/Service"
   import ContactUs from "../Pages/ContactUs";
   import Login from "../Pages/Login.jsx";
-  import Logout from "../components/Logout";
-  import Signup from '../Pages/Signup.jsx'
-import Landing from "../components/Home/Landing.jsx";
-import LandContact from "../components/Home/LandContact.jsx";
+  import AdminDashboard from "../Pages/Dashbord/AdminDashboard.jsx";
+  import CitizenDasboard from "../Pages/Dashbord/CitizenDasboard.jsx";
 
   const router = createBrowserRouter([
     {
@@ -46,14 +44,14 @@ import LandContact from "../components/Home/LandContact.jsx";
       path:'/login',
       element:<Login/>
     } ,
-    {
-    path:'/signup',
-    element:<Signup/>
-    },
-    {
-    path:'/logout',
-    element:<Logout/>
-    }
+   {
+    path:'/adminDashboard',
+    element:<AdminDashboard/>
+   },
+   {
+    path:'/citizenDashboard',
+    element:<CitizenDasboard/>
+   }
   ]);
 
   export default router;
