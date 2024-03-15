@@ -42,7 +42,7 @@ const LoginOtpModal = ({ user ,onClose}) => {
 
     try {
       await result.confirm(otp);
-      if(user==='Citizen'?navigate('/citizenDashboard'):navigate('/adminDashboard'));
+      if(user==='Citizen'?navigate('/citizenDashboard'):navigate('/adminDashboard'));;
     } catch (error) {
       console.error("Error with OTP confirmation:", error);
     }
@@ -50,19 +50,20 @@ const LoginOtpModal = ({ user ,onClose}) => {
   return (
     
     <div id='container' onClick={handleOnClose} className=" fixed inset-0 z-[1000]  !mt-0 transition-all ease-in duration-300  grid place-items-center overflow-auto  h-screen w-screen bg-white bg-opacity-5  backdrop-blur-[2px] ">
-      {user === "Citizen" ? (
+      
         
-        <div className="bg-white bg-opacity-5  shadow-2xl  p-16   flex items-center flex-col  w-auto mx-4   ">
+        <div className="bg-white bg-opacity-10  shadow-2xl  px-8 py-12   flex items-center flex-col  w-auto mx-4   ">
          
-          <form onSubmit={requestOtp} className="bg-white  p-14 flex items-center justify-center" >
+          <form onSubmit={requestOtp} className="bg-black shadow-2xl  p-14 flex items-center justify-center" >
             {!isOtpRequested ? (
               <div>
                 {/* Your login form content goes here */}
-                <h1 className="text-4xl font-semibold space-y-6 mb-6">Citizen Login</h1>
+                {user === "Citizen" ? (
+               <h1 className="text-4xl font-semibold space-y-6 mb-6 text-white">Citizen Login</h1>):( <h1 className="text-4xl font-semibold space-y-6 mb-6 text-white">Agency Admin Login</h1>)}
                 <div className=" flex items-center justify-center text-semibold  font-medium ">
                   {" "}
                   
-                  <p>Enter your Phone Number</p>
+                  <p className="text-white">Enter your Phone Number</p>
                 </div>
                 <div className="  flex items-center justify-center">
                   <input
@@ -86,7 +87,7 @@ const LoginOtpModal = ({ user ,onClose}) => {
               </div>
             ) : (
               <div className="flex flex-col font-medium ">
-                <div>Enter the OTP:</div>
+                <div className="text-white">Enter the OTP:</div>
                 <div className="flex mb-4 pt-4">
                   <input
                     className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
@@ -113,9 +114,7 @@ const LoginOtpModal = ({ user ,onClose}) => {
             </p>
           </div>
         </div>
-      ) : (
-        <div>Kanchaniyaaaaaaa</div>
-      )}
+     
     </div>
     
   );

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import Logo from "../assets/LOGO2.png";
 import LoginOtpModal from "../components/Auth/LoginOtpModal";
+import loginLogo from "../assets/loginLogo.jpg"
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,7 @@ const Login = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-cover bg-center py-2 sm:py-12 bgMapImage"
+      className="relative flex min-h-screen   py-2 sm:py-12 bg-white "
       id="login"
     >
       <Link to="/">
@@ -27,17 +28,21 @@ const Login = () => {
           <span className="text-red-500 font-semibold pt-2"> collab</span>
         </div>
       </Link>
-      <div className="animate-bounce  border-2 border-black absolute top-[20%] left-[44%] transform -translate-x-1/2 -translate-y-1/2 max-w-full  h-32 w-32 m-4 rounded-full  bg-white flex text-center">
+      <div className="grid place-items-center w-1/2">
+        <img src={loginLogo}/>
+      </div>
+      <div>
+      <div className="animate-bounce  border-2 border-black absolute top-[20%] left-[67%] transform -translate-x-1/2 -translate-y-1/2 max-w-full  h-32 w-32 m-4 rounded-full  bg-white flex text-center">
         <h1 className="absolute top-[35%] left-[20%] text-3xl font-bold ">
           Login
         </h1>
       </div>
-      <div className=" flex items-center justify-center py-6 mt-48 sm:max-w-xl  bg-black rounded-full sm:mx-auto">
+      <div className="  py-8 px-20 mt-48 sm:max-w-xl  bg-black overflow-y-hidden sm:mx-auto grid place-items-center">
         <div className="relative inline-block text-left ">
           <button
             type="button"
             onClick={toggleDropdown}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 "
+            className="inline-flex items-center px-4 py-2 justify-center text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 "
           >
             Select Type
             <svg
@@ -72,15 +77,24 @@ const Login = () => {
                 </Button>
                 <Button
                   onClick={() => {
-                    setOpenAdminModal(true), setUser("Admin");
+                    setOtpModal(true), setUser("agencyAdmin");
                   }}
                   className="hover:bg-red-400 px-4"
                 >
                   Admin
                 </Button>
+                {/* <Button
+                  onClick={() => {
+                    setOtpModal(true), setUser("Admin");
+                  }}
+                  className="hover:bg-red-400 px-4"
+                >
+                   Agency Admin
+                </Button> */}
               </div>
             </div>
           )}
+        </div>
         </div>
       </div>
       {otpModal && <LoginOtpModal user={user} onClose={handleOnClose} />}
