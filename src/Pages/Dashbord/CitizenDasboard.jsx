@@ -3,9 +3,9 @@ import Home from '../Home'
 
 const CitizenDasboard = () => {
   return (
-    <div>
+    <>
     <Home/>
-    </div>
+    </>
   )
 }
 
