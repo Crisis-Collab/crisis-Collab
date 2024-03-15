@@ -14,6 +14,10 @@ const LoginOtpModal = ({ user ,onClose}) => {
     if(e.target.id==="container") onClose();
   }
 
+  const handleSignUp=()=>{
+    alert('Please Sign-in by your Phone ')
+  }
+
   const requestOtp = async (e) => {
     e.preventDefault();
     setPhoneNumber("");
@@ -38,24 +42,26 @@ const LoginOtpModal = ({ user ,onClose}) => {
 
     try {
       await result.confirm(otp);
-      navigate("/citizenDashboard");
+      if(user==='Citizen'?navigate('/citizenDashboard'):navigate('/adminDashboard'));
     } catch (error) {
       console.error("Error with OTP confirmation:", error);
     }
   };
   return (
     
-    <div id='container' onClick={handleOnClose} className="border-orange-600 fixed inset-0 z-[1000]  !mt-0 transition-all ease-in duration-300  grid place-items-center overflow-auto  h-screen w-screen bg-white bg-opacity-5  backdrop-blur-[2px] ">
+    <div id='container' onClick={handleOnClose} className=" fixed inset-0 z-[1000]  !mt-0 transition-all ease-in duration-300  grid place-items-center overflow-auto  h-screen w-screen bg-white bg-opacity-5  backdrop-blur-[2px] ">
       {user === "Citizen" ? (
         
-        <div className="bg-red-600 shadow-2xl rounded-full p-16   flex items-center flex-col  w-auto mx-4   ">
+        <div className="bg-white bg-opacity-5  shadow-2xl  p-16   flex items-center flex-col  w-auto mx-4   ">
          
-          <form onSubmit={requestOtp}>
+          <form onSubmit={requestOtp} className="bg-white  p-14 flex items-center justify-center" >
             {!isOtpRequested ? (
               <div>
                 {/* Your login form content goes here */}
-                <div className=" text-semibold  font-medium flex items-center justify-center">
+                <h1 className="text-4xl font-semibold space-y-6 mb-6">Citizen Login</h1>
+                <div className=" flex items-center justify-center text-semibold  font-medium ">
                   {" "}
+                  
                   <p>Enter your Phone Number</p>
                 </div>
                 <div className="  flex items-center justify-center">
@@ -66,20 +72,20 @@ const LoginOtpModal = ({ user ,onClose}) => {
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
                 </div>
-                <div id="recaptcha-container"></div>
+                <div className="mt-4" id="recaptcha-container"></div>
 
                 <div className="flex pt-6 items-center justify-center">
                   <button
                     onClick={requestOtp}
                     type="submit"
-                    className="bg-black text-white font-medium px-4 py-2  rounded-md hover:bg-cyan-700"
+                    className="bg-blue-600 text-white font-medium px-4 py-2  rounded-md hover:bg-blue-700"
                   >
                     Request OTP
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col font-medium items-center justify-center">
+              <div className="flex flex-col font-medium ">
                 <div>Enter the OTP:</div>
                 <div className="flex mb-4 pt-4">
                   <input
@@ -100,10 +106,10 @@ const LoginOtpModal = ({ user ,onClose}) => {
               </div>
             )}
           </form>
-          <div className="pl-8 pt-6 font-medium">
-            <p>
-              Don't have an account. Please{" "}
-              <button className="text-blue-800 hover:underline">Sign-Up</button>
+          <div className=" pt-6 font-medium">
+            <p className="text-red-600">
+              Don't have an account. Please {" "}
+              <button className="text-white bg-blue-600 hover:bg-blue-700 px-2 py-1 font-normal rounded-sm " onClick={handleSignUp}>Sign-Up</button>
             </p>
           </div>
         </div>
