@@ -32,14 +32,14 @@ const Login = () => {
           Login
         </h1>
       </div>
-      <div className=" flex items-center justify-center py-6 mt-48 sm:max-w-xl   sm:mx-auto">
+      <div className=" flex items-center justify-center py-6 mt-48 sm:max-w-xl  bg-black rounded-full sm:mx-auto">
         <div className="relative inline-block text-left ">
           <button
             type="button"
             onClick={toggleDropdown}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-900 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75"
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 "
           >
-            Select Role
+            Select Type
             <svg
               className="w-5 h-5 ml-2 -mr-1"
               xmlns="http://www.w3.org/2000/svg"
