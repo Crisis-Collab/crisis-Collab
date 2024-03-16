@@ -1,6 +1,6 @@
 import React , {useState} from "react";
-import {useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthProvider";
+
+
 
 const LoginOtpModal = ({ user ,onClose}) => {
   const [phoneNumber, setPhoneNumber] = useState("");

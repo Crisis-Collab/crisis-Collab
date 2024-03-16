@@ -1,24 +1,58 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "flowbite-react";
 import Logo from "../assets/LOGO2.png";
-import LoginOtpModal from "../components/Auth/LoginOtpModal";
 import loginLogo from "../assets/loginLogo.jpg"
+import {useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 
 const Login = () => {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [isOtpRequested, setIsOtpRequested] = useState(false);
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+  const { setUpRecaptcha } = useAuth();
+  const [result, setResult] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const [otpModal, setOtpModal] = useState(false);
-  const handleOnClose = () => {
-    setOtpModal(false);
+ 
+  
+  const handleSignUp=()=>{
+    alert('Please Sign-in by your Phone ')
+  }
+
+  const requestOtp = async (e) => {
+    e.preventDefault();
+    setPhoneNumber("");
+    console.log(phoneNumber);
+    if (phoneNumber === "" || phoneNumber === undefined)
+      return console.log("Please enter a valid phone number!");
+    try {
+      const response = await setUpRecaptcha(phoneNumber);
+      setResult(response);
+      setIsOtpRequested(true);
+    } catch (error) {
+      console.error("Error signing in with phonenumber");
+    }
   };
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+
+  const verifyOtp = async (e) => {
+    e.preventDefault();
+    if (otp === "" || otp === null) {
+      console.log("Invalid OTP");
+      return;
+    }
+
+    try {
+      await result.confirm(otp);
+     navigate('/')
+    } catch (error) {
+      console.error("Error with OTP confirmation:", error);
+    }
+  }; 
+
 
   return (
     <div
-      className="relative flex min-h-screen   py-2 sm:py-12 bg-white "
+      className="relative flex min-h-screen overflow-y-hidden h-screen   py-2 sm:py-12 bg-white "
       id="login"
     >
       <Link to="/">
@@ -28,76 +62,83 @@ const Login = () => {
           <span className="text-red-500 font-semibold pt-2"> collab</span>
         </div>
       </Link>
-      <div className="grid place-items-center w-1/2">
+      <div className="grid place-items-center pr-20 w-1/2">
         <img src={loginLogo}/>
       </div>
       <div>
-      <div className="animate-bounce  border-2 border-black absolute top-[20%] left-[67%] transform -translate-x-1/2 -translate-y-1/2 max-w-full  h-32 w-32 m-4 rounded-full  bg-white flex text-center">
+      <div className="animate-bounce   absolute top-[15%] left-[35%] shadow-2xl bg-red-700 transform -translate-x-1/2 -translate-y-1/2 max-w-full  h-32 w-32 m-4 rounded-full   flex text-center">
         <h1 className="absolute top-[35%] left-[20%] text-3xl font-bold ">
           Login
         </h1>
       </div>
-      <div className="  py-8 px-20 mt-48 sm:max-w-xl  bg-black overflow-y-hidden sm:mx-auto grid place-items-center">
-        <div className="relative inline-block text-left ">
-          <button
-            type="button"
-            onClick={toggleDropdown}
-            className="inline-flex items-center px-4 py-2 justify-center text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 "
-          >
-            Select Type
-            <svg
-              className="w-5 h-5 ml-2 -mr-1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 0 1 1.414 0L10 11.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          {isOpen && (
-            <div className="  mt-2 w-50 rounded-md shadow-lg  ">
-              <div
-                className="py-1  flex flex-col space-y-2 rounded-2xl items-center justify-center"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="options-menu"
-              >
-                <Button
-                  onClick={() => {
-                    setUser("Citizen"), setOtpModal(true);
-                  }}
-                  className="hover:bg-red-400 px-4"
-                >
-                  Citizen
-                </Button>
-                <Button
-                  onClick={() => {
-                    setOtpModal(true), setUser("agencyAdmin");
-                  }}
-                  className="hover:bg-red-400 px-4"
-                >
-                  Admin
-                </Button>
-                {/* <Button
-                  onClick={() => {
-                    setOtpModal(true), setUser("Admin");
-                  }}
-                  className="hover:bg-red-400 px-4"
-                >
-                   Agency Admin
-                </Button> */}
+     
+       
+        <div className=" bg-opacity-10  bg-slate-500  shadow-2xl  px-8 py-12  justify-center  flex items-center flex-col  w-auto mx-4   ">
+         
+          <form onSubmit={requestOtp} className="bg-black shadow-2xl  p-14 flex items-center justify-center" >
+            {!isOtpRequested ? (
+              <div>
+                {/* Your login form content goes here */}
+               <div className="grid place-items-center">
+               <h1 className="text-4xl font-semibold space-y-6 mb-6 text-white">Login</h1>
+               </div>
+                <div className=" flex items-center justify-center text-semibold  font-medium ">
+                  {" "}
+                  
+                  <p className="text-white">Enter your Phone Number</p>
+                </div>
+                <div className="  flex items-center justify-center">
+                  <input
+                    //  type="text"
+                    value={phoneNumber}
+                    className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                  />
+                </div>
+                <div className="mt-4" id="recaptcha-container"></div>
+
+                <div className="flex pt-6 items-center justify-center">
+                  <button
+                    onClick={requestOtp}
+                    type="submit"
+                    className="bg-blue-600 text-white font-medium px-4 py-2  rounded-md hover:bg-blue-700"
+                  >
+                    Request OTP
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="flex flex-col font-medium ">
+                <div className="text-white">Enter the OTP:</div>
+                <div className="flex mb-4 pt-4">
+                  <input
+                    className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
+                    type="otp"
+                    placeholder="Enter OTP"
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+
+                <button
+                  onClick={verifyOtp}
+                  type="submit"
+                  className="bg-green-500    text-white p-2 rounded-md hover:bg-green-600"
+                >
+                  Verify OTP
+                </button>
+              </div>
+            )}
+          </form>
+          <div className=" pt-6 font-medium">
+            <p className="text-red-600">
+              Don't have an account. Please {" "}
+              <button className="text-white bg-blue-600 hover:bg-blue-700 px-2 py-1 font-normal rounded-md " onClick={handleSignUp}>Sign-Up</button>
+            </p>
+          </div>
         </div>
-        </div>
+        
       </div>
-      {otpModal && <LoginOtpModal user={user} onClose={handleOnClose} />}
+      
     </div>
   );
 };
