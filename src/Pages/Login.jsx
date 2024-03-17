@@ -4,6 +4,9 @@ import Logo from "../assets/LOGO2.png";
 import loginLogo from "../assets/loginLogo.jpg"
 import {useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
+import { doc, getDoc } from "firebase/firestore";
+import {auth, db} from "../firebase/firebase.config";
+
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -12,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { setUpRecaptcha } = useAuth();
   const [result, setResult] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+ 
  
   
   const handleSignUp=()=>{
@@ -41,13 +44,32 @@ const Login = () => {
       return;
     }
 
-    try {
-      await result.confirm(otp);
-     navigate('/')
-    } catch (error) {
-      console.error("Error with OTP confirmation:", error);
+  //   try {
+  //     await result.confirm(otp);
+  //    navigate('/')
+  //   } catch (error) {
+  //     console.error("Error with OTP confirmation:", error);
+  //   }
+  try {
+    await result.confirm(otp);
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      if (userData.userType === "agency-admin") {
+        navigate("/AdminDashboard");
+      } else if (userData.userType === "citizen") {
+        navigate("/CitizenDasboard");
+      } else {
+        console.error("Invalid user type");
+      }
+    } else {
+      console.error("User not found");
     }
-  }; 
+  } catch (error) {
+    console.error("Error with OTP confirmation:", error);
+  }
+};
 
 
   return (

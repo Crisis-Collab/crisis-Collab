@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
-    "firebase": "^10.8.1",
+    "firebase": "^10.9.0",
     "flowbite-react": "^0.7.3",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
