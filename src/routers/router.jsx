@@ -10,7 +10,7 @@ import {
   import ContactUs from "../Pages/ContactUs";
   import Login from "../Pages/Login.jsx";
   import AdminDashboard from "../Pages/Dashbord/AdminDashboard.jsx";
-  import CitizenDasboard from "../Pages/Dashbord/CitizenDasboard.jsx";
+  import CitizenDashboard from "../Pages/Dashbord/CitizenDashboard.jsx";
 
   const router = createBrowserRouter([
     {
@@ -49,8 +49,8 @@ import {
     element:<AdminDashboard/>
    },
    {
-    path:'/citizenDashboard',
-    element:<CitizenDasboard/>
+    path:'/CitizenDashboard',
+    element:<CitizenDashboard/>
    }
   ]);
 
