@@ -56,10 +56,12 @@ const Login = () => {
     const userSnap = await getDoc(userRef);
     if (userSnap.exists()) {
       const userData = userSnap.data();
+      // console.log(`User DATA PROVIDED : ${JSON.stringify(userData)}`);
       if (userData.userType === "agency-admin") {
         navigate("/AdminDashboard");
+       
       } else if (userData.userType === "citizen") {
-        navigate("/CitizenDasboard");
+        navigate("/CitizenDashboard");
       } else {
         console.error("Invalid user type");
       }
