@@ -15,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { setUpRecaptcha } = useAuth();
   const [result, setResult] = useState("");
- 
+  const [loading, setLoading] = useState(false);
  
   
   const handleSignUp=()=>{
@@ -24,32 +24,36 @@ const Login = () => {
 
   const requestOtp = async (e) => {
     e.preventDefault();
-    setPhoneNumber("");
-    console.log(phoneNumber);
+    setLoading(true);
     if (phoneNumber === "" || phoneNumber === undefined)
-      return console.log("Please enter a valid phone number!");
+        return console.log("Please enter a valid phone number!");
     try {
-      const response = await setUpRecaptcha(phoneNumber);
-      setResult(response);
-      setIsOtpRequested(true);
-    } catch (error) {
-      console.error("Error signing in with phonenumber");
+        
+            const response = await setUpRecaptcha(phoneNumber);
+            setResult(response);
+            setIsOtpRequested(true);
+      
+           setLoading(false)
+        }
+     catch (error) {
+        console.error("Error signing in with phonenumber", error);
+        
+    } finally { 
+        setLoading(false);
     }
-  };
+};
+
 
   const verifyOtp = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (otp === "" || otp === null) {
       console.log("Invalid OTP");
+      setLoading(false);
       return;
     }
 
-  //   try {
-  //     await result.confirm(otp);
-  //    navigate('/')
-  //   } catch (error) {
-  //     console.error("Error with OTP confirmation:", error);
-  //   }
+
   try {
     await result.confirm(otp);
     const userRef = doc(db, "users", auth.currentUser.uid);
@@ -66,11 +70,14 @@ const Login = () => {
         console.error("Invalid user type");
       }
     } else {
-      console.error("User not found");
+      alert("User not found. Please sign up");
     }
   } catch (error) {
-    console.error("Error with OTP confirmation:", error);
+    alert("Incorrect OTP. Please try again");
+  } finally {
+      setLoading(false);
   }
+
 };
 
 
@@ -96,7 +103,7 @@ const Login = () => {
         </h1>
       </div>
      
-       
+      {/* {loading ? <LoadingSpinner /> : null} */}
         <div className=" bg-opacity-10  bg-slate-500  shadow-2xl  px-8 py-12  justify-center  flex items-center flex-col  w-auto mx-4   ">
          
           <form onSubmit={requestOtp} className="bg-black shadow-2xl  p-14 flex items-center justify-center" >
@@ -113,7 +120,7 @@ const Login = () => {
                 </div>
                 <div className="  flex items-center justify-center">
                   <input
-                    //  type="text"
+                    placeholder="XXXXXXXXXX"
                     value={phoneNumber}
                     className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
                     onChange={(e) => setPhoneNumber(e.target.value)}
@@ -126,7 +133,15 @@ const Login = () => {
                     onClick={requestOtp}
                     type="submit"
                     className="bg-blue-600 text-white font-medium px-4 py-2  rounded-md hover:bg-blue-700"
+                    // disabled={loading}
                   >
+                     {/* {loading && (
+                    <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50">
+                      <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900"></div>
+                    </div>
+                  )} */}
+                    
+                    {/* {loading ? "Loading..." : "Request OTP"} */}
                     Request OTP
                   </button>
                 </div>
@@ -147,7 +162,14 @@ const Login = () => {
                   onClick={verifyOtp}
                   type="submit"
                   className="bg-green-500    text-white p-2 rounded-md hover:bg-green-600"
+                  disabled={loading}
                 >
+                   {loading && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50">
+          <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900"></div>
+        </div>
+      )}
+                  {/* {loading ? "Loading..." : "Verify OTP"} */}
                   Verify OTP
                 </button>
               </div>

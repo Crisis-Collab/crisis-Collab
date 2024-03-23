@@ -18,8 +18,11 @@ export function AuthProvider ({children}) {
       );
       // timeout: 5000,
       recaptchaVerifier.render();
+      if (!phoneNumber.startsWith("+91")) {
+        phoneNumber = "+91" + phoneNumber;
+      }
       return signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
-      
+    
     }
 
     useEffect(() => {
