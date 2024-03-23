@@ -6,10 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase.config";
-import lock from "../assets/img11.jpg";
-import "../../src/index.css";
-import { Button, Modal } from 'flowbite-react';
-import { IoArrowBackCircle, IoBackspace } from "react-icons/io5";
+import {  Modal } from 'flowbite-react';
+
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");

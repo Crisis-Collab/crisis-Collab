@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   }
   return (
    
-    <div className=' bg-white h-screen w-screen flex   '>
+    <div className=' dashboard bg-white h-screen w-screen flex   '>
       <div  className='fixed top-0 left-0 right-0 z-10'><AdminNavbar/></div>
       
       <div className='bg-white p-2 fixed top-16 left-0 bottom-0 z-30 '>  <Sidebar isOpen={isOpen} handleDashboard={toggleSidebar}/> </div>
