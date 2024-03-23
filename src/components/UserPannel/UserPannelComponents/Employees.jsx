@@ -106,16 +106,16 @@ const Employees = () => {
           {/* <div className='fixed top-0 right-0 left-0'>
           <img src={Emp} className=''/> 
           </div> */}
-          <div className=' bg-zinc-400 bg-opacity-25 p-16  '>
+          <div className=' bg-zinc-400 bg-opacity-25 p-8 shadow-inner rounded-md  '>
             
-            <h1 className='text-5xl font-semibold text-center'>Employees Work here -</h1>
+            <h1 className='text-2xl font-semibold '>Employees Data -</h1>
           </div>
    <div className='flex space-x-5'>
           
           <div className='w-1/2'>
             {employeeData.map((employee) => (
               <div key={employee.uid} className=''>
-                <div className='rounded-lg bg-gray-600 bg-opacity-25 shadow-lg my-6 p-4  backdrop-blur-lg '>
+                <div className='rounded-lg bg-zinc-600 bg-opacity-35 shadow-lg my-6 p-4  backdrop-blur-lg '>
                 <div className='flex items-center justify-between'>
                   <div className='flex'>
                   <div className='rounded-full w-10 h-10 border  border-black'>
@@ -160,9 +160,9 @@ const Employees = () => {
           </div>
           <div className='lg:w-1/2'>
           <div className='flex  items-start justify-center space-x-5 lg:pt-7'>
-          <div className='bg-red-600 px-4 py-2 rounded-lg font-bold  text-2xl'>
+          <div className='bg-red-600 px-2 py-2 rounded-lg font-bold text-center text-2xl'>
             <h1>Total Number of Employees</h1>
-              <h2 className='font-bold text-white text-5xl  text-center'></h2>
+              <h2 className='font-bold text-white text-5xl  text-center'>{employeeData.length}</h2>
           </div>
           <div className='bg-red-600 px-2 py-2 rounded-lg font-bold  text-2xl'>
             <h1>Total Number of Employees</h1>

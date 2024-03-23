@@ -41,26 +41,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState(null);
   const mapRef = useRef(null);
-  const [searchText, setSearchText] = useState("");
-  const [selectedAgency, setSelectedAgency] = useState([]);
-  const [currentPage,setCurrentPage] =useState(1);
-  const itemsPerPage =4;
-  
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentAgencies = otherAgencies.slice(indexOfFirstItem, indexOfLastItem);
-  const nextPage=()=>{
-    if(indexOfLastItem <otherAgencies.length){
-      setCurrentPage(currentPage+1);
-    }
-  }
-  const previousPage=()=>{
-    if(indexOfFirstItem > 0){
-      setCurrentPage(currentPage-1);
-    }
-  }
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchData = async () => {
       try {
         if (auth.currentUser) {
@@ -252,25 +234,6 @@ const Dashboard = () => {
 
     return distance.toFixed(2) + " kilometers";
   };
-  
-  useEffect(() => {
-    setSelectedAgency(otherAgencies);
-  }, [otherAgencies]);
-
-  const handleSearch = (e) => {
-    const searchText = e.target.value.toLowerCase();
-    const filteredAgencies = otherAgencies.filter((agency) =>
-      agency.agencyName.toLowerCase().includes(searchText)
-    );
-    setSelectedAgency(filteredAgencies);
-    
-    if (filteredAgencies.length === 0) {
-      setError("Agency not found.");
-    } else {
-      setError(null);
-    }
-  };
-  
 
   return (
     <div className="p-4 font-abc">
@@ -280,8 +243,10 @@ const Dashboard = () => {
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
-      <div className="bg-zinc-600  bg-opacity-25 p-16">
-      <div>
+      
+      <div className="flex justify-between space-x-3 p-4">
+        <div className="w-full bg-zinc-900 h-screen text-white p-4">
+          <div>
             {!loading && !error && userType === "citizen" && (
               <div>
                 <h2>Your Details</h2>
@@ -289,123 +254,167 @@ const Dashboard = () => {
               </div>
             )}
             {!loading && !error && userType === "agency-admin" && (
+            <div>
               <div >
-                
-                <p className="text-4xl font-semibold text-center">  Agency Name: <span>{userData.agencyName} </span></p>
+                <p className="text-xl font-semibold text-center"> Current Agency Name: <span>{userData.agencyName} </span></p>
                 <p className="text-base font-semibold text-center text-gray-300"> Agency Dapartment: <span>{userData.agencyType}</span></p>
+              </div>
+               {!loading && !error && otherAgencies.length > 0 && (
+            <div className="pt-8">
+              <h2>Other Agencies near you </h2>
+              <div className="bg-gray-600 bg-opacity-25 p-4">
+              <ul>
+                {otherAgencies.map((agency) => (
+                  <li key={agency.id}>
+                    <p>Agency Name: {agency.agencyName}</p>
+                    <p>
+                      Distance:{" "}
+                      {calculateDistance(
+                        userData.latitude,
+                        userData.longitude,
+                        agency.latitude,
+                        agency.longitude
+                      )}
+                    </p>
+                    <div className="flex justify-between items-center ">
+                      <div>
+                    <button className="bg-red-600 bg-opacity-25 px-4 py-2 rounded-lg"
+                      onClick={() => {
+                        handleMoreInfoClick(agency.id);
+                      }}
+                    >
+                      More Info
+                    </button>{" "}
+                   
+                    {showMoreInfo[agency.id] && (
+                      <div>
+                        <h2>Agency Name: {agency.agencyName}</h2>
+                        <p>Agency Description: {agency.agencyDesc}</p>
+                        <p>Contact: {agency.agencyConatct}</p>
+                        <p>Address: {agency.completeAddress}</p>
+                        <p>City: {agency.city}</p>
+                        <p>State: {agency.state}</p>
+                        <p>Agency Certificate</p>
+                        <img
+                          src={agency.agencyCertificateUrl}
+                          alt="agencyCertificate"
+                        />
+                      </div>
+                    )}
+                    </div>
+                    <div>
+                    <button className="bg-green-600 bg-opacity-25 px-4 py-2 rounded-lg"
+                     
+                      onClick={() => {
+                        handleInventoryClick(agency.id);
+                      }}
+                    >
+                      Inventory
+                    </button>
+                    
+                    {otherAgenciesInventory[agency.id] &&
+                      showInventory[agency.id] && (
+                        <div>
+                          <ul>
+                            {otherAgenciesInventory[agency.id].map((item) => (
+                              <li key={item.id}>
+                                <p>Equipment Name: {item.equipmentName}</p>
+                                <p>Quantity: {item.equipmentQuantity}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                      )}
+                      </div>
+                      </div>
+                  </li>
+                ))}
+                
+              </ul>
+              </div>
+            </div>
+          )}
               </div>
             )}
           </div>
-      </div>
-      <div className="flex justify-between space-x-3 p-4">
-        <div className="w-full bg-zinc-900 h-screen text-white p-4">
           
-
-          {!loading && !error && otherAgencies.length > 0 && (
-            <div>
-              <div className="">
-              <div className=' p-2 text-center mb-2 flex'>
-        <input type='text' placeholder='Search' className='lg:w-full mb-4  text-black  py-2 pl-3 border focus:outline-none '
-        onChange={(e)=>setSearchText(e.target.value)}/>
-        <button onClick={handleSearch} className='bg-red-600 rounded-sm text-white cursor-pointer mb-4  px-6 py-2 font-semibold'>Search</button>
-      </div>
-              </div>
-            <div className="pt-6">
-           
+          {/* {!loading && !error && otherAgencies.length > 0 && (
+            <div className="pt-8">
+              <h2>Other Agencies near you </h2>
               <div className="bg-gray-600 bg-opacity-25 p-4">
-                {
-                  loading ?(<div className="flex items-center justify-center h-20"><p>Loading....</p></div>):(  <ul>
-                    {selectedAgency.map((agency) => (
-                      <li key={agency.id}>
-                        <p>Agency Name: {agency.agencyName}</p>
-                        <p>
-                          Distance:{" "}
-                          {calculateDistance(
-                            userData.latitude,
-                            userData.longitude,
-                            agency.latitude,
-                            agency.longitude
-                          )}
-                        </p>
-                        <div className="flex justify-between items-center ">
-                          <div>
-                        <button className="bg-red-600 bg-opacity-25 px-4 py-2 rounded-lg"
-                          onClick={() => {
-                            handleMoreInfoClick(agency.id);
-                          }}
-                        >
-                          More Info
-                        </button>{" "}
-                       
-                        {showMoreInfo[agency.id] && (
-                          <div>
-                            <h2>Agency Name: {agency.agencyName}</h2>
-                            <p>Agency Description: {agency.agencyDesc}</p>
-                            <p>Contact: {agency.agencyConatct}</p>
-                            <p>Address: {agency.completeAddress}</p>
-                            <p>City: {agency.city}</p>
-                            <p>State: {agency.state}</p>
-                            <p>Agency Certificate</p>
-                            <img
-                              src={agency.agencyCertificateUrl}
-                              alt="agencyCertificate"
-                            />
-                          </div>
-                        )}
-                        </div>
-                        <div>
-                        <button className="bg-green-600 bg-opacity-25 px-4 py-2 rounded-lg"
-                         
-                          onClick={() => {
-                            handleInventoryClick(agency.id);
-                          }}
-                        >
-                          Inventory
-                        </button>
-                        
-                        {otherAgenciesInventory[agency.id] &&
-                          showInventory[agency.id] && (
-                            <div>
-                              <ul>
-                                {otherAgenciesInventory[agency.id].map((item) => (
-                                  <li key={item.id}>
-                                    <p>Equipment Name: {item.equipmentName}</p>
-                                    <p>Quantity: {item.equipmentQuantity}</p>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                            
-                          )}
-                          </div>
-                          </div>
-                      </li>
-                    ))}
+              <ul>
+                {otherAgencies.map((agency) => (
+                  <li key={agency.id}>
+                    <p>Agency Name: {agency.agencyName}</p>
+                    <p>
+                      Distance:{" "}
+                      {calculateDistance(
+                        userData.latitude,
+                        userData.longitude,
+                        agency.latitude,
+                        agency.longitude
+                      )}
+                    </p>
+                    <div className="flex justify-between items-center ">
+                      <div>
+                    <button className="bg-red-600 bg-opacity-25 px-4 py-2 rounded-lg"
+                      onClick={() => {
+                        handleMoreInfoClick(agency.id);
+                      }}
+                    >
+                      More Info
+                    </button>{" "}
+                   
+                    {showMoreInfo[agency.id] && (
+                      <div>
+                        <h2>Agency Name: {agency.agencyName}</h2>
+                        <p>Agency Description: {agency.agencyDesc}</p>
+                        <p>Contact: {agency.agencyConatct}</p>
+                        <p>Address: {agency.completeAddress}</p>
+                        <p>City: {agency.city}</p>
+                        <p>State: {agency.state}</p>
+                        <p>Agency Certificate</p>
+                        <img
+                          src={agency.agencyCertificateUrl}
+                          alt="agencyCertificate"
+                        />
+                      </div>
+                    )}
+                    </div>
+                    <div>
+                    <button className="bg-green-600 bg-opacity-25 px-4 py-2 rounded-lg"
+                     
+                      onClick={() => {
+                        handleInventoryClick(agency.id);
+                      }}
+                    >
+                      Inventory
+                    </button>
                     
-                  </ul>)
-                }
-            
+                    {otherAgenciesInventory[agency.id] &&
+                      showInventory[agency.id] && (
+                        <div>
+                          <ul>
+                            {otherAgenciesInventory[agency.id].map((item) => (
+                              <li key={item.id}>
+                                <p>Equipment Name: {item.equipmentName}</p>
+                                <p>Quantity: {item.equipmentQuantity}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                      )}
+                      </div>
+                      </div>
+                  </li>
+                ))}
+                
+              </ul>
               </div>
-              {/* pagination */}
-              <div className="flex justify-center text-black space-x-8">
-         {
-          currentPage>1 && (
-            <button className="bg-blue-700 text-white  text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            onClick={previousPage}
-            type="button">Previous</button>
-          )
-         }
-         {
-          indexOfLastItem<otherAgencies.length && (
-            <button className="bg-blue-700 text-white  text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            onClick={nextPage}
-            type="button">Next</button>
-          )
-         }
-       </div>
             </div>
-            </div>
-          )}
+          )} */}
         </div>
         <div className="w-full">
           

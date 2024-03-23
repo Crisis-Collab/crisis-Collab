@@ -96,15 +96,15 @@ const AdminAgency = () => {
           <button className='bg-red-600 rounded-sm text-white cursor-pointer  px-8 py-2 font-semibold'>Search</button>
         </div>
         <section className="py-1">
-          <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-            <div className="relative flex flex-col min-w-0 break-words bg-zinc-600 bg-opacity-25 w-full mb-6 shadow-lg rounded ">
+          <div className="w-fullmb-12 xl:mb-0 px-4 mx-auto mt-24">
+            <div className="relative flex flex-col  break-words bg-zinc-900 bg-opacity-25 w-full mb-6 shadow-lg rounded ">
               <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                     <h3 className="font-semibold text-base text-white text-blueGray-700">All Agencies</h3>
                   </div>
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
+                    {/* <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button> */}
                   </div>
                 </div>
               </div>
@@ -134,13 +134,13 @@ const AdminAgency = () => {
                   <tbody>
                     {!loading && filteredAgencies.map((agency, index) => (
                       <tr key={index}>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-gray-100">
                           {agency.agencyName}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-gray-100">
                           {agency.completeAddress}
                         </td>
-                        <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-gray-100" >
                           {agency.agencyType}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
