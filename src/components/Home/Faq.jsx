@@ -17,7 +17,8 @@ const Accordion = () => {
                 Any Questions? Look Here
               </h2>
               <p className="text-base text-body-color dark:text-dark-6">
-               There are many questions that arises in the mind of users, here are some faq that can provide you some help.
+                There are many variations of passages of Lorem Ipsum available
+                but the majority have suffered alteration in some form.
               </p>
             </div>
           </div>
@@ -26,33 +27,30 @@ const Accordion = () => {
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4 lg:w-1/2">
             <AccordionItem
-              header="What is the Rescue Agency Platform?"
-              text="The Rescue Agency Platform is an online platform designed to register and connect rescue agencies from various locations. It serves as a central hub where rescue organizations can collaborate, share resources, and support each other's missions to save animals."
+              header="How long we deliver your first blog post?"
+              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
             />
             <AccordionItem
-              header=" Benefits of Joining the Rescue Agency Platform"
-              text="By joining the Rescue Agency Platform, organizations can:
-              Connect with other rescue agencies to exchange knowledge and resources.
-              Access a comprehensive database of registered rescue agencies for collaboration and networking.
-              Showcase their work and reach a wider audience of potential supporters, volunteers, and adopters."
+              header="How long we deliver your first blog post?"
+              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
             />
             <AccordionItem
-              header="How can I Search for Rescue Agencies on the Platform?"
-              text="Users can search for rescue agencies based on various criteria, including location, type of animals rescued, services offered, and specialization areas. The platform provides advanced search filters to help users find the most relevant agencies for their needs."
+              header="How long we deliver your first blog post?"
+              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
             />
           </div>
           <div className="w-full px-4 lg:w-1/2">
             <AccordionItem
-              header="Is the Rescue Agency Platform Secure and Private?"
-              text="Yes, the Rescue Agency Platform prioritizes the security and privacy of all registered users. Personal information provided during registration is kept confidential and is only accessible to authorized users. The platform employs robust security measures to safeguard data and ensure a safe online environment for all users."
+              header="How long we deliver your first blog post?"
+              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
             />
             <AccordionItem
-              header="How can I Get Help or Support with Using the Platform?"
-              text="If you encounter any issues or have questions about using the Rescue Agency Platform, you can reach out to our dedicated support team. We're here to assist you with any technical issues, account inquiries, or general assistance you may need."
+              header="How long we deliver your first blog post?"
+              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
             />
             <AccordionItem
-              header="How can I Stay Updated on Platform News and Updates?"
-              text="Users can stay informed about platform news, updates, and announcements by subscribing to our newsletter or following us on social media. We regularly share updates about new features, partnerships, success stories, and upcoming events related to the rescue community."
+              header="How long we deliver your first blog post?"
+              text="It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ."
             />
           </div>
         </div>

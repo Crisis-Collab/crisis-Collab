@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../../assets/LOGO2.png";
-import Avatar from "../../assets/ava.png";
+import Avatar from "../../assets/citizenAVa.jpg";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase.config";
+
 import search from "../../assets/search.png";
 import notify from "../../assets/notify.png";
 import down from "../../assets/down2.png";
 import up from "../../assets/up2.png";
 import { Modal } from "flowbite-react";
 import { Link } from "react-router-dom";
+
 
 const AdminNavbar = () => {
   const [loading, setLoading] = useState(false);
@@ -41,10 +43,12 @@ const AdminNavbar = () => {
   return (
     <div className="bg-white  shadow-lg py-2   px-6   flex items-center justify-between  w-full relative">
       <div className="flex items-center justify-center pl-4">
+
         <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
         <span className="text-red-600 text-2xl font-medium">Crisis</span>
         <span className="text-red-600 font-semibold pt-2"> collab</span>
       </div>
+
 
       <div className="relative ">
         <input
@@ -55,11 +59,14 @@ const AdminNavbar = () => {
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <img src={search} />
         </div>
+
       </div>
 
       <div className="flex items-center justify-center">
+
         <div className="w-5 h-5 mr-8  ">
           <img src={notify} />
+
         </div>
         <div className="flex flex-col item-center justify-center">
           <h4 className="pr-4 font-semibold text-black">Welcome back</h4>
@@ -68,12 +75,15 @@ const AdminNavbar = () => {
           </div>
         </div>
         <div>
+
           <div className="relative flex pr-3">
             <img
+
               src={Avatar} // Replace with your avatar image
               alt="Avatar"
-              className="w-10 h-10 rounded-full border-black border"
+              className="w-10 h-10 rounded-full"
             />
+
             {/* Avatar */}
             <button
               onClick={toggleDropdown}
@@ -145,6 +155,7 @@ const AdminNavbar = () => {
               </div>
             )}
           </div>
+
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import AdminSideBarData from "../../../Data/AdminSideBarData";
 import { Link, useLocation } from "react-router-dom";
@@ -53,9 +54,10 @@ const Sidebar = ({ isOpen, handleDashboard }) => {
             ))}
           </ul>
         </div>
+
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default Sidebar

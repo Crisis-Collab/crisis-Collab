@@ -1,14 +1,13 @@
-import React,{useState} from 'react'
+import React from 'react'
 import AdminNavbar from '../../components/AdminDashboard/AdminNavbar'
+
+
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../../components/AdminDashboard/Sidebar/Sidebar'
 
 const AdminDashboard = () => {
-  const [isOpen,setIsOpen]=useState(true);
-  const toggleSidebar=()=>{
-    setIsOpen(!isOpen);
-  }
   return (
+
    
     <div className=' dashboard bg-white h-screen w-screen flex   '>
       <div  className='fixed top-0 left-0 right-0 z-10'><AdminNavbar/></div>
@@ -21,12 +20,8 @@ const AdminDashboard = () => {
         <div className='bg-white rounded-2xl shadow-2xl h-screen p-8 '>
         <Outlet/>
         </div>
-      
-      
       </div>
     </div>
-    
-    
   )
 }
 
