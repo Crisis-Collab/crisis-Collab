@@ -8,39 +8,16 @@ const LandContact = () => {
     AOS.init({ duration: "1000" });
   }, []);
 
-  const faqs = [
-    {
-      question: "How can I contact ?",
-      answer:
-        "You can contact us through [email], [phone number], or by visiting our [contact page].",
-    },
-    {
-      question: "How can I request assistance from [Agency Name]?",
-      answer:
-        "To request assistance, please [provide instructions on how to request help, including contact information].",
-    },
-    {
-      question: "Can I volunteer with [Agency Name]?",
-      answer:
-        "Yes, [Agency Name] welcomes volunteers. To get involved, visit our [volunteer page] for more information",
-    },
-    {
-      question: "How can I prepare for emergencies in my community?",
-      answer:
-        "[Provide tips and resources on emergency preparedness. Include links to relevant articles or guides.]",
-    },
 
-    // Add more FAQs as needed
-  ];
 
   return (
     <div>
       <div
-        className="bg-white container mx-auto flex px-5 py-6  flex-col items-center "
+        className=" bg-white container mx-auto flex px-5 py-6  flex-col items-center "
         data-aos="zoom-in"
       >
         {/* FAQ section */}
-        <div className="container mx-auto pl-4">
+        <div className=" container mx-auto pl-4">
           {/* {faqs.map((faq, index) => (
         <FAQ key={index} question={faq.question} answer={faq.answer} />
       ))} */}

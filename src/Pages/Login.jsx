@@ -1,12 +1,15 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/LOGO2.png";
-import loginLogo from "../assets/loginLogo.jpg"
-import {useNavigate } from "react-router-dom";
+import loginLogo from "../assets/LOG2.png";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import { doc, getDoc } from "firebase/firestore";
-import {auth, db} from "../firebase/firebase.config";
-
+import { auth, db } from "../firebase/firebase.config";
+import lock from "../assets/img11.jpg";
+import "../../src/index.css";
+import { Button, Modal } from 'flowbite-react';
+import { IoArrowBackCircle, IoBackspace } from "react-icons/io5";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,12 +18,9 @@ const Login = () => {
   const navigate = useNavigate();
   const { setUpRecaptcha } = useAuth();
   const [result, setResult] = useState("");
- 
- 
+  const [openModal, setOpenModal] = useState(false);
+
   
-  const handleSignUp=()=>{
-    alert('Please Sign-in by your Phone ')
-  }
 
   const requestOtp = async (e) => {
     e.preventDefault();
@@ -44,72 +44,78 @@ const Login = () => {
       return;
     }
 
-  //   try {
-  //     await result.confirm(otp);
-  //    navigate('/')
-  //   } catch (error) {
-  //     console.error("Error with OTP confirmation:", error);
-  //   }
-  try {
-    await result.confirm(otp);
-    const userRef = doc(db, "users", auth.currentUser.uid);
-    const userSnap = await getDoc(userRef);
-    if (userSnap.exists()) {
-      const userData = userSnap.data();
-      // console.log(`User DATA PROVIDED : ${JSON.stringify(userData)}`);
-      if (userData.userType === "agency-admin") {
-        navigate("/AdminDashboard");
-       
-      } else if (userData.userType === "citizen") {
-        navigate("/CitizenDashboard");
+   
+    try {
+      await result.confirm(otp);
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        // console.log(`User DATA PROVIDED : ${JSON.stringify(userData)}`);
+        if (userData.userType === "agency-admin") {
+          navigate("/adminDashboard/dashboard");
+        } else if (userData.userType === "citizen") {
+          navigate("/CitizenDashboard");
+        } else {
+          console.error("Invalid user type");
+        }
       } else {
-        console.error("Invalid user type");
+        console.error("User not found");
       }
-    } else {
-      console.error("User not found");
+    } catch (error) {
+      console.error("Error with OTP confirmation:", error);
     }
-  } catch (error) {
-    console.error("Error with OTP confirmation:", error);
-  }
-};
-
+  };
 
   return (
     <div
-      className="relative flex min-h-screen overflow-y-hidden h-screen   py-2 sm:py-12 bg-white "
+      className=" bgLogin px-2  relative flex sm:flex-row flex-col  min-h-screen overflow-y-hidden h-screen pr-10  py-2 sm:py-8 bg-white "
       id="login"
     >
       <Link to="/">
-        <div className=" flex pl-8  ">
+      <div className=" flex pl-8  ">
           <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
           <span className="text-red-600 text-2xl font-medium">Crisis</span>
           <span className="text-red-500 font-semibold pt-2"> collab</span>
         </div>
       </Link>
-      <div className="grid place-items-center pr-20 w-1/2">
-        <img src={loginLogo}/>
+    
+      <div className="grid place-items-center">
+        <div className="sm:grid place-items-center hidden pr-20 w-3/4">
+          <img src={loginLogo} />
+        </div>
+        <div className="space-y-4 pt-8">
+          <h4 className="font-semibold text-5xl ">
+            Welcome to{" "}
+            <span className="text-6xl text-red-600">Crisis-Collab</span>
+          </h4>
+          <h4 className="font-medium text-2xl text-red-600 font-serif">
+            The Disaster Management Platform.
+          </h4>
+        </div>
       </div>
       <div>
-      <div className="animate-bounce   absolute top-[15%] left-[35%] shadow-2xl bg-red-700 transform -translate-x-1/2 -translate-y-1/2 max-w-full  h-32 w-32 m-4 rounded-full   flex text-center">
-        <h1 className="absolute top-[35%] left-[20%] text-3xl font-bold ">
-          Login
-        </h1>
-      </div>
-     
        
-        <div className=" bg-opacity-10  bg-slate-500  shadow-2xl  px-8 py-12  justify-center  flex items-center flex-col  w-auto mx-4   ">
-         
-          <form onSubmit={requestOtp} className="bg-black shadow-2xl  p-14 flex items-center justify-center" >
+
+        <div className=" shadow-2xl m-8 px-8 py-12 rounded-2xl justify-center  flex items-center flex-col  w-auto mx-4   ">
+          <form
+            onSubmit={requestOtp}
+            className=" bg-gradient-to-r from-zinc-300 to-red-50 shadow-2xl  p-8 flex items-center justify-center"
+          >
             {!isOtpRequested ? (
               <div>
                 {/* Your login form content goes here */}
-               <div className="grid place-items-center">
-               <h1 className="text-4xl font-semibold space-y-6 mb-6 text-white">Login</h1>
-               </div>
+                <div className="grid place-items-center">
+                  <h1 className="text-4xl font-semibold space-y-6 mb-6 text-black">
+                    Login
+                  </h1>
+                </div>
+                {/* <div>
+                <img src={}/>
+               </div> */}
                 <div className=" flex items-center justify-center text-semibold  font-medium ">
                   {" "}
-                  
-                  <p className="text-white">Enter your Phone Number</p>
+                  <p className="text-black">Enter your Phone Number</p>
                 </div>
                 <div className="  flex items-center justify-center">
                   <input
@@ -125,7 +131,7 @@ const Login = () => {
                   <button
                     onClick={requestOtp}
                     type="submit"
-                    className="bg-blue-600 text-white font-medium px-4 py-2  rounded-md hover:bg-blue-700"
+                    className="bg-red-700 text-white font-medium px-4 py-2  rounded-md hover:bg-red-900"
                   >
                     Request OTP
                   </button>
@@ -133,7 +139,7 @@ const Login = () => {
               </div>
             ) : (
               <div className="flex flex-col font-medium ">
-                <div className="text-white">Enter the OTP:</div>
+                <div className="text-black">Enter the OTP:</div>
                 <div className="flex mb-4 pt-4">
                   <input
                     className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
@@ -155,14 +161,38 @@ const Login = () => {
           </form>
           <div className=" pt-6 font-medium">
             <p className="text-red-600">
-              Don't have an account. Please {" "}
-              <button className="text-white bg-blue-600 hover:bg-blue-700 px-2 py-1 font-normal rounded-md " onClick={handleSignUp}>Sign-Up</button>
+              Don't have an account. Please{" "}
+              <button
+                className="text-blue-700  underline   py-1 font-medium rounded-md "
+                onClick={() => setOpenModal(true)}
+              >
+                Sign-Up
+              </button>
+              <div >
+              <Modal show={openModal} onClose={() => setOpenModal(false)} className=" pt-52 px-96 w-full h-screen flex items-center justify-center bg-gray-900 bg-opacity-50">
+         
+                <Modal.Header ></Modal.Header>
+                
+                <Modal.Body className=" ">
+                  <div className="space-y-2 flex flex-col items-center justify-center text-center">
+                   
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                      Please Sign-up by your Phone
+                    </p>
+                    <p className="text-blue-800 font-medium">Link of the App</p>
+                  </div>
+                </Modal.Body>
+
+                <Modal.Footer>
+                 
+                </Modal.Footer>
+                
+              </Modal>
+              </div>
             </p>
           </div>
         </div>
-        
       </div>
-      
     </div>
   );
 };

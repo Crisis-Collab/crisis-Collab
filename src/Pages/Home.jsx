@@ -9,11 +9,11 @@ import LandContact from '../components/Home/LandContact.jsx'
 const Home = () => {
   
   return (
-    <div>
+    <div >
         <Landing/>
         <Welcome/>
-        <LandService/>
-        <News/>
+        <LandService />
+        {/* <News/> */}
         <LandContact/>
         
     </div>
