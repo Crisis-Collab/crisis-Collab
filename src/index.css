@@ -10,3 +10,6 @@ html,body{
 .bgMapImage{
     background-image: url(".../../assets/map3.jpg");
 }
+.bgLogin{
+    background-image: url(".../../assets/bgLogin.jpg");
+}
