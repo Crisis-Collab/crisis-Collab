@@ -42,7 +42,7 @@ const AdminNavbar = () => {
   }, []);
   return (
 
-    <div className=" bg-white py-1  pr-8 rounded-full shadow-2xl flex items-center justify-between  w-full relative">
+    <div className=" bg-white py-1  pr-8 shadow-2xl flex items-center justify-between  w-full relative">
       <div className="flex items-center pl-8">
         
         <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
