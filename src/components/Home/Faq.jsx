@@ -4,7 +4,7 @@ const Accordion = () => {
   return (
     <section
       id="faq"
-      className="relative z-20 overflow-hidden bg-white pb-12 pt-20 dark:bg-dark lg:pb-[90px] lg:pt-[120px]"
+      className="relative z-50 container mx-auto   overflow-hidden bg-white pb-12 pt-20  lg:pb-[90px] lg:pt-[120px]"
     >
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
@@ -16,10 +16,7 @@ const Accordion = () => {
               <h2 className="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-[40px]/[48px]">
                 Any Questions? Look Here
               </h2>
-              <p className="text-base text-body-color dark:text-dark-6">
-                There are many variations of passages of Lorem Ipsum available
-                but the majority have suffered alteration in some form.
-              </p>
+              
             </div>
           </div>
         </div>

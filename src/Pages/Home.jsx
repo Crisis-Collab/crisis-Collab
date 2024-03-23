@@ -15,7 +15,7 @@ const Home = () => {
         <Welcome/>
         <LandService/>
        
-        <LandContact/>
+        {/* <LandContact/> */}
         
     </div>
   )

@@ -109,6 +109,8 @@ const Employees = () => {
 
       {!loading && !selectedEmployee && (
         <div className="">
+
+        <h1 className='text-3xl font-bold text-red-600 py-4'>Employee Directory</h1>
           <div className="bg-zinc-900 rounded-md p-4 shadow-inner ">
             <div className="text-center flex items-center justify-center space-x-3">
               <p className="text-lg text-red-600 font-semibold">
@@ -121,22 +123,22 @@ const Employees = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button onClick={filteredEmployees} className="bg-red-600 rounded-md text-white cursor-pointer px-8 py-2 font-semibold">
+              {/* <button onClick={filteredEmployees} className="bg-red-600 rounded-md text-white cursor-pointer px-8 py-2 font-semibold">
                 Search
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="flex space-x-5">
           <div className="lg:w-1/2">
-              <div className="flex items-start justify-center space-x-5 lg:pt-4 ">
-                <div className="bg-red-600 rounded-md px-2 py-2 font-bold  shadow-lg text-center text-2xl">
+             
+                <div className="bg-red-600 rounded-md px-2 py-2 mt-8 font-bold  shadow-lg text-center text-2xl">
                   <h1>Total Number of Employees</h1>
                   <h2 className="font-bold text-white text-5xl text-center">
                     {employeeData.length}
                   </h2>
                 </div>
                 
-              </div>
+           
               <div className="grid place-items-center ">
                 <img src={Emp} className="mt-9 rounded-lg" alt="Employees" />
               </div>

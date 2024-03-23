@@ -229,15 +229,15 @@ const Login = () => {
                   onClose={() => setOpenModal(false)}
                   className=" pt-52 px-96 w-full h-screen flex items-center justify-center bg-gray-900 bg-opacity-50"
                 >
-                  <Modal.Header className="p-4"></Modal.Header>
+                  <Modal.Header className="p-4 bg-red-600 text-black"></Modal.Header>
 
                   <Modal.Body className=" ">
                     <div className="space-y-2 flex flex-col items-center justify-center text-center">
-                      <p className="  text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
+                      <p className="  text-2xl font-semibold leading-relaxed text-red-600 dark:text-gray-400">
                         Please Sign-up by your Phone
                       </p>
                       <div className="text-blue-800 font-medium">
-                        Link of the App
+                        Using App
                       </div>
                     </div>
                   </Modal.Body>
