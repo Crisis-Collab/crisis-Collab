@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/LOGO2.png";
-import loginLogo from "../assets/LOG2.png";
+import loginLogo from "../../src/assets/LOG2.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import { doc, getDoc } from "firebase/firestore";
