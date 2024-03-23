@@ -1,33 +1,40 @@
 
-import { IoPersonCircle,IoThunderstorm, IoNewspaper, IoPeopleSharp, IoSettings  } from 'react-icons/io5';
+import { IoPersonCircle,IoThunderstorm, IoNewspaper, IoPeopleSharp, IoSettings,  } from 'react-icons/io5';
+import { LuLayoutDashboard } from "react-icons/lu";
 
 const AdminSideBarData = [
   {
     id: "1",
-    name: "Agency Profile",
+    name: "Dashboard",
+    path: "/adminDashboard/dashboard",
+    icon:  LuLayoutDashboard
+  },
+  {
+    id: "2",
+    name: "Profile",
     path: "/adminDashboard/agency-profile",
     icon:  IoPersonCircle
   },
   {
-    id: "2",
+    id: "3",
     name: "Weather",
     path: "/adminDashboard/Weather",
     icon:  IoThunderstorm 
   },
   {
-    id: "3",
+    id: "4",
     name: "Inventory",
     path: "/adminDashboard/inventory",
     icon:   IoNewspaper
   },
   {
-    id: "4",
+    id: "5",
     name: "Help & Support",
     path: "/adminDashboard/help",
     icon: IoPeopleSharp
   },
   {
-    id: "5",
+    id: "6",
     name: "Setting",
     path: "/adminDashboard/setting",
     icon: IoSettings
