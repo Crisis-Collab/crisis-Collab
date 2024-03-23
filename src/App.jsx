@@ -14,7 +14,7 @@ function App() {
 
 
   return (
-    <div className=''>
+    <>
    <Navbar />
    <div className='min-h-screen'>
     <Outlet/>
@@ -22,7 +22,7 @@ function App() {
    <Footer/>
 
 
-    </div>
+    </>
   )
 }
 

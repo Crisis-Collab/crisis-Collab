@@ -10,51 +10,50 @@ const LandService = () => {
   useEffect(() => {
     AOS.init({ duration: "1000" });
   }, []);
-
   return (
-    <div className="  flex flex-col md:flex-row mx-auto w-full h-screen bg-white">
+    <div className="flex flex-col md:flex-row mx-auto container h-screen bg-white">
       {/* Left side with three images */}
-      <div className="  w-full md:w-1/2 p-8 md:p-24">
+      <div className="w-1/2 p-24 ">
         {/* First image in a column */}
         <img
           src={img3}
           alt="Image 1"
-          className="w-full h-auto mb-4 md:mb-8 shadow-2xl rounded-xl"
+          className="w-full h-auto mb-4 shadow-2xl rounded-xl"
           data-aos="zoom-in"
         />
 
         {/* Second and third images in a row */}
-        <div className="flex flex-col md:flex-row">
+        <div className="flex">
           <img
             src={img4}
             alt="Image 2"
-            className="w-full md:w-1/2 h-auto mb-4 md:mb-0 mr-0 md:mr-2 shadow-2xl rounded-xl"
+            className="w-1/2 h-auto mr-2 shadow-2xl rounded-xl"
             data-aos="fade-right"
           />
           <img
             src={img5}
             alt="Image 3"
-            className="w-full md:w-1/2 h-auto ml-0 md:ml-2 shadow-2xl rounded-xl"
+            className="w-1/2 h-auto ml-2 m-6 shadow-2xl rounded-xl"
             data-aos="fade-left"
           />
         </div>
       </div>
 
       {/* Right side with content */}
-      <div className="  z-30 relative w-full md:w-1/2 bg-white p-8 md:p-12 ">
+      <div className="w-1/2 bg-white p-8">
         {/* Content for the right side goes here */}
-        <h6 className="text-gray-400 pb-8">Welcome to Crisis Collab ---</h6>
-        <h1 className="text-4xl md:text-6xl font-semibold mb-4 ">Our Services</h1>
-        <p className="text-base md:text-lg text-gray-600 pt-8 md:pt-12 ">
+        <h6 className="text-gray-400 pb-8">Welcome to Crisi Collab ---</h6>
+        <h1 className="text-6xl font-semibold mb-4 "> Our Services</h1>
+        <p className="text-base text-gray-600 pt-12 ">
           At Crisis Collab, we are committed to providing comprehensive and
           effective solutions for rescue relief agencies worldwide. Our range of
           services is designed to empower agencies, enhance collaboration, and
-          amplify the impact of humanitarian efforts.
+          amplify the impact of humanitarian efforts
         </p>
 
         {/* Card Template  */}
-        <div className="mt-8 md:mt-12 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
-          <div className="w-full md:w-1/2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+        <div className="mt-6 flex space-x-6">
+          <div className=" transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 ...  p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-red-600 dark:text-white">
                 Global Coordination
@@ -87,7 +86,7 @@ const LandService = () => {
               </svg>
             </a>
           </div>
-          <div className="w-full md:w-1/2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+          <div className=" transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 ...  p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-red-600 dark:text-white">
                 Resource Sharing
