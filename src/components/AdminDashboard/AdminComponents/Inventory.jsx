@@ -9,25 +9,36 @@ const Inventory = () => {
   const [equipment, setEquipment] = useState([]);
   const [newEquipmentName, setNewEquipmentName] = useState("");
   const [newEquipmentQuantity, setNewEquipmentQuantity] = useState("");
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // New state for error handling
   const auth = getAuth();
 
   useEffect(() => {
     const fetchEquipment = async () => {
-      setLoading(true);
-      const equipmentRef = collection(db, "users", auth.currentUser.uid, "inventoryList");
-      const querySnapshot = await getDocs(equipmentRef);
-      const equipmentList = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        equipmentName: doc.data().equipmentName,
-        equipmentQuantity: doc.data().equipmentQuantity,
-      }));
-      setEquipment(equipmentList);
-      setLoading(false); 
+      try {
+        setLoading(true);
+        const equipmentRef = collection(db, "users", auth.currentUser.uid, "inventoryList");
+        const querySnapshot = await getDocs(equipmentRef);
+        const equipmentList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          equipmentName: doc.data().equipmentName,
+          equipmentQuantity: doc.data().equipmentQuantity,
+        }));
+        setEquipment(equipmentList);
+        setError(null); // Reset error state if data fetch is successful
+      } catch (error) {
+        console.error("Error fetching equipment:", error);
+        setError("Error fetching equipment. Please try again."); // Set error message
+      } finally {
+        // Introduce a slight delay before hiding the loading spinner
+        setTimeout(() => {
+          setLoading(false);
+        }, 300);
+      }
     };
+
     fetchEquipment();
   }, [auth.currentUser.uid]);
-
 
   const updateEquipmentState = (equipmentId, newQuantity) => {
     setEquipment(prevEquipment =>
@@ -80,35 +91,41 @@ const Inventory = () => {
         setNewEquipmentQuantity("");
       } catch (error) {
         console.error("Error adding document: ", error);
+        setError("Error adding equipment. Please try again."); // Set error message
       }
     } else {
       console.log("Please fill out all fields.");
     }
   };
+
   return (
     <div>
-       {loading && (
+      {loading && (
         <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
         </div>
       )}
-      <div>
-        <input
-          type="text"
-          placeholder="Equipment Name"
-          value={newEquipmentName}
-          onChange={(e) => setNewEquipmentName(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Quantity"
-          value={newEquipmentQuantity}
-          onChange={(e) => setNewEquipmentQuantity(e.target.value)}
-        />
-        <button onClick={handleAddEquipment}>Add Equipment</button>
-      </div>
-      <br />
-      {equipment.map((item) => (
+      {error && (
+        <div className="error-message">{error}</div>
+      )}
+      {!loading && !error && (
+        <div>
+          <input
+            type="text"
+            placeholder="Equipment Name"
+            value={newEquipmentName}
+            onChange={(e) => setNewEquipmentName(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Quantity"
+            value={newEquipmentQuantity}
+            onChange={(e) => setNewEquipmentQuantity(e.target.value)}
+          />
+          <button onClick={handleAddEquipment}>Add Equipment</button>
+        </div>
+      )}
+      {!loading && !error && equipment.map((item) => (
         <div key={item.id}>
           <p>Equipment Name: {item.equipmentName}</p>
           <p>Quantity: {item.equipmentQuantity}</p>
