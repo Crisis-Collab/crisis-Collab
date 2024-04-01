@@ -62,7 +62,7 @@ const AdminNavbar = () => {
     </div>
    
       <div className="flex items-center justify-center">
-      <div className='w-7 h-7 mr-8  '>
+      <div className='w-5 h-5 mr-8  '>
        <img src={notify}/>
       </div>
         <div className="flex flex-col item-center justify-center">
@@ -74,16 +74,14 @@ const AdminNavbar = () => {
         </div>
         <div>
         <div className="relative flex">
-        <img
+        
+          {/* Avatar */}
+          <button onClick={toggleDropdown} className="focus:outline-none flex space-x-1 pl-1" >
+          <img
               src={Avatar} // Replace with your avatar image
               alt="Avatar"
               className="w-10 h-10 rounded-full"
             />
-          {/* Avatar */}
-          <button onClick={toggleDropdown} className="focus:outline-none flex space-x-1 pl-1" >
-            {isClicked?  <img src={up} className="mt-2"/>:<img src={down} className="mt-2"/>}
-            
-           
           </button>
          
           {/* Dropdown menu */}

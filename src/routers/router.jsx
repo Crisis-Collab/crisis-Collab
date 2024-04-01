@@ -44,6 +44,10 @@ const router = createBrowserRouter([
       {
         path:'/contact',
         element:<ContactUs/>
+      },
+      {
+        path:'/weather',
+        element:<ContactUs/>
       }
       
     ]

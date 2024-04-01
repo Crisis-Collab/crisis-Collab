@@ -200,6 +200,8 @@ const Weather = () => {
     ) : error ? (
       <p className='text-lg font-bold text-red-500'>{error}</p>
     ) : null}
+    
+
 {dailyForecast && (
         <div className='mt-8'>
           <h2 className='text-xl font-semibold mb-2'>Daily Forecast</h2>
@@ -323,10 +325,10 @@ const Weather = () => {
           </div>
         ))}
     </div>
-  </div>
-)}
     </div>
-  );
-};
+  )}
+  </div>
+  )
+}
 
 export default Weather;

@@ -8,6 +8,7 @@ import LandContact from '../components/Home/LandContact.jsx'
 
 const Home = () => {
   
+  
   return (
     <div>
         <Landing/>
