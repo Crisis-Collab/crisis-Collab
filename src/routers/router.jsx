@@ -17,7 +17,8 @@ import Inventory from "../components/AdminDashboard/AdminComponents/Inventory.js
 import Help from "../components/AdminDashboard/AdminComponents/Help.jsx";
 import Setting from "../components/AdminDashboard/AdminComponents/Setting.jsx";
 import Dashboard from "../components/AdminDashboard/AdminComponents/Dashboard.jsx";
-import Employers from "../components/AdminDashboard/AdminComponents/Employers.jsx";
+import Employers from "../components/AdminDashboard/AdminComponents/Employees.jsx";
+import Employees from "../components/AdminDashboard/AdminComponents/Employees.jsx";
 
 const router = createBrowserRouter([
   {
@@ -71,8 +72,8 @@ const router = createBrowserRouter([
       element:<Inventory/>
     },
     {
-      path:'/adminDashboard/employers',
-      element:<Employers/>
+      path:'/adminDashboard/employees',
+      element:<Employees/>
     },
     {
       path:'/adminDashboard/help',

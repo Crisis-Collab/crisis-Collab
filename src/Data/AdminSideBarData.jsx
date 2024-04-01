@@ -27,8 +27,8 @@ const AdminSideBarData = [
   },
   {
     id: "5",
-    name: "Employers",
-    path: "/adminDashboard/employers",
+    name: "Employees",
+    path: "/adminDashboard/employees",
     icon:   IoPeople
   },
   {
