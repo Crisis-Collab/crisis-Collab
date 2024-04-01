@@ -1,10 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html,body{
     overflow-x:hidden ;
+    scroll-behavior: smooth;
 }
 
 .bgMapImage{
@@ -12,4 +13,8 @@ html,body{
 }
 .bgLogin{
     background-image: url(".../../assets/bgLogin.jpg");
+}
+.bgWeather{
+    background-image: url(".../../assets/weather-1.jpg");
+    background-repeat: no-repeat;
 }

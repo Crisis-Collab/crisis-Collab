@@ -70,6 +70,10 @@ const router = createBrowserRouter([
       element:<Inventory/>
     },
     {
+      path:'/adminDashboard/employers',
+      element:<Inventory/>
+    },
+    {
       path:'/adminDashboard/help',
       element:<Help/>
     },

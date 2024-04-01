@@ -3,6 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase.config';
 
+
 const AgencyProfile = () => {
   const [agencyData, setAgencyData] = useState(null);
   const [loading, setLoading] = useState(true); 
@@ -51,6 +52,7 @@ const AgencyProfile = () => {
           {/* Add more fields as needed */}
         </div>
       )}
+
     </div>
   );
 };

@@ -15,10 +15,10 @@ const AdminDashboard = () => {
       
       <div className='bg-white p-2 fixed top-16 left-0 bottom-0 z-30  '>  <Sidebar isOpen={isOpen} handleDashboard={toggleSidebar}/> </div>
     
-      <div className={`flex flex-col flex-1 overflow-y-auto mt-20 p-4 bg-red-900 bg-opacity-40 shadow-2xl rounded-2xl w-auto m-4 transition-all ${
-          isOpen ? 'ml-[268px]' : 'ml-32'
+      <div className={`flex flex-col flex-1 overflow-y-auto mt-16 p-2 bg-red-900 bg-opacity-40 shadow-2xl rounded-2xl w-auto m-4 transition-all ${
+          isOpen ? 'ml-[283px]' : 'ml-36'
         }`} >
-        <div className='bg-white rounded-2xl shadow-inner h-screen p-8 '>
+        <div className='bg-white rounded-2xl shadow-inner  '>
         <Outlet/>
         </div>
       

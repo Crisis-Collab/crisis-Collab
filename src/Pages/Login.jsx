@@ -95,7 +95,7 @@ const Login = () => {
       </Link>
     
       <div className="grid place-items-center">
-        <div className="sm:grid place-items-center hidden pr-20 w-full">
+        <div className="sm:grid place-items-center hidden pr-20 w-4/5">
           <img src={loginLogo} />
         </div>
         <div className="space-y-4 pt-8">
@@ -114,7 +114,7 @@ const Login = () => {
       
      
       {/* {loading ? <LoadingSpinner /> : null} */}
-        <div className=" bg-opacity-10  bg-slate-500  shadow-2xl  px-8 py-12 mt-24 ml-28  justify-center  flex items-center flex-col  w-auto mx-4   ">
+        <div className=" bg-opacity-10  bg-slate-500  shadow-2xl  px-8 py-12 mt-16 ml-28  justify-center  flex items-center flex-col  w-auto mx-4   ">
          
           <form onSubmit={requestOtp} className="bg-gradient-to-r from-zinc-300 to-red-50 shadow-2xl  p-14 flex items-center justify-center" >
             {!isOtpRequested ? (
@@ -171,7 +171,7 @@ const Login = () => {
                 <button
                   onClick={verifyOtp}
                   type="submit"
-                  className="bg-green-500    text-white p-2 rounded-md hover:bg-green-600"
+                  className="bg-green-600    text-white p-2 rounded-md hover:bg-green-700"
                   disabled={loading}
                 >
                    {loading && (
@@ -197,12 +197,12 @@ const Login = () => {
               <div >
               <Modal show={openModal} onClose={() => setOpenModal(false)} className=" pt-52 px-96 w-full h-screen flex items-center justify-center bg-gray-900 bg-opacity-50">
          
-                <Modal.Header ></Modal.Header>
+                <Modal.Header className="p-4"></Modal.Header>
                 
                 <Modal.Body className=" ">
                   <div className="space-y-2 flex flex-col items-center justify-center text-center">
                    
-                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    <p className="  text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
                       Please Sign-up by your Phone
                     </p>
                     <p className="text-blue-800 font-medium">Link of the App</p>
