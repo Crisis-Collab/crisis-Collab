@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import Logo from "../../assets/LOGO2.png";
 import Avatar from "../../assets/citizenAVa.jpg";
 import { doc, getDoc } from "firebase/firestore";
@@ -9,6 +9,7 @@ import down from '../../assets/down.png'
 import up from '../../assets/up.png'
 import { Modal } from 'flowbite-react';
 import { Link } from "react-router-dom";
+import useOnClickOutside from "../../Hooks/OutsideClick";
 
 
 const AdminNavbar = () => {
@@ -87,7 +88,7 @@ const AdminNavbar = () => {
          
           {/* Dropdown menu */}
           {isOpen && (
-            <div className="absolute z-50  top-12 right-0 flex flex-col justify-between items-center my-6 gap-x-3  bg-black rounded pl-8 pr-8">
+            <div className="absolute z-30  top-8 right-0 flex flex-col justify-between items-center my-6   bg-black rounded pl-8 pr-8">
               <a href="/adminDashboard/agency-profile" className="flex w-full items-center  my-1 px-8 py-2 mt-4 text-sm transition-all font-medium rounded-md text-white hover:bg-gray-700">
                 Profile
               </a>
@@ -96,26 +97,26 @@ const AdminNavbar = () => {
               </a>
 
               <button
-                className="  w-full items-center my-1 px-4- py-2 text-sm transition-all font-medium rounded-md text-white hover:bg-gray-700 "
+                className="  w-full items-center my-1 px-4 mb-4 py-2 text-sm transition-all font-medium rounded-md text-white hover:bg-red-700 bg-red-600 "
                 onClick={() => setOpenModal(true)}
               >
                 Logout
               </button>
               <div >
-              <Modal show={openModal} onClose={() => setOpenModal(false)} className=" pt-52 px-96 w-full h-screen flex items-center justify-center bg-gray-900 bg-opacity-50">
+              <Modal show={openModal} onClose={() => setOpenModal(false)} className=" pt-52 px-[500px] w-full h-screen flex items-center justify-center bg-gray-900 bg-opacity-50">
          
-                <Modal.Header className=" text-black "></Modal.Header>
+                <Modal.Header className=" text-black p-2 text-xl "></Modal.Header>
                 
                 <Modal.Body className=" ">
                   <div className="space-y-2 flex flex-col items-center justify-center text-center">
                    
-                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    <p className="text-lg leading-relaxed text-gray-800 dark:text-gray-400">
                      Are you sure you want to Logout? 
                     </p>
                     <div className="flex space-x-8">
-                    <Link to='/'> <button className="bg-green-600 px-8 py-1 rounded-xl  ">Yes</button></Link>
+                    <Link to='/'> <button className="bg-green-600 px-8 py-2 rounded-lg text-white font-medium  ">Yes</button></Link>
                    
-                    <button className="bg-red-700 px-8 py-1 rounded-xl " onClick={()=> setOpenModal(false)}>No</button>
+                    <button className="bg-red-700 px-8 py-2 rounded-lg text-white font-medium   " onClick={()=> setOpenModal(false)}>No</button>
                    
                     </div>
                    

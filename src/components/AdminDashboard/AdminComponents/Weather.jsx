@@ -3,6 +3,8 @@ import { db } from '../../../firebase/firebase.config';
 import { doc, getDoc } from 'firebase/firestore';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
+import clearVideo from '../../../assets/sunny.mp4'
+
 
 const Weather = () => {
   const [weather, setWeather] = useState(null);
@@ -107,20 +109,58 @@ const Weather = () => {
     return null; // Render nothing until data is loaded
   }
 
+  const getBackgroundVideo = () => {
+    if (!weather) return ''; // Return empty string if weather data is not available
+    const weatherCondition = weather.weather[0].main.toLowerCase();
+    // console.log(weather.weather[0].main.toLowerCase())
+    let videoPath = '';
+    console.log(weatherCondition);
+    switch (weatherCondition) {
+      case 'clear':
+        videoPath = {clearVideo};
+        break;
+      case 'broken clouds':
+        videoPath = 'https://www.pexels.com/video/clouds-formation-covers-the-ray-of-sun-2935032/';
+        
+        break;
+      case 'clouds':
+        videoPath = 'https://www.pexels.com/video/clouds-formation-covers-the-ray-of-sun-2935032/';
+        break;
+      // Add more cases for different weather conditions as needed
+      default:
+        videoPath = 'https://www.pexels.com/video/clouds-formation-covers-the-ray-of-sun-2935032/';
+        // Default video if condition not matched
+    }
+    
+    return videoPath; // Return the selected video path
+  };
+  
+  
+
   // Render the weather UI
   return (
-    <div className='p-4'>
+    <div className='p-4 '>
       {/* Your weather UI code goes here */}
       {loading && (
-        <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
+        <div className='  fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
         </div>
       )}
       <h2 className='text-xl font-semibold mb-2'>Current Forecast</h2>
       {weather ? (
-      <div className='bg-gray-300 shadow-lg rounded-xl m-auto relative px-6 top-[10%] '>
+        
+      <div className=' border-red-800 border  shadow-lg rounded-xl m-auto relative px-6 top-[10%] '>
+        <video
+        autoPlay
+        loop
+        muted
+        className="absolute inset-0  w-full h-full object-cover"
+        src={getBackgroundVideo()}
+      />
         <div className=''>
+        
           <div className='flex justify-between w-full'>
+        
             <div className='w-1/2 my-4 mx-auto flex justify-between items-center'>
               <div className='flex flex-col items-start justify-between h-full'>
                 <div>
