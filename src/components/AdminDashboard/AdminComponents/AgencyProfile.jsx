@@ -49,6 +49,8 @@ const AgencyProfile = () => {
           <p>Address: {agencyData.completeAddress}</p>
           <p>City: {agencyData.city}</p>
           <p>State: {agencyData.state}</p>
+          <p>Agency Certificate</p>
+                  <img src={agencyData.agencyCertificateUrl} alt="agencyCertificate" />
           {/* Add more fields as needed */}
         </div>
       )}
