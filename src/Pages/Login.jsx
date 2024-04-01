@@ -7,18 +7,18 @@ import { useAuth } from "../context/AuthProvider";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase.config";
 import { Modal } from 'flowbite-react';
+import Navbar from "../Common/Navbar";
 
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isOtpRequested, setIsOtpRequested] = useState(false);
   const [otp, setOtp] = useState("");
-  const navigate = useNavigate();
   const { setUpRecaptcha } = useAuth();
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
+  const navigate= useNavigate();
 
 
 
@@ -64,8 +64,9 @@ const Login = () => {
         if (userData.userType === "agency-admin") {
           navigate("/adminDashboard/dashboard");
 
-        } else if (userData.userType === "citizen") {
+        } else if (userData.userType === "citizen") {  
           navigate("/CitizenDashboard");
+         
         } else {
           console.error("Invalid user type");
         }
@@ -83,17 +84,17 @@ const Login = () => {
 
   return (
     <div
-      className=" bgLogin px-2  relative flex sm:flex-row flex-col  min-h-screen overflow-y-hidden h-screen pr-10  py-2 sm:py-8 bg-white "
+      className=" bgLogin px-2 pl-32 pt-5 relative flex sm:flex-row flex-col  min-h-screen overflow-y-hidden h-screen pr-10  py-2 sm:py-8 bg-white "
       id="login"
     >
-      <Link to="/">
+      {/* <Link to="/">
         <div className=" flex pl-8  ">
           <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
           <span className="text-red-600 text-2xl font-medium">Crisis</span>
           <span className="text-red-500 font-semibold pt-2"> collab</span>
         </div>
-      </Link>
-
+      </Link> */}
+       <Navbar />
       <div className="grid place-items-center">
         <div className="sm:grid place-items-center hidden pr-20 w-4/5">
           <img src={loginLogo} />
@@ -126,7 +127,7 @@ const Login = () => {
                 <div className=" flex items-center justify-center text-semibold  font-medium ">
                   {" "}
 
-                  <p className="text-black">Enter your Phone Number</p>
+                  <div className="text-black">Enter your Phone Number</div>
                 </div>
                 <div className="  flex items-center justify-center">
                   <input
@@ -186,7 +187,7 @@ const Login = () => {
             )}
           </form>
           <div className=" pt-6 font-medium">
-            <p className="text-red-600">
+            <div className="text-red-600">
               Don&apos;t have an account. Please{" "}
               <button
                 className="text-blue-700  underline   py-1 font-medium rounded-md "
@@ -205,7 +206,7 @@ const Login = () => {
                       <p className="  text-2xl leading-relaxed text-gray-500 dark:text-gray-400">
                         Please Sign-up by your Phone
                       </p>
-                      <p className="text-blue-800 font-medium">Link of the App</p>
+                      <div className="text-blue-800 font-medium">Link of the App</div>
                     </div>
                   </Modal.Body>
 
@@ -215,14 +216,16 @@ const Login = () => {
 
                 </Modal>
               </div>
-            </p>
+            </div>
           </div>
         </div>
 
       </div>
-
+     
     </div>
+  
   );
+  
 };
 
 export default Login;

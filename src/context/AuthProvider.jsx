@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export function AuthProvider ({children}) {
   const [user, setUser] = useState({});
     const [loading,setLoading]= useState(true);
+   
 
     const setUpRecaptcha= async (phoneNumber) =>{
       const recaptchaVerifier = new RecaptchaVerifier(
@@ -42,10 +43,11 @@ export function AuthProvider ({children}) {
     const value ={
         user,
         setUpRecaptcha,
+       
     };
 
   return (
-   <AuthContext.Provider value={value}>
+   <AuthContext.Provider value={value} >
     {!loading && children}
    </AuthContext.Provider>
   )
