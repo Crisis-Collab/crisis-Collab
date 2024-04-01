@@ -1,43 +1,60 @@
+import React, { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../firebase/firebase.config';
 
-import React,{useState,useEffect} from 'react'
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../../../firebase/firebase.config";
-import avatar from "../../../assets/AgencyAva.png"
 
-const MyProfile = () => {
-  const [user,setUser] = useState(null);
-  const [loading,setLoading] =useState(false);
-  const getUser = async () => {
-    try {
-      const userRef =doc(db, "users", auth.currentUser.uid);
-      const userSnap = await getDoc(userRef);
-      const userData = userSnap.data();
-      console.log(`User Data -${JSON.stringify(userData)}`)
-      setUser(userData);
-    } catch (error) {
-      console.log("error occured while fetching user");
-    }
-  };
+const AgencyProfile = () => {
+  const [agencyData, setAgencyData] = useState(null);
+  const [loading, setLoading] = useState(true); 
+  const auth = getAuth();
+
   useEffect(() => {
-    setLoading(true);
-    getUser();
-    setLoading(false);
-  }, []);
+    const fetchCurrentUser = async () => {
+      try {
+        const userRef = doc(db, 'users', auth.currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          setAgencyData(userData);
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching user document:", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false); 
+        }, 500);
+      }
+    };
+
+    fetchCurrentUser();
+  }, [auth.currentUser.uid]);
+
   return (
     <div>
-       <div className='flex flex-col items-center justify-center p-6'>
-        <img src={avatar} className='w-24 h-24 border-2 border-gray-400 rounded-full'/>
-      
-       {!user ? <h4>Agency Name</h4> :  <h1 className='text-3xl font-semibold' >{user.agencyName}</h1> }
-      
-       </div>
-       <div>
-        Agency Description
-        <div></div>
-       </div>
-       
-    </div>
-  )
-}
+      {loading && (
+        <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
+          <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
+        </div>
+      )}
 
-export default MyProfile
+      {!loading && agencyData && (
+        <div>
+          <h2>Agency Name: {agencyData.agencyName}</h2>
+          <p>Agency Description: {agencyData.agencyDesc}</p>
+          <p>Contact: {agencyData.agencyConatct}</p>
+          <p>Address: {agencyData.completeAddress}</p>
+          <p>City: {agencyData.city}</p>
+          <p>State: {agencyData.state}</p>
+          {/* Add more fields as needed */}
+        </div>
+      )}
+
+    </div>
+  );
+};
+
+export default AgencyProfile;
