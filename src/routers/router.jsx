@@ -9,16 +9,15 @@ import MainNews from "../Pages/MainNews"
 import Service from "../Pages/Service"
 import ContactUs from "../Pages/ContactUs";
 import Login from "../Pages/Login.jsx";
-import AdminDashboard from "../Pages/Dashbord/AdminDashboard.jsx";
-import CitizenDashboard from "../Pages/Dashbord/CitizenDashboard.jsx";
-import Weather from "../components/AdminDashboard/AdminComponents/Weather.jsx";
-import AgencyProfile from "../components/AdminDashboard/AdminComponents/AgencyProfile.jsx";
-import Inventory from "../components/AdminDashboard/AdminComponents/Inventory.jsx";
-import Help from "../components/AdminDashboard/AdminComponents/Help.jsx";
-import Setting from "../components/AdminDashboard/AdminComponents/Setting.jsx";
-import Dashboard from "../components/AdminDashboard/AdminComponents/Dashboard.jsx";
-import Employers from "../components/AdminDashboard/AdminComponents/Employees.jsx";
-import Employees from "../components/AdminDashboard/AdminComponents/Employees.jsx";
+import DashboardLayout from "../Pages/Dashbord/DashboardLayout.jsx";
+import Weather from "../components/UserPannel/UserPannelComponents/Weather.jsx";
+import AgencyProfile from "../components/UserPannel/UserPannelComponents/AgencyProfile.jsx";
+import Inventory from "../components/UserPannel/UserPannelComponents/Inventory.jsx";
+import Help from "../components/UserPannel/UserPannelComponents/Help.jsx";
+import MyProfile from "../components/UserPannel/UserPannelComponents/MyProfile.jsx";
+import Dashboard from "../components/UserPannel/UserPannelComponents/Dashboard.jsx";
+import Employees from "../components/UserPannel/UserPannelComponents/Employees.jsx";
+import Sos from "../components/UserPannel/UserPannelComponents/Sos.jsx";
 
 const router = createBrowserRouter([
   {
@@ -45,10 +44,7 @@ const router = createBrowserRouter([
         path:'/contact',
         element:<ContactUs/>
       },
-      {
-        path:'/weather',
-        element:<ContactUs/>
-      }
+      
       
     ]
   },
@@ -57,43 +53,47 @@ const router = createBrowserRouter([
     element:<Login/>
   } ,
  {
-  path:'/adminDashboard',
-  element:<AdminDashboard/>,
+  path:'/userpannel',
+  element:<DashboardLayout/>,
   children:[
     {
-      path:'/adminDashboard/agency-profile',
+      path:'/userpannel/agency-profile',
       element:<AgencyProfile/>
     },{
-       path:'/adminDashboard/dashboard',
+       path:'/userpannel/dashboard',
        element:<Dashboard/>
     },
     {
-      path:'/adminDashboard/Weather',
+      path:'/userpannel/weather',
       element:<Weather/>
     },
     {
-      path:'/adminDashboard/inventory',
+      path:'/userpannel/inventory',
       element:<Inventory/>
     },
     {
-      path:'/adminDashboard/employees',
+      path:'/userpannel/employees',
       element:<Employees/>
     },
     {
-      path:'/adminDashboard/help',
+      path:'/userpannel/help',
       element:<Help/>
     },
     {
-      path:'/adminDashboard/setting',
-      element:<Setting/>
+      path:'/userpannel/profile',
+      element:<MyProfile/>
     },
+    {
+      path:'/userpannel/weather',
+      element:<ContactUs/>
+    },{
+      path:'/userpannel/sos',
+      element:<Sos/>
+    }
    
   ]
  },
- {
-  path:'/CitizenDashboard',
-  element:<CitizenDashboard/>
- }
+
 ]);
 
 export default router;

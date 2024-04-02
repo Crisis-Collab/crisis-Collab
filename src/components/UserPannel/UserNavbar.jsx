@@ -5,11 +5,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase.config";
 import search from '../../assets/search.png'
 import notify from '../../assets/notify.png'
-import down from '../../assets/down.png'
-import up from '../../assets/up.png'
 import { Modal } from 'flowbite-react';
-import { Link } from "react-router-dom";
-import useOnClickOutside from "../../Hooks/OutsideClick";
+import { useNavigate} from "react-router-dom";
 
 
 const AdminNavbar = () => {
@@ -18,12 +15,19 @@ const AdminNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isClicked,setIsClicked] =useState(false);
   const [openModal, setOpenModal] = useState(false);
-
+  const navigate = useNavigate();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
     setIsClicked(!isClicked);
   };
-
+  const handleLogout=()=>{
+    auth.signOut().then(()=>{
+    
+      navigate('/');
+      console.log("Logout Successfull");
+      console.log(auth);
+    })
+  }
 
   const getUser = async () => {
     try {
@@ -69,7 +73,7 @@ const AdminNavbar = () => {
         
         <h4 className="pr-4 font-semibold text-black">Welcome back</h4>
         <div className="  text-red-600 font-semibold">
-        {!user ? <h4>Loading</h4> :  <h4>{user.agencyName}</h4> }
+        {!user ? <h4>Loading</h4> : <h4>{user.userType === "agency-admin" ? user.agencyName : user.name}</h4>}
         </div>
         </div>
         <div>
@@ -112,7 +116,7 @@ const AdminNavbar = () => {
                      Are you sure you want to Logout? 
                     </p>
                     <div className="flex space-x-8">
-                    <Link to='/'> <button className="bg-green-600 px-8 py-2 rounded-lg text-white font-medium  ">Yes</button></Link>
+                    <button className="bg-green-600 px-8 py-2 rounded-lg text-white font-medium  " onClick={handleLogout}>Yes</button>
                    
                     <button className="bg-red-700 px-8 py-2 rounded-lg text-white font-medium   " onClick={()=> setOpenModal(false)}>No</button>
                    
