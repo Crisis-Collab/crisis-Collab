@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Setting = () => {
+const Sos = () => {
   return (
     <div>
-      IoSetting
+      
     </div>
   )
 }
 
-export default Setting
+export default Sos
