@@ -6,7 +6,7 @@ const SideBarData = [
     name: "Dashbord",
     path: "/userpannel/dashboard",
     icon: LuLayoutDashboard,
-    "userType":"agency-admin"
+    
   },
   {
     id: "2",

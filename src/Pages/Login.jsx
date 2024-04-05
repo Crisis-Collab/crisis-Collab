@@ -52,6 +52,27 @@ const Login = () => {
         const userData = userSnap.data();
         // console.log(`User DATA PROVIDED : ${JSON.stringify(userData)}`);
         try {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
           navigate("/userpannel");
         } catch (error) {
           console.error("Invalid user type");

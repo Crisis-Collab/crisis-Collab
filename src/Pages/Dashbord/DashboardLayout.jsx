@@ -13,7 +13,7 @@ const DashboardLayout = () => {
     <div className=' dashboard bg-white h-screen w-screen flex   '>
       <div  className='fixed top-0 left-0 right-0 z-10'><UserNavbar/></div>
       
-      <div className='bg-white p-2 fixed top-16 left-0 bottom-0 z-30  '>  <Sidebar isOpen={isOpen} handleDashboard={toggleSidebar}/> </div>
+      <div className='bg-white p-2 fixed top-16 left-0 bottom-0 z-30 mb-2  '>  <Sidebar isOpen={isOpen} handleDashboard={toggleSidebar}/> </div>
     
       <div className={`flex flex-col flex-1 overflow-y-auto mt-16 p-2 bg-zinc-900  shadow-2xl rounded-2xl w-auto m-4 transition-all ${
           isOpen ? 'ml-[296px]' : 'ml-36'
