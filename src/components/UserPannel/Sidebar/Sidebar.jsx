@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen, handleDashboard }) => {
   }, [location]);
 
   return (
-    <div className="bg-blue-900 bg-opacity-10 font-abc rounded-xl  shadow-inner h-screen  ">
+    <div className="bg-zinc-900 font-abc rounded-xl  shadow-inner h-screen  ">
       <div className="flex flex-col items-center justify-center ">
         <div className="p-4 ">
           <div className={`flex items-center  ${isOpen?'justify-start':'justify-center'} `}>
@@ -45,21 +45,21 @@ const Sidebar = ({ isOpen, handleDashboard }) => {
             <button
               onClick={handleDashboard}
               className={`${
-                isOpen ? "" : "bg-blue-950 bg-opacity-45"
+                isOpen ? "" : "bg-red-600 bg-opacity-45 "
               } rounded-full p-2`}
             >
-              <IoMenu className="text-2xl" />
+              <IoMenu className="text-2xl text-white " />
             </button>
           </div>
           <ul className="pt-6">
-
+                
             {SideBarData.map((item) => {
                  if (item.userType && user?.userType !== item.userType) return null;
                  return(
-                  <li key={item.id} className="flex flex-col font-normal">
+                  <li key={item.id} className="flex flex-col font-normal ">
                   <Link
                     to={item.path}
-                    className={`py-2 m-2 px-3 flex   focus:bg-red-600 focus:text-white hover:bg-gray-800 hover:bg-opacity-15   rounded-full ml-4 `}
+                    className={`py-2 m-2 px-3 flex        rounded-full ml-4 ${activePath === item.path ? 'bg-red-600 text-black font-semibold' : 'hover:bg-gray-300 hover:bg-opacity-15 text-slate-200'} `}
                   >
                     <div className="flex  ">
                       {item.icon && (
