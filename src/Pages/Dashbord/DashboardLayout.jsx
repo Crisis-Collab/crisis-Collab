@@ -15,7 +15,9 @@ const DashboardLayout = () => {
       
       <div className='bg-white shadow-inner p-2 fixed top-16 left-0 bottom-0 z-30 mb-2  '>  <Sidebar isOpen={isOpen} handleDashboard={toggleSidebar}/> </div>
     
+
       <div className={`flex flex-col flex-1 overflow-y-auto mt-16 p-2 bg-white  shadow-2xl rounded-2xl w-auto m-4 transition-all ${
+
           isOpen ? 'ml-[296px]' : 'ml-36'
         }`} >
         <div className=' p-2   '>
