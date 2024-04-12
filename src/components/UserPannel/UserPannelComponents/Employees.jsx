@@ -94,7 +94,7 @@ const Employees = () => {
   };
 
   return (
-    <div className='font-abc'>
+    <div className='  bg-fixed p-4 font-abc' >
       {loading && (
         <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
@@ -110,40 +110,46 @@ const Employees = () => {
             
             <h1>Employees Work here -</h1>
           </div>
-          <div>
+   <div className='flex space-x-5'>
+          
+          <div className='w-1/2'>
             {employeeData.map((employee) => (
               <div key={employee.uid} className=''>
-                <div className='rounded-lg shadow-lg my-6 p-4 bg-neutral-600  backdrop-blur-lg bg-opacity-10'>
-                <div className='flex items-center'>
+                <div className='rounded-lg shadow-lg my-6 p-4 bg-zinc-900  backdrop-blur-lg '>
+                <div className='flex items-center justify-between'>
+                  <div className='flex'>
                   <div className='rounded-full w-10 h-10 border  border-black'>
                   <img src={employee.profileUrl} className='rounded-full' alt="Profile" /> 
                   </div>
                <div className='items-start'>
-                <h3 className='font-semibold text-xl pl-4'>{employee.name}</h3>
+                <h3 className='font-semibold text-white text-xl pl-4'>{employee.name}</h3>
                 <p className='text-lg font-medium text-red-600 pl-4 '>Work Profile: {employee.workProfile}</p>
                 </div>
                 </div>
+                <button onClick={() => { fetchMoreInfo(employee.uid); }} className='bg-red-600  px-4 py-2 rounded-lg mt-4 font-semibold hover:bg-red-800  shadow-md'>More Info</button>
+
+                </div>
                  
                   
-                  <button onClick={() => { fetchMoreInfo(employee.uid); }} className='bg-red-600  px-4 py-2 rounded-lg mt-4 font-semibold hover:bg-red-600 hover:bg-opacity-80 shadow-md'>More Info</button>
+                
                   {!loading && showMoreInfo[employee.uid] && ( // Conditionally render more info
-                    <div className='p-4   '>
-
+                    <div className='p-4  text-white space-y-4  '>
+                        
                       <p className='font-semiold'>Aadhar Number: {employee.aadharNumber}</p>
                       <p>Full Address: {employee.fullAddress}</p>
                       <p>Gender: {employee.gender}</p>
                       <p>DOB: {employee.dob ? new Date(employee.dob.seconds * 1000).toLocaleDateString() : '-'}</p>
-                      <p>Email: {employee.email}</p>
-                      <p>Profile Picture:</p>
-                     <div className='flex'>
+                      <p className='text-blue-500'>Email: {employee.email}</p>
+                     
+                     <div className='flex flex-col'>
                       <p>Aadhar Front:</p>
-                      <div className=''>
-                      <img src={employee.aadharFrontUrl} alt="Aadhar Front" />
+                      <div >
+                      <img className='lg:w-1/2 lg:h-1/2' src={employee.aadharFrontUrl} alt="Aadhar Front" />
                       </div>
                       
                       <p>Aadhar Back:</p>
-                      <div  className=''>
-                      <img src={employee.aadharBackUrl} alt="Aadhar Back" />
+                      <div>
+                      <img className='lg:w-1/2 lg:h-1/2' src={employee.aadharBackUrl} alt="Aadhar Back" />
                       </div>
                      </div>
                     </div>
@@ -152,6 +158,23 @@ const Employees = () => {
               </div>
             ))}
           </div>
+          <div className='lg:w-1/2'>
+          <div className='flex  items-start justify-center space-x-5 lg:pt-7'>
+          <div className='bg-red-600 px-4 py-2 rounded-lg font-bold  text-2xl'>
+            <h1>Total Number of Employees</h1>
+              <h2 className='font-bold text-white text-5xl  text-center'>50+</h2>
+          </div>
+          <div className='bg-red-600 px-2 py-2 rounded-lg font-bold  text-2xl'>
+            <h1>Total Number of Employees</h1>
+              <h2 className='font-bold text-white text-5xl text-center'>50+</h2>
+          </div>
+          </div>
+         <div className='grid place-items-center '>
+          <img src={Emp} className='mt-9 rounded-lg   '/>
+          
+         </div>
+          </div>
+        </div>
         </div>
       )}
     </div>

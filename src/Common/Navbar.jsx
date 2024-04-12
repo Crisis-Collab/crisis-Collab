@@ -50,14 +50,7 @@ const Navbar = () => {
     };
   }, []);
 
-  const handleLogout=()=>{
-    auth.signOut().then(()=>{
-    
-      navigate('/');
-      console.log("Logout Successfull");
-      console.log(auth);
-    })
-  }
+
 
   const navItems = [
     { link: "Home", path: "/" },
