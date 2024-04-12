@@ -18,6 +18,8 @@ import MyProfile from "../components/UserPannel/UserPannelComponents/MyProfile.j
 import Dashboard from "../components/UserPannel/UserPannelComponents/Dashboard.jsx";
 import Employees from "../components/UserPannel/UserPannelComponents/Employees.jsx";
 import Sos from "../components/UserPannel/UserPannelComponents/Sos.jsx";
+import Admin from "../Pages/Admin.jsx";
+import AdminLogin from "../Pages/AdminLogin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
     path:'/login',
     element:<Login/>
   } ,
+  {
+    path:'/adminLogin',
+    element:<AdminLogin/>
+  },
  {
   path:'/userpannel',
   element:<DashboardLayout/>,

@@ -3,6 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase.config';
 
+
 const AgencyProfile = () => {
   const [agencyData, setAgencyData] = useState(null);
   const [loading, setLoading] = useState(true); 
@@ -42,43 +43,58 @@ const AgencyProfile = () => {
       )}
 
       {!loading && agencyData && (
-        <div className='flex space-x-2 items-start justify-between'>
-          <div className='flex flex-col w-full  rounded-lg'>
-         <div className='  p-8 bg-red-800 bg-opacity-10 rounded-lg '>
+        <div className='flex  space-x-2 items-start justify-between'>
+         <div>
+          <div className='flex flex-col w-full  rounded-lg space-y-4'>
+            <div className='  lg:p-8 bg-zinc-900  rounded-lg shadow-2xl  '>
+              <div className='text-4xl font-semibold text-center text-red-600'>{agencyData.agencyName}</div>
+              <div className='font-semibold text-center text-gray-100 lg:pt-4'>{agencyData.agencyType},</div>
+              <div className='font-semibold text-center text-gray-100'>{agencyData.city}</div>
+              <div className='flex lg:pt-7 space-x-6'>
+                <div className='bg-gray-100 px-4 py-2 rounded-lg '>
+                <div className='font-semibold text-center text-black '>Agency Contact </div>
+                <div className='font-semibold text-center text-black'>{agencyData.agencyAdminPhoneNumber}</div>
+              </div>
+              <div className='bg-gray-100 px-4 py-2 rounded-lg'>
+                <div className='font-semibold text-center text-black '>Admin Contact </div>
+                <div className='font-semibold text-center text-black'>{agencyData.agencyConatct}</div>
+              </div>
+              </div>
+              <div>
+              <div className='font-semibold text-center text-gray-100 lg:pt-16' >Address- {agencyData.completeAddress},</div>
+              <div className='flex space-x-4 item-center justify-center'>
+              <div className='font-semibold text-center text-gray-400 ' >{agencyData.state}</div>
+              <div className='font-semibold text-center text-gray-400 ' > {agencyData.pincode}</div>
+             </div>
+             </div>
+            </div>
+            <div className='flex items-center justify-between lg:p-4  bg-zinc-900  rounded-lg shadow-2xl'>
+              <h1 className='font-semibold text-lg text-gray-100'>Inventory</h1>
+              <button  className='bg-gray-400 hover:bg-zinc-800 bg-opacity-30 text-red-600 font-semibold lg:px-4 lg:py-2 rounded-lg '>See All</button>
+              </div>
+            
+          </div>
+         </div>
+         <div className='lg:p-2 bg-zinc-900  rounded-lg w-full shadow-2xl'>
+              <div className='  flex justify-end space-x-2'>
+                <h2 className='font-semibold text-red-500  text-sm'>Latitude- {agencyData.latitude}</h2>
+                <h2 className='font-semibold  text-red-500 text-sm'>Longitude- {agencyData.longitude}</h2>
+                </div>
 
-          <div className='text-4xl font-semibold text-center text-red-600'>{agencyData.agencyName}</div>
-          <div className='font-semibold text-center text-black'>{agencyData.agencyDesc}</div>          
-         </div>
-          
-         <div className='flex'>
-         <div className='mt-16 p-2  rounded-lg space-y-5 '>
-         <h2 className='font-semibold px-10 py-4 text-xl'>Agency Type  </h2>
-         <h2 className='font-semibold px-10 py-4 text-xl'>Area of Expertise</h2>
-         <h2 className='font-semibold px-10 py-4 text-xl'>Contact</h2>
-         <h2 className='font-semibold px-10 py-4 text-xl'>Address </h2>
-         <h2 className='font-semibold px-10 py-4 text-xl'>City  </h2>
-         <h2 className='font-semibold px-10 py-4 text-xl'>Pincode </h2>
-         <h2 className='font-semibold px-10 py-4 text-xl '>State </h2>
-         </div>
-         <div className='flex flex-col mt-16 p-4  rounded-lg space-y-3  w-96 '>
-         <div className='bg-red-800 bg-opacity-10 px-10 py-4 rounded-md text-xl'> {agencyData.agencyType}</div>
-         <div className='bg-red-800 bg-opacity-10 px-10 py-4 rounded-md text-xl'> {agencyData.areaOfExpertise}</div>
-         <div className='bg-red-800 bg-opacity-10 px-10 py-4 rounded-md text-xl'> {agencyData.agencyConatct}</div>
-         <div className='bg-red-800 bg-opacity-10 px-10 py-4 rounded-md text-xl'> {agencyData.completeAddress}</div>
-         <div className='bg-red-800 bg-opacity-10 px-10 py-4 rounded-md text-xl'> {agencyData.city}</div>
-         <div className='bg-red-800 bg-opacity-10 px-10 py-4 rounded-md text-xl'> {agencyData.pincode}</div>
-         <div className='bg-red-800 bg-opacity-10 px-10 py-4 rounded-md text-xl'> {agencyData.state}</div>
-        </div>
-        <div className='p-4 bg-red-800 bg-opacity-10 mt-16 ml-72 rounded-lg'>
-          <h2 className='font-semibold text-3xl  text-center '>Agency Certificate</h2>
-        <img src={agencyData.agencyCertificateUrl}/>
-         </div>
-         </div>
+               <div>
+                <p className='text-lg lg:pt-4 lg:px-3 text-center text-gray-100'>Emergency Numbers .</p>
+                </div>
+                <div className='lg:pt-20 pb-10'>
+                 
+                </div> 
+            </div>
+
+
          </div>
 
          
 
-        </div>
+       
       )}
 
     </div>
