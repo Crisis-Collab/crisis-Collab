@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
     "firebase": "^10.9.0",
     "flowbite-react": "^0.7.3",
+    "leaflet": "^1.9.4",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "otp-input-react": "^0.3.0",
