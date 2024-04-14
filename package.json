@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-google-maps/api": "^2.19.3",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
     "firebase": "^10.9.0",
