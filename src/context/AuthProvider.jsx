@@ -10,21 +10,18 @@ export function AuthProvider ({children}) {
     const [loading,setLoading]= useState(true);
    
 
-    const setUpRecaptcha= async (phoneNumber) =>{
+    const setUpRecaptcha = async (phoneNumber) => {
       const recaptchaVerifier = new RecaptchaVerifier(
-          auth,
+        auth,
         "recaptcha-container",
         {}
-        
       );
       // timeout: 5000,
       recaptchaVerifier.render();
-      if (!phoneNumber.startsWith("+91")) {
-        phoneNumber = "+91" + phoneNumber;
-      }
-      return signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
     
-    }
+      return signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
+    };
+    
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
