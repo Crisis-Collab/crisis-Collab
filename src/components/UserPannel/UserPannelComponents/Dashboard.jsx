@@ -278,7 +278,7 @@ const Dashboard = () => {
           </ul>
         </div>
       )}
-      <div ref={mapRef} style={{ height: '400px' }} />
+      {/* <div ref={mapRef} style={{ height: '400px' }} /> */}
     </div>
   );
 };

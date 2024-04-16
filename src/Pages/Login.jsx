@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import loginLogo from "../assets/log2.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../firebase/firebase.config";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase/firebase.config";
 import { Modal } from "flowbite-react";
 import Navbar from "../Common/Navbar";
+import { getAuth } from "firebase/auth";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -16,24 +17,68 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const requestOtp = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (phoneNumber === "" || phoneNumber === undefined)
-      return console.log("Please enter a valid phone number!");
-    try {
-      const response = await setUpRecaptcha(phoneNumber);
-      setResult(response);
-      setIsOtpRequested(true);
-
+  
+    // Ensure phoneNumber has +91 prefix if missing
+    const formattedPhoneNumber = phoneNumber.startsWith('+91') ? phoneNumber : `+91${phoneNumber}`;
+  
+    if (phoneNumber === "" || phoneNumber === undefined) {
+      console.log("Please enter a valid phone number!");
       setLoading(false);
+      return;
+    }
+  
+    try {
+      const usersRef = collection(db, "users");
+  
+      const citizenQuery = query(usersRef, where("phoneNumber", "in", [phoneNumber, formattedPhoneNumber]));
+      const citizenSnapshot = await getDocs(citizenQuery);
+  
+      if (!citizenSnapshot.empty) {
+        const citizenData = citizenSnapshot.docs[0].data();
+        if (citizenData.userType === "citizen" && (citizenData.phoneNumber === formattedPhoneNumber || citizenData.phoneNumber === phoneNumber)) {
+          setResult(await setUpRecaptcha(formattedPhoneNumber));
+          setIsOtpRequested(true);
+          return;
+        } else if (citizenData.userType === "citizen" && (citizenData.phoneNumber === formattedPhoneNumberWithPlus || citizenData.phoneNumber === phoneNumberWithPlus)) {
+          setResult(await setUpRecaptcha(phoneNumber)); 
+          setIsOtpRequested(true);
+          return;
+        }
+      }
+  
+      const agencyAdminQuery = query(usersRef, where("agencyConatct", "in", [phoneNumber, formattedPhoneNumber]), where("agencyAdminPhoneNumber", "in", [phoneNumber, formattedPhoneNumber]));
+      const agencyAdminSnapshot = await getDocs(agencyAdminQuery);
+  
+      if (!agencyAdminSnapshot.empty) {
+        const adminData = agencyAdminSnapshot.docs[0].data();
+        if (adminData.userType === "agency-admin" && (adminData.agencyConatct === formattedPhoneNumber || adminData.agencyAdminPhoneNumber === formattedPhoneNumber || adminData.agencyConatct === phoneNumber || adminData.agencyAdminPhoneNumber === phoneNumber)) {
+          setResult(await setUpRecaptcha(formattedPhoneNumber));
+          setIsOtpRequested(true);
+          return;
+        }
+        else if (adminData.userType === "agency-admin" && (adminData.agencyConatct === formattedPhoneNumber || adminData.agencyAdminPhoneNumber === formattedPhoneNumber || adminData.agencyConatct === phoneNumber || adminData.agencyAdminPhoneNumber === phoneNumber)) {
+          setResult(await setUpRecaptcha(phoneNumber));
+          setIsOtpRequested(true);
+          return;
+        }
+      } else {
+        console.log("No agency admin user found.");
+      }
+  
+      alert("User not found. Please sign up using the App");
     } catch (error) {
-      console.error("Error signing in with phonenumber", error);
+      console.error("Error requesting OTP:", error);
+      alert("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   const verifyOtp = async (e) => {
     e.preventDefault();
@@ -52,27 +97,6 @@ const Login = () => {
         const userData = userSnap.data();
         // console.log(`User DATA PROVIDED : ${JSON.stringify(userData)}`);
         try {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
           navigate("/userpannel");
         } catch (error) {
           console.error("Invalid user type");
@@ -127,14 +151,19 @@ const Login = () => {
                   {" "}
                   <div className="text-black">Enter your Phone Number</div>
                 </div>
+
                 <div className="  flex items-center justify-center">
-                  <input
-                    placeholder="XXXXXXXXXX"
-                    value={phoneNumber}
-                    className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
+                  <div className="flex items-center justify-center">
+                    <span className="text-gray-500 mr-2">+91</span>
+                    <input
+                      placeholder="XXXXXXXXXX"
+                      value={phoneNumber}
+                      className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
                 </div>
+
                 <div className="mt-4" id="recaptcha-container"></div>
 
                 <div className="flex pt-6 items-center justify-center">
@@ -142,7 +171,7 @@ const Login = () => {
                     onClick={requestOtp}
                     type="submit"
                     className="bg-red-700 text-white font-medium px-4 py-2  rounded-md hover:bg-red-900"
-                    // disabled={loading}
+                  // disabled={loading}
                   >
                     {/* {loading && (
                     <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50">
