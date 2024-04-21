@@ -20,6 +20,11 @@ import Employees from "../components/UserPannel/UserPannelComponents/Employees.j
 import Sos from "../components/UserPannel/UserPannelComponents/Sos.jsx";
 import Admin from "../Pages/Admin.jsx";
 import AdminLogin from "../Pages/AdminLogin.jsx";
+import AdminLayout from "../Pages/Dashbord/AdminLayout.jsx";
+import AdminEmployee from "../components/AdminPanel/AdminPanelComponent/AdminEmployee.jsx";
+import AdminAgency from "../components/AdminPanel/AdminPanelComponent/AdminAgency.jsx";
+import AdminDashboard from "../components/AdminPanel/AdminPanelComponent/AdminDashboard.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -55,11 +60,11 @@ const router = createBrowserRouter([
     element:<Login/>
   } ,
   {
-    path:'/adminLogin',
+    path:'/admin-login',
     element:<AdminLogin/>
   },
  {
-  path:'/userpannel',
+  path:'/userpannel/',
   element:<DashboardLayout/>,
   children:[
     {
@@ -67,7 +72,8 @@ const router = createBrowserRouter([
       element:<AgencyProfile/>
     },{
        path:'/userpannel/dashboard',
-       element:<Dashboard/>
+       element:<Dashboard/>,
+      
     },
     {
       path:'/userpannel/weather',
@@ -98,7 +104,26 @@ const router = createBrowserRouter([
     }
    
   ]
+
  },
+ {
+  path:'/admin',
+  element:<AdminLayout/>,
+  children:[
+    {
+      path:'/admin/employee',
+      element:<AdminEmployee/>
+    },
+    {
+      path:'/admin/agency',
+      element:<AdminAgency/>
+    },
+    {
+      path:'/admin/dashboard',
+      element:<AdminDashboard/>
+    }
+  ]
+ }
 
 ]);
 

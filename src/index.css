@@ -22,3 +22,7 @@ html,body{
     background-image: url(".../../assets/Eimg.jpg");
     background-repeat: no-repeat; 
 }
+.dashBG{
+    background-image: url(".../../assets/map3.jpg");
+    background-repeat: no-repeat;
+}

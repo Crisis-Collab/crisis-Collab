@@ -35,7 +35,7 @@ const AgencyProfile = () => {
   
   
   return (
-    <div className=' relative pb-8 pt-2 font-abc '>
+    <div className='  relative pb-8 pt-2 font-abc '>
       {loading && (
         <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
@@ -43,14 +43,18 @@ const AgencyProfile = () => {
       )}
 
       {!loading && agencyData && (
-        <div className='flex  space-x-2 items-start justify-between'>
-         <div>
-          <div className='flex flex-col w-full  rounded-lg space-y-4'>
-            <div className='  lg:p-8 bg-zinc-900  rounded-lg shadow-2xl  '>
+        <div className='flex  space-x-4    items-start justify-between'>
+         <div className='w-full'>
+         <div className='  flex justify-end space-x-2'>
+                <h2 className='font-semibold text-red-500  text-sm'>Latitude- {agencyData.latitude}</h2>
+                <h2 className='font-semibold  text-red-500 text-sm'>Longitude- {agencyData.longitude}</h2>
+                </div>
+          <div className='flex flex-col   rounded-lg space-y-4'>
+            <div className='  lg:p-8 bg-zinc-900 backdrop-filter backdrop-blur-lg rounded-lg shadow-2xl  '>
               <div className='text-4xl font-semibold text-center text-red-600'>{agencyData.agencyName}</div>
               <div className='font-semibold text-center text-gray-100 lg:pt-4'>{agencyData.agencyType},</div>
               <div className='font-semibold text-center text-gray-100'>{agencyData.city}</div>
-              <div className='flex lg:pt-7 space-x-6'>
+              <div className='flex lg:pt-7 item-center justify-center lg:space-x-9'>
                 <div className='bg-gray-100 px-4 py-2 rounded-lg '>
                 <div className='font-semibold text-center text-black '>Agency Contact </div>
                 <div className='font-semibold text-center text-black'>{agencyData.agencyAdminPhoneNumber}</div>
@@ -75,14 +79,12 @@ const AgencyProfile = () => {
             
           </div>
          </div>
-         <div className='lg:p-2 bg-zinc-900  rounded-lg w-full shadow-2xl'>
-              <div className='  flex justify-end space-x-2'>
-                <h2 className='font-semibold text-red-500  text-sm'>Latitude- {agencyData.latitude}</h2>
-                <h2 className='font-semibold  text-red-500 text-sm'>Longitude- {agencyData.longitude}</h2>
-                </div>
+         <div className='lg:p-4 bg-zinc-900  rounded-lg  shadow-2xl'>
+             
 
-               <div>
-                <p className='text-lg lg:pt-4 lg:px-3 text-center text-gray-100'>Emergency Numbers .</p>
+               <div className='flex flex-col items-center'>
+                <p className='text-lg lg:pt-4  text-center text-gray-100'>Certificate</p>
+                <img src={agencyData.agencyCertificateUrl}/>
                 </div>
                 <div className='lg:pt-20 pb-10'>
                  
