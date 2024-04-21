@@ -5,6 +5,7 @@ import './App.css'
 import Navbar from './Common/Navbar.jsx'
 import Footer from './Common/Footer.jsx'
 import { Outlet } from 'react-router-dom'
+import AdminLayout from './Pages/Dashbord/AdminLayout.jsx'
 
 
 
@@ -22,6 +23,7 @@ function App() {
    </div>
    <Footer/>
   {/* <CitizenDasboard/> */}
+  {/* <AdminLayout/> */}
 
     </>
   )

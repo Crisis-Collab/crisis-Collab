@@ -115,14 +115,14 @@ const Employees = () => {
           <div className='w-1/2'>
             {employeeData.map((employee) => (
               <div key={employee.uid} className=''>
-                <div className='rounded-lg shadow-lg my-6 p-4 bg-zinc-900  backdrop-blur-lg '>
+                <div className='rounded-lg shadow-lg my-6 p-4  backdrop-blur-lg '>
                 <div className='flex items-center justify-between'>
                   <div className='flex'>
                   <div className='rounded-full w-10 h-10 border  border-black'>
                   <img src={employee.profileUrl} className='rounded-full' alt="Profile" /> 
                   </div>
                <div className='items-start'>
-                <h3 className='font-semibold text-white text-xl pl-4'>{employee.name}</h3>
+                <h3 className='font-semibold text-black text-xl pl-4'>{employee.name}</h3>
                 <p className='text-lg font-medium text-red-600 pl-4 '>Work Profile: {employee.workProfile}</p>
                 </div>
                 </div>
@@ -133,7 +133,7 @@ const Employees = () => {
                   
                 
                   {!loading && showMoreInfo[employee.uid] && ( // Conditionally render more info
-                    <div className='p-4  text-white space-y-4  '>
+                    <div className='p-4  text-black space-y-4  '>
                         
                       <p className='font-semiold'>Aadhar Number: {employee.aadharNumber}</p>
                       <p>Full Address: {employee.fullAddress}</p>
@@ -162,7 +162,7 @@ const Employees = () => {
           <div className='flex  items-start justify-center space-x-5 lg:pt-7'>
           <div className='bg-red-600 px-4 py-2 rounded-lg font-bold  text-2xl'>
             <h1>Total Number of Employees</h1>
-              <h2 className='font-bold text-white text-5xl  text-center'>50+</h2>
+              <h2 className='font-bold text-white text-5xl  text-center'></h2>
           </div>
           <div className='bg-red-600 px-2 py-2 rounded-lg font-bold  text-2xl'>
             <h1>Total Number of Employees</h1>

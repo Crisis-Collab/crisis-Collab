@@ -97,7 +97,7 @@ const Login = () => {
         const userData = userSnap.data();
         // console.log(`User DATA PROVIDED : ${JSON.stringify(userData)}`);
         try {
-          navigate("/userpannel");
+          navigate("/userpannel/dashboard");
         } catch (error) {
           console.error("Invalid user type");
         }
@@ -168,6 +168,7 @@ const Login = () => {
 
                 <div className="flex pt-6 items-center justify-center">
                   <button
+                   disabled={loading}
                     onClick={requestOtp}
                     type="submit"
                     className="bg-red-700 text-white font-medium px-4 py-2  rounded-md hover:bg-red-900"
