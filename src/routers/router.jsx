@@ -24,7 +24,7 @@ import AdminLayout from "../Pages/Dashbord/AdminLayout.jsx";
 import AdminEmployee from "../components/AdminPanel/AdminPanelComponent/AdminEmployee.jsx";
 import AdminAgency from "../components/AdminPanel/AdminPanelComponent/AdminAgency.jsx";
 import AdminDashboard from "../components/AdminPanel/AdminPanelComponent/AdminDashboard.jsx";
-import AgencyMoreInfo from "../components/UserPannel/UserPannelComponents/AgencyMoreInfo.jsx";
+
 
 const router = createBrowserRouter([
   {
