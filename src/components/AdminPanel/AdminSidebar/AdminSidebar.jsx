@@ -3,17 +3,19 @@ import Logo from "../../../assets/LOGO2.png";
 import AdminSidebarData from '../../../Data/AdminSidebarData';
 import { Link,useLocation } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
+import { auth } from '../../../firebase/firebase.config';
 
 const AdminSidebar = () => {
     const defaultPath = "/admin/dashboard";
     const [activePath, setActivePath] = useState(defaultPath);
     const location = useLocation();
     const [openModal, setOpenModal] = useState(false);
+ 
 
     const handleLogout=()=>{
       auth.signOut().then(()=>{
       
-        navigate('/');
+        navigate('/admin-login');
         console.log("Logout Successfull");
         console.log(auth);
       })
