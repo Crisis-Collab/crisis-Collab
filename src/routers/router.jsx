@@ -21,9 +21,10 @@ import Sos from "../components/UserPannel/UserPannelComponents/Sos.jsx";
 import Admin from "../Pages/Admin.jsx";
 import AdminLogin from "../Pages/AdminLogin.jsx";
 import AdminLayout from "../Pages/Dashbord/AdminLayout.jsx";
-import AdminEmployee from "../components/AdminPanel/AdminPanelComponent/AdminEmployee.jsx";
+import AdminCitizen from "../components/AdminPanel/AdminPanelComponent/AdminCitizen.jsx";
 import AdminAgency from "../components/AdminPanel/AdminPanelComponent/AdminAgency.jsx";
 import AdminDashboard from "../components/AdminPanel/AdminPanelComponent/AdminDashboard.jsx";
+import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
 
 
 const router = createBrowserRouter([
@@ -66,6 +67,9 @@ const router = createBrowserRouter([
  {
   path:'/userpannel/',
   element:<DashboardLayout/>,
+//   element: <PrivateRoute>
+//   <DashboardLayout/>
+// </PrivateRoute>,
   children:[
     {
       path:'/userpannel/agency-profile',
@@ -108,11 +112,14 @@ const router = createBrowserRouter([
  },
  {
   path:'/admin',
-  element:<AdminLayout/>,
+  // element:<AdminLayout/>,
+  element: <PrivateRoute role="admin" adminOnly>
+  <AdminLayout/>
+</PrivateRoute>,
   children:[
     {
       path:'/admin/citizen',
-      element:<AdminEmployee/>
+      element:<AdminCitizen/>
     },
     {
       path:'/admin/agency',

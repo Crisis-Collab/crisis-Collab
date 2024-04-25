@@ -11,32 +11,29 @@ import {
 } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import EditAgencyForm from "./EditAgencyForm"; 
 
-const AdminAgency = () => {
+const AdminCitizen = () => {
   const auth = getAuth();
-  const [agencies, setAgencies] = useState([]);
+  const [citizens, setCitizens] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showEditForm, setShowEditForm] = useState(false); 
-  const [selectedAgency, setSelectedAgency] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const agenciesCollectionRef = collection(db, "users");
-        const q = query(agenciesCollectionRef, where("userType", "==", "agency-admin"));
+        const citizensCollectionRef = collection(db, "users");
+        const q = query(citizensCollectionRef, where("userType", "==", "citizen"));
         const querySnapshot = await getDocs(q);
-        const agenciesData = [];
+        const citizensData = [];
         querySnapshot.forEach((doc) => {
-          agenciesData.push({ id: doc.id, ...doc.data() });
+          citizensData.push({ id: doc.id, ...doc.data() });
         });
-        setAgencies(agenciesData);
+        setCitizens(citizensData);
       } catch (error) {
         console.error("Error fetching agencies: ", error);
-      } finally {
+      }finally {
         setTimeout(() => {
-          setLoading(false);
+          setLoading(false); 
         }, 300);
       }
     };
@@ -47,26 +44,18 @@ const AdminAgency = () => {
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, "users", id));
-      setAgencies(agencies.filter((agency) => agency.id !== id));
+      setCitizens(citizens.filter((citizen) => citizen.id !== id));
       console.log("Agency deleted successfully!");
     } catch (error) {
       console.error("Error deleting agency: ", error);
     }
   };
 
-  const handleEdit = (agency) => {
-    setSelectedAgency(agency); 
-    setShowEditForm(true); 
-  };
-
-  const handleCloseEditForm = () => {
-    setShowEditForm(false); 
-    setSelectedAgency(null); 
-  };
-
-  const filteredAgencies = agencies.filter((agency) =>
-    agency.agencyName.toLowerCase().includes(searchQuery.toLowerCase())
+ 
+  const filteredCitizens = citizens.filter((citizen) =>
+    citizen.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
 
   return (
     <div className="p-4">
@@ -75,25 +64,20 @@ const AdminAgency = () => {
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
         </div>
       )}
+
       <div className='bg-zinc-600 bg-opacity-25 p-16'>
-        <h1 className='text-center text-3xl font-semibold'>Total Number of Agencies : {agencies.length}</h1>
+        <h1 className='text-center text-3xl font-semibold'>Total Number of Citizens : {citizens.length}</h1>
       </div>
-      <div className=' mt-5'>
-        {showEditForm && selectedAgency && (
-          <EditAgencyForm
-            agency={selectedAgency}
-            handleCloseEditForm={handleCloseEditForm}
-          />
-        )}
+      <div className=' mt-5'> 
         <div className=' p-2 text-center mb-2 space-x-2 flex items-center justify-center'>
-          <input
-            type='text'
-            placeholder='Search by Agency Name'
+          <input 
+            type='text' 
+            placeholder='Search by Citizen Name' 
             className='lg:w-6/12  w-full  py-2 pl-3 border focus:outline-none '
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className='bg-red-600 rounded-sm text-white cursor-pointer  px-8 py-2 font-semibold'>Search</button>
+          <button  className='bg-red-600 rounded-sm text-white cursor-pointer  px-8 py-2 font-semibold'>Search</button>
         </div>
         <section className="py-1">
           <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
@@ -101,7 +85,7 @@ const AdminAgency = () => {
               <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                    <h3 className="font-semibold text-base text-white text-blueGray-700">All Agencies</h3>
+                    <h3 className="font-semibold text-base text-white text-blueGray-700">All Citizens</h3>
                   </div>
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
@@ -114,13 +98,13 @@ const AdminAgency = () => {
                   <thead>
                     <tr>
                       <th className="px-6 bg-blueGray-50 text-red-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Agency name
+                        Citizen Name
                       </th>
                       <th className="px-6 bg-blueGray-50 text-red-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Location
                       </th>
                       <th className="px-6 bg-blueGray-50 text-red-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Department
+                        City
                       </th>
                       <th className="px-6 bg-blueGray-50 text-red-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Edit
@@ -132,20 +116,19 @@ const AdminAgency = () => {
                   </thead>
 
                   <tbody>
-                    {!loading && filteredAgencies.map((agency, index) => (
+                    {!loading && filteredCitizens.map((citizen, index) => (
                       <tr key={index}>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                          {agency.agencyName}
+                          {citizen.name}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          {agency.completeAddress}
+                          {citizen.completeAddress}
                         </td>
-                        <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          {agency.agencyType}
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          {citizen.city}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           <button
-                            onClick={() => handleEdit(agency)}
                             className="bg-yellow-500 text-white active:bg-yellow-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
                           >
@@ -154,7 +137,7 @@ const AdminAgency = () => {
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           <button
-                            onClick={() => handleDelete(agency.id)}
+                            onClick={() => handleDelete(citizen.id)}
                             className="bg-red-500 text-white active:bg-red-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
                           >
@@ -174,4 +157,4 @@ const AdminAgency = () => {
   );
 };
 
-export default AdminAgency;
+export default AdminCitizen;
