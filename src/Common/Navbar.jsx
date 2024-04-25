@@ -62,7 +62,7 @@ const Navbar = () => {
  
 
   return (
-    <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 max-w-screen-2xl container     ">
+    <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 max-w-screen-2xl container  px-4   ">
       <nav
         className={`pt-4 pb-2  ${
           isSticky
@@ -72,7 +72,7 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between container">
           <Link to="/">
-            <div className="flex items-center pl-8">
+            <div className="flex items-center ">
               <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
               <span className="text-red-600 text-2xl font-medium">Crisis</span>
               <span className="text-red-500 font-semibold pt-2"> collab</span>
@@ -93,8 +93,8 @@ const Navbar = () => {
           <div className=" hidden lg:block">
          
           <Link to="/login">
-              <button className="bg-red-600 rounded-3xl text-white  py-2   hover:bg-red-900  font-bold  px-4   hover:shadow-lg transform transition-transform hover:translate-y-1 focus:outline-none ">
-                <span className="text-white font-semibold"> Log in </span>
+              <button className="bg-red-600 rounded-3xl    hover:bg-red-900   text-white    text-xs font-bold uppercase px-8 py-3  outline-none focus:outline-none mr-1 mb-1 ease-linear duration-150     hover:shadow-lg transform transition-transform hover:translate-y-1  ">
+               Log in
               </button>
             </Link>
            

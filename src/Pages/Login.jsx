@@ -171,7 +171,7 @@ const Login = () => {
                    disabled={loading}
                     onClick={requestOtp}
                     type="submit"
-                    className="bg-red-700 text-white font-medium px-4 py-2  rounded-md hover:bg-red-900"
+                    className="bg-red-700 text-white    text-sm font-semibold px-8 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-red-900"
                   // disabled={loading}
                   >
                     {/* {loading && (

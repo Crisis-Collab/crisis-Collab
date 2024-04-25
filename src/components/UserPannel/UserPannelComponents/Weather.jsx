@@ -117,7 +117,7 @@ const Weather = () => {
       )}
       <h2 className='text-xl font-semibold mb-2'>Current Forecast</h2>
       {weather ? (
-      <div className='bg-gray-300 shadow-lg rounded-xl m-auto relative px-6 top-[10%] '>
+      <div className='bg-zinc-400 bg-opacity-25 shadow-lg rounded-xl m-auto relative px-6 top-[10%] '>
         <div className=''>
           <div className='flex justify-between w-full'>
             <div className='w-1/2 my-4 mx-auto flex justify-between items-center'>
@@ -211,13 +211,13 @@ const Weather = () => {
                 <button
                   key={index}
                   onClick={() => handleDaySelection(index)}
-                  className={`px-4 py-2 rounded-lg shadow-md ${index === selectedDayIndex ? 'bg-gray-300' : 'bg-gray-200'}`}
+                  className={`px-4 py-2 rounded-lg shadow-md ${index === selectedDayIndex ? 'bg-zinc-400 bg-opacity-25' : 'bg-zinc-300 bg-opacity-25'}`}
                 >
                   {new Date(forecast.dt * 1000).toLocaleDateString()}
                 </button>
               ))}
             </div>
-            <div className='bg-gray-200 p-4 rounded-lg shadow-md flex flex-col items-center my-4'>
+            <div className='bg-zinc-400 bg-opacity-25 p-4 rounded-lg shadow-md flex flex-col items-center my-4'>
               <div className='flex justify-between w-full'>
                 <div className='w-1/3 my-4 mx-auto flex flex-col justify-between items-center'>
                   <div className='flex flex-col items-start justify-between h-full'>
@@ -314,7 +314,7 @@ const Weather = () => {
           return forecastDate.getDate() === selectedDay.getDate();
         })
         .map((forecast, index) => (
-          <div key={index} className='bg-gray-200 p-4 rounded-lg shadow-md flex flex-col items-center'>
+          <div key={index} className='bg-zinc-400 bg-opacity-25 p-4 rounded-lg shadow-md flex flex-col items-center'>
             <p>{new Date(forecast.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
             <img
               src={`http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`}

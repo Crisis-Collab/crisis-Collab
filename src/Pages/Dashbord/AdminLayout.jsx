@@ -13,7 +13,7 @@ const AdminLayout = () => {
       
         {/* Outlet */}
         
-        <div>
+        <div className='bg-zinc-800 w-5/6'>
           <Outlet/>
         </div>
      

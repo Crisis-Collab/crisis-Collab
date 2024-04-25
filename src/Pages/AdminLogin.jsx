@@ -15,7 +15,7 @@ function AdminLogin() {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password)
       localStorage.setItem('user', JSON.stringify(result));
-      window.location.href = '/admin'
+      window.location.href = '/admin/dashboard'
       setLoading(false);
     } catch (error) {
       setLoading(false);
