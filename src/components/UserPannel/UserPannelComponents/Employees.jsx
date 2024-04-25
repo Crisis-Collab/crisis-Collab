@@ -106,16 +106,16 @@ const Employees = () => {
           {/* <div className='fixed top-0 right-0 left-0'>
           <img src={Emp} className=''/> 
           </div> */}
-          <div className='text-5xl font-semibold text-center '>
+          <div className=' bg-zinc-400 bg-opacity-25 p-16  '>
             
-            <h1>Employees Work here -</h1>
+            <h1 className='text-5xl font-semibold text-center'>Employees Work here -</h1>
           </div>
    <div className='flex space-x-5'>
           
           <div className='w-1/2'>
             {employeeData.map((employee) => (
               <div key={employee.uid} className=''>
-                <div className='rounded-lg shadow-lg my-6 p-4  backdrop-blur-lg '>
+                <div className='rounded-lg bg-gray-600 bg-opacity-25 shadow-lg my-6 p-4  backdrop-blur-lg '>
                 <div className='flex items-center justify-between'>
                   <div className='flex'>
                   <div className='rounded-full w-10 h-10 border  border-black'>
@@ -126,7 +126,7 @@ const Employees = () => {
                 <p className='text-lg font-medium text-red-600 pl-4 '>Work Profile: {employee.workProfile}</p>
                 </div>
                 </div>
-                <button onClick={() => { fetchMoreInfo(employee.uid); }} className='bg-red-600  px-4 py-2 rounded-lg mt-4 font-semibold hover:bg-red-800  shadow-md'>More Info</button>
+                <button onClick={() => { fetchMoreInfo(employee.uid); }} className='bg-red-600 bg-opacity-25 text-gray-100  px-4 py-2 rounded-lg mt-4  hover:bg-red-800  shadow-md'>More Info</button>
 
                 </div>
                  

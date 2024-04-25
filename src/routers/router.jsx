@@ -111,7 +111,7 @@ const router = createBrowserRouter([
   element:<AdminLayout/>,
   children:[
     {
-      path:'/admin/employee',
+      path:'/admin/citizen',
       element:<AdminEmployee/>
     },
     {
