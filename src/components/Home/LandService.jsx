@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import img3 from "../../assets/img1.jpg";
 import img4 from "../../assets/img3.jpeg";
@@ -11,9 +12,9 @@ const LandService = () => {
     AOS.init({ duration: "1000" });
   }, []);
   return (
-    <div className="flex flex-col md:flex-row mx-auto container h-screen bg-white">
+    <div className="flex flex-col md:flex-row mx-auto container bg-white">
       {/* Left side with three images */}
-      <div className="w-1/2 p-24 ">
+      <div className="md:w-1/2 p-4 md:p-24">
         {/* First image in a column */}
         <img
           src={img3}
@@ -23,28 +24,28 @@ const LandService = () => {
         />
 
         {/* Second and third images in a row */}
-        <div className="flex">
+        <div className="flex flex-nowrap">
           <img
             src={img4}
             alt="Image 2"
-            className="w-1/2 h-auto mr-2 shadow-2xl rounded-xl"
+            className="w-1/2 md:w-auto h-[189px] mb-2 md:mr-2 shadow-2xl rounded-xl"
             data-aos="fade-right"
           />
           <img
             src={img5}
             alt="Image 3"
-            className="w-1/2 h-auto ml-2 m-6 shadow-2xl rounded-xl"
+            className="w-1/2 md:w-auto h-[189px] ml-2 md:ml-6 shadow-2xl rounded-xl"
             data-aos="fade-left"
           />
         </div>
       </div>
 
       {/* Right side with content */}
-      <div className="w-1/2 bg-white p-8">
+      <div className="md:w-1/2 bg-white p-4 md:p-8">
         {/* Content for the right side goes here */}
-        <h6 className="text-gray-400 pb-8">Welcome to Crisi Collab ---</h6>
-        <h1 className="text-6xl font-semibold mb-4 "> Our Services</h1>
-        <p className="text-base text-gray-600 pt-12 ">
+        <h6 className="text-gray-400 pb-4 md:pb-8">Welcome to Crisis Collab ---</h6>
+        <h1 className="text-4xl md:text-6xl font-semibold mb-4 "> Our Services</h1>
+        <p className="text-base md:text-lg text-gray-600 pt-4 md:pt-12">
           At Crisis Collab, we are committed to providing comprehensive and
           effective solutions for rescue relief agencies worldwide. Our range of
           services is designed to empower agencies, enhance collaboration, and
@@ -52,21 +53,21 @@ const LandService = () => {
         </p>
 
         {/* Card Template  */}
-        <div className="mt-6 flex space-x-6">
-          <div className=" transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 ...  p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+        <div className="mt-6 md:mt-8 grid md:grid-cols-2 gap-4">
+          <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-red-600 dark:text-white">
+              <h5 className="mb-2 text-lg md:text-2xl font-bold tracking-tight text-red-600 dark:text-white">
                 Global Coordination
               </h5>
             </a>
-            <p className="mb-1 font-normal text-cyan-950 dark:text-gray-400">
+            <p className="mb-1 md:mb-3 font-normal text-cyan-950 dark:text-gray-400">
               In times of crisis, coordination is key. We facilitate seamless
               global collaboration among rescue relief agencies, ensuring a
               swift and unified response to emergencies.{" "}
             </p>
             <a
               href="/service"
-              className=" mt-8 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-950 focus:ring-4 focus:outline-none  "
+              className="mt-4 md:mt-8 inline-flex items-center px-3 py-2 text-sm md:text-base font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-950 focus:ring-4 focus:outline-none"
             >
               Read more
               <svg
@@ -86,20 +87,20 @@ const LandService = () => {
               </svg>
             </a>
           </div>
-          <div className=" transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 ...  p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+          <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:shadow-2xl duration-300 p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-red-600 dark:text-white">
+              <h5 className="mb-2 text-lg md:text-2xl font-bold tracking-tight text-red-600 dark:text-white">
                 Resource Sharing
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 md:mb-4 font-normal text-gray-700 dark:text-gray-400">
               Access to vital resources is critical for effective relief
               operations. We enable rescue agencies to share and pool resources
               such as equipment, personnel, and expertise.{" "}
             </p>
             <a
               href="/service"
-              className="inline-flex items-center px-3 py-2 mt-6 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-950  "
+              className="inline-flex items-center px-3 py-2 mt-4 md:mt-6 text-sm md:text-base font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-950"
             >
               Read more
               <svg

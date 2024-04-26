@@ -11,13 +11,13 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isClicked,setIsClicked] =useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const navigate = useNavigate();
   const handelMenuToggler = () => {
     setIsMenuOpen(!isMenuOpen);
   };
- 
+
 
 
   const getUser = async () => {
@@ -59,18 +59,17 @@ const Navbar = () => {
     { link: "Connect", path: "/#connect" },
   ];
 
- 
+
 
   return (
-    <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 max-w-screen-2xl container     ">
+    <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 max-w-screen-2xl container max-sm-645     ">
       <nav
-        className={`pt-4 pb-2  ${
-          isSticky
-            ? "sticky top-0 left-0 right-0 bg-transparent  backdrop-blur-sm  text-blue-900"
-            : ""
-        }`}
+        className={`pt-4 pb-2  ${isSticky
+          ? "sticky top-0 left-0 right-0 bg-transparent  backdrop-blur-sm  text-blue-900"
+          : ""
+          }`}
       >
-        <div className="flex items-center justify-between container">
+        <div className="flex items-center justify-between container sm:w-640 ">
           <Link to="/">
             <div className="flex items-center pl-8">
               <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
@@ -79,25 +78,25 @@ const Navbar = () => {
             </div>
           </Link>
           <ul className="md:flex space-x-10 font-medium ml-42 text-base font-itim hidden">
-           
-              {navItems.map(({ link, path }) => (
-                  <a
-                    key={path}
-                    href={path}
-                    className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl"
-                  >
-                    {link}
-                  </a>
-                ))}
+
+            {navItems.map(({ link, path }) => (
+              <a
+                key={path}
+                href={path}
+                className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl"
+              >
+                {link}
+              </a>
+            ))}
           </ul>
           <div className=" hidden lg:block">
-         
-          <Link to="/login">
+
+            <Link to="/login">
               <button className="bg-red-600 rounded-3xl text-white  py-2   hover:bg-red-900  font-bold  px-4   hover:shadow-lg transform transition-transform hover:translate-y-1 focus:outline-none ">
                 <span className="text-white font-semibold"> Log in </span>
               </button>
             </Link>
-           
+
           </div>
           <div className="md:hidden block">
             <button onClick={handelMenuToggler}>
@@ -112,14 +111,13 @@ const Navbar = () => {
       </nav>
       {/* navItems for mobile */}
       <div
-        className={`px-4 bg-black  py-5 rounded-sm ${
-          isMenuOpen ? "" : "hidden"
-        }`}
+        className={`px-4 bg-black  py-5 rounded-sm ${isMenuOpen ? "" : "hidden"
+          }`}
       >
         <ul>
-       { navItems.map(({ link, path }) => (
-    <a key={path} href={path} className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl">{link}</a>
-  ))}
+          {navItems.map(({ link, path }) => (
+            <a key={path} href={path} className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl">{link}</a>
+          ))}
           <li className="text-white py-1">
             <Link to="/log-in">Log In</Link>
           </li>
