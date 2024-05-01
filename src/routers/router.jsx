@@ -25,6 +25,9 @@ import AdminCitizen from "../components/AdminPanel/AdminPanelComponent/AdminCiti
 import AdminAgency from "../components/AdminPanel/AdminPanelComponent/AdminAgency.jsx";
 import AdminDashboard from "../components/AdminPanel/AdminPanelComponent/AdminDashboard.jsx";
 import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
+import MoreInfo from "../components/UserPannel/UserPannelComponents/MoreInfo.jsx";
+import AgencyMoreInfo from "../components/UserPannel/UserPannelComponents/AgencyMoreInfo.jsx";
+
 
 
 const router = createBrowserRouter([
@@ -77,7 +80,12 @@ const router = createBrowserRouter([
     },{
        path:'/userpannel/dashboard',
        element:<Dashboard/>,
-      
+      children:[
+        {
+          path:'/userpannel/dashboard/:agencyId/more-info',
+          element:<AgencyMoreInfo/>,
+        }
+      ]
     },
     {
       path:'/userpannel/weather',
@@ -89,7 +97,14 @@ const router = createBrowserRouter([
     },
     {
       path:'/userpannel/employees',
-      element:<Employees/>
+      element:<Employees/>,
+      children:[
+        {
+          path:`/userpannel/employees/:employeeId/more-info`,
+          element:<MoreInfo/>,
+          
+        }
+      ]
     },
     {
       path:'/userpannel/help',

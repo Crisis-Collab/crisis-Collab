@@ -16,7 +16,7 @@ const Sidebar = ({ isOpen, handleDashboard }) => {
   }, [location]);
 
   return (
-    <div className="bg-white rounded-2xl  shadow-2xl h-screen  ">
+    <div className="bg-red-900 bg-opacity-10 mx-4 rounded-2xl  shadow-2xl h-screen  ">
       <div className="flex flex-col items-center justify-center ">
         <div className="p-4 ">
           <div className="flex items-center justify-start ">

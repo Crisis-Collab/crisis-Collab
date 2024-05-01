@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
 import Logo from "../../assets/LOGO2.png";
+import Avatar from "../../assets/ava.png";
 import Avatar from "../../assets/ava.png";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase.config";
 import search from "../../assets/search.png";
 import notify from "../../assets/notify.png";
-import down from "../../assets/down2.png";
-import up from "../../assets/up2.png";
+import down from "../../assets/down.png";
+import up from "../../assets/up.png";
 import { Modal } from "flowbite-react";
 import { Link } from "react-router-dom";
 
@@ -16,11 +17,14 @@ const AdminNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+   
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
     setIsClicked(!isClicked);
   };
+
+ 
 
   const getUser = async () => {
     try {
@@ -37,7 +41,10 @@ const AdminNavbar = () => {
     setLoading(true);
     getUser();
     setLoading(false);
+
   }, []);
+
+  
   return (
     <div className="bg-white  shadow-lg py-2   px-6   flex items-center justify-between  w-full relative">
       <div className="flex items-center justify-center pl-4">
@@ -72,6 +79,7 @@ const AdminNavbar = () => {
             <img
               src={Avatar} // Replace with your avatar image
               alt="Avatar"
+              className="w-10 h-10 rounded-full border-black border"
               className="w-10 h-10 rounded-full border-black border"
             />
             {/* Avatar */}
@@ -152,4 +160,3 @@ const AdminNavbar = () => {
 };
 
 export default AdminNavbar;
-

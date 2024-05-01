@@ -13,8 +13,11 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import redMarkerIcon from "../../../assets/marker-icon-red.png";
 import greenMarkerIcon from "../../../assets/marker-icon-green.png";
-import map from '../../../assets/mapgif.gif'
-
+import map from '../../../assets/mapgif.gif';
+import { IoCallSharp } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom'
+import AgencyMoreInfo from "./AgencyMoreInfo";
+import { FaLocationDot } from "react-icons/fa6";
 
 const redIcon = L.icon({
   iconUrl: redMarkerIcon,
@@ -41,6 +44,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState(null);
   const mapRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [AgencyPerPage] = useState(4);
+  const [selectedAgency, setSelectedAgency] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +60,6 @@ const Dashboard = () => {
           if (dataSnap.exists()) {
             const userData = dataSnap.data();
             setUserData(userData);
-            // console.log("User Type:", userData.userType);
             if (userData.userType) {
               setUserType(userData.userType);
             }
@@ -129,38 +136,14 @@ const Dashboard = () => {
     }));
   };
 
-  const handleMoreInfoClick = async (agencyId) => {
-    try {
-      const agencyRef = doc(db, "users", agencyId);
-      const agencySnap = await getDoc(agencyRef);
+  const handleMoreInfoClick = (agencyId) => {
+    setSelectedAgency(agencyId);
+    navigate(`/userpannel/dashboard/${agencyId}/more-info`);
+  };
 
-      if (agencySnap.exists()) {
-        const agencyData = agencySnap.data();
-
-        setOtherAgencies((prevState) => {
-          const updatedAgencies = prevState.map((agency) => {
-            if (agency.id === agencyId) {
-              return {
-                ...agency,
-                ...agencyData,
-              };
-            }
-            return agency;
-          });
-          return updatedAgencies;
-        });
-
-        setShowMoreInfo((prevState) => ({
-          ...prevState,
-          [agencyId]: !prevState[agencyId],
-        }));
-      } else {
-        console.log("Agency does not exist");
-      }
-    } catch (error) {
-      console.error("Error fetching agency details:", error);
-      setError("Error fetching agency's details. Please try again.");
-    }
+  const handleMoreInfoClickClose = () => {
+    setSelectedAgency(null);
+    navigate(`/userpannel/dashboard`);
   };
 
   useEffect(() => {
@@ -190,7 +173,6 @@ const Dashboard = () => {
             .bindPopup(`<b>${agency.agencyName}</b><br>Distance: ${distance}`);
         });
 
-        // Display the current user's location with green marker
         const markerIcon = greenIcon;
         const displayName =
           auth.currentUser.userType === "citizen"
@@ -199,10 +181,6 @@ const Dashboard = () => {
         L.marker([userData.latitude, userData.longitude], { icon: markerIcon })
           .addTo(map)
           .bindPopup(`<b>${displayName}</b><br>You are here`);
-
-        // // Fit the map to display all markers
-        // const bounds = otherAgencies.map(agency => [agency.latitude, agency.longitude]);
-        // map.fitBounds(bounds);
       } catch (error) {
         console.error("Error initializing map or adding markers:", error);
         setError("Error initializing map or adding markers. Please try again.");
@@ -217,7 +195,7 @@ const Dashboard = () => {
   }, [mapRef, otherAgencies, userData]);
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the Earth in kilometers
+    const R = 6371;
     const dLat = (lat2 - lat1) * (Math.PI / 180);
     const dLon = (lon2 - lon1) * (Math.PI / 180);
     const a =
@@ -227,12 +205,37 @@ const Dashboard = () => {
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c; // Distance in kilometers
+    const distance = R * c;
     if (distance < 1) {
       return (distance * 1000).toFixed(2) + " meters";
     }
 
     return distance.toFixed(2) + " kilometers";
+  };
+
+  const filteredItem = otherAgencies.filter((agency) =>
+    agency.agencyName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const indexOfLastAgency = currentPage * AgencyPerPage;
+  const indexOfFirstAgency = indexOfLastAgency - AgencyPerPage;
+  const currentAgency = filteredItem.slice(
+    indexOfFirstAgency,
+    indexOfLastAgency
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => {
+    if (currentPage < Math.ceil(filteredItem.length / AgencyPerPage)) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
   };
 
   return (
@@ -243,10 +246,10 @@ const Dashboard = () => {
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
-      
-      <div className="flex justify-between space-x-3 p-4">
-        <div className="w-full bg-zinc-900 h-screen text-white p-4">
+      {!loading && !selectedAgency && (
+        <div>
           <div>
+            
             {!loading && !error && userType === "citizen" && (
               <div>
                 <h2>Your Details</h2>
@@ -254,181 +257,129 @@ const Dashboard = () => {
               </div>
             )}
             {!loading && !error && userType === "agency-admin" && (
-            <div>
-              <div >
-                <p className="text-xl font-semibold text-center"> Current Agency Name: <span>{userData.agencyName} </span></p>
-                <p className="text-base font-semibold text-center text-gray-300"> Agency Dapartment: <span>{userData.agencyType}</span></p>
-              </div>
-               {!loading && !error && otherAgencies.length > 0 && (
-            <div className="pt-8">
-              <h2>Other Agencies near you </h2>
-              <div className="bg-gray-600 bg-opacity-25 p-4">
-              <ul>
-                {otherAgencies.map((agency) => (
-                  <li key={agency.id}>
-                    <p>Agency Name: {agency.agencyName}</p>
-                    <p>
-                      Distance:{" "}
-                      {calculateDistance(
-                        userData.latitude,
-                        userData.longitude,
-                        agency.latitude,
-                        agency.longitude
-                      )}
-                    </p>
-                    <div className="flex justify-between items-center ">
-                      <div>
-                    <button className="bg-red-600 bg-opacity-25 px-4 py-2 rounded-lg"
-                      onClick={() => {
-                        handleMoreInfoClick(agency.id);
-                      }}
-                    >
-                      More Info
-                    </button>{" "}
-                   
-                    {showMoreInfo[agency.id] && (
-                      <div>
-                        <h2>Agency Name: {agency.agencyName}</h2>
-                        <p>Agency Description: {agency.agencyDesc}</p>
-                        <p>Contact: {agency.agencyConatct}</p>
-                        <p>Address: {agency.completeAddress}</p>
-                        <p>City: {agency.city}</p>
-                        <p>State: {agency.state}</p>
-                        <p>Agency Certificate</p>
-                        <img
-                          src={agency.agencyCertificateUrl}
-                          alt="agencyCertificate"
-                        />
-                      </div>
-                    )}
-                    </div>
-                    <div>
-                    <button className="bg-green-600 bg-opacity-25 px-4 py-2 rounded-lg"
-                     
-                      onClick={() => {
-                        handleInventoryClick(agency.id);
-                      }}
-                    >
-                      Inventory
-                    </button>
-                    
-                    {otherAgenciesInventory[agency.id] &&
-                      showInventory[agency.id] && (
-                        <div>
-                          <ul>
-                            {otherAgenciesInventory[agency.id].map((item) => (
-                              <li key={item.id}>
-                                <p>Equipment Name: {item.equipmentName}</p>
-                                <p>Quantity: {item.equipmentQuantity}</p>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        
-                      )}
-                      </div>
-                      </div>
-                  </li>
-                ))}
-                
-              </ul>
-              </div>
-            </div>
-          )}
+              <div className="p-4 my-2 mx-4 bg-zinc-900 flex items-center justify-between text-gray-100">
+                <div>
+                  <h1 className="font-semibold text-2xl text-red-600">{userData.agencyName}</h1>
+                  <h2>Department : {userData.agencyType}</h2>
+                </div>
+                <div className="flex item-center justify-between space-x-2 ">
+                  <IoCallSharp className="text-red-600 w-6 h-6" />
+                  <h2 className="text-red-600 font-semibold underline">{userData.agencyConatct}</h2>
+                </div>
               </div>
             )}
           </div>
-          
-          {/* {!loading && !error && otherAgencies.length > 0 && (
-            <div className="pt-8">
-              <h2>Other Agencies near you </h2>
-              <div className="bg-gray-600 bg-opacity-25 p-4">
-              <ul>
-                {otherAgencies.map((agency) => (
-                  <li key={agency.id}>
-                    <p>Agency Name: {agency.agencyName}</p>
-                    <p>
-                      Distance:{" "}
-                      {calculateDistance(
-                        userData.latitude,
-                        userData.longitude,
-                        agency.latitude,
-                        agency.longitude
-                      )}
-                    </p>
-                    <div className="flex justify-between items-center ">
-                      <div>
-                    <button className="bg-red-600 bg-opacity-25 px-4 py-2 rounded-lg"
-                      onClick={() => {
-                        handleMoreInfoClick(agency.id);
-                      }}
-                    >
-                      More Info
-                    </button>{" "}
-                   
-                    {showMoreInfo[agency.id] && (
-                      <div>
-                        <h2>Agency Name: {agency.agencyName}</h2>
-                        <p>Agency Description: {agency.agencyDesc}</p>
-                        <p>Contact: {agency.agencyConatct}</p>
-                        <p>Address: {agency.completeAddress}</p>
-                        <p>City: {agency.city}</p>
-                        <p>State: {agency.state}</p>
-                        <p>Agency Certificate</p>
-                        <img
-                          src={agency.agencyCertificateUrl}
-                          alt="agencyCertificate"
-                        />
-                      </div>
-                    )}
+
+          <div className="flex justify-between space-x-3 p-4">
+            <div className="w-full bg-zinc-900 h-screen flex flex-col justify-between  text-white p-4">
+              <div>
+                {!loading && !error && otherAgencies.length > 0 && (
+                  <div className="pt-8">
+                    <div className="  text-center w-full  flex items-center justify-center space-x-3">
+                      <input
+                        type="text"
+                        placeholder="Search "
+                        className="w-6/12 lg:w-full bg-zinc-400 bg-opacity-25 border-none py-2 pl-3 border focus:outline-none "
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                      />
+                      <button className="bg-red-600 rounded-sm text-white cursor-pointer   px-8 py-2 font-semibold">
+                        Search
+                      </button>
                     </div>
-                    <div>
-                    <button className="bg-green-600 bg-opacity-25 px-4 py-2 rounded-lg"
-                     
-                      onClick={() => {
-                        handleInventoryClick(agency.id);
-                      }}
-                    >
-                      Inventory
-                    </button>
-                    
-                    {otherAgenciesInventory[agency.id] &&
-                      showInventory[agency.id] && (
-                        <div>
-                          <ul>
-                            {otherAgenciesInventory[agency.id].map((item) => (
-                              <li key={item.id}>
-                                <p>Equipment Name: {item.equipmentName}</p>
-                                <p>Quantity: {item.equipmentQuantity}</p>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        
-                      )}
-                      </div>
-                      </div>
-                  </li>
-                ))}
-                
-              </ul>
+                    <h2 className="text-center text-xl font-semibold p-2">Other Agencies near you </h2>
+                    <div className="bg-zinc-600  bg-opacity-25 p-4">
+                      <ul>
+                        {filteredItem.map((agency) => (
+                          
+                          <li key={agency.id}>
+                            <div className="flex justify-between items-center">
+                              <div>
+                            <p className="text-red-600 font-semibold">Agency Name: <span className="text-gray-100 font-semibold">{agency.agencyName}</span> </p>
+                            <p className="text-red-600 font-semibold">
+                              Distance:{" "} <span className="text-gray-100 font-semibold"> {calculateDistance(
+                                userData.latitude,
+                                userData.longitude,
+                                agency.latitude,
+                                agency.longitude
+                              )}</span>
+                             
+                            </p>
+                            </div>
+                            <div>
+                            
+                                <button className="bg-red-600  px-4 py-2 rounded-lg"
+                                  onClick={() => {
+                                    handleMoreInfoClick(agency.id);
+                                  }}
+                                >
+                                  More Info
+                                </button>    
+                                </div>
+                                </div>
+                          </li>
+                       
+                        ))}
+
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={prevPage}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 bg-red-600 rounded-lg text-white disabled:opacity-50"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={nextPage}
+                  disabled={
+                    currentPage ===
+                    Math.ceil(filteredItem.length / AgencyPerPage)
+                  }
+                  className="px-4 py-2 bg-red-600 rounded-lg text-white disabled:opacity-50"
+                >
+                  Next
+                </button>
               </div>
             </div>
-          )} */}
-        </div>
-        <div className="w-full">
-          
-          <div className="bg-zinc-900 p-4 ">
-          <div className="flex justify-between items-center ">
-            <h1 className="text-lg font-semibold text-red-600"> Other Agencies near you in </h1>
-            <div className="flex bg-green-600 bg-opacity-20 py-2 px-3 rounded-xl font-semibold items-center justify-center text-white">Map view <img src={map}/></div>
-           
+            <div className="w-full">
+            <div className="p-2 flex items-center justify-center space-x-2">
+                  <h1 className="text-4xl font-bold text-red-600">Unified Agency Locator</h1>
+                  <FaLocationDot className="w-10 h-10" />
+                </div>
+              
+              <div>
+                
+              <div className="bg-zinc-900 p-4 ">
+                
+                <div className="flex justify-between items-center ">
+                  <h1 className="text-lg font-semibold text-red-600"> Other Agencies near you in </h1>
+                  {/* <div className="flex bg-green-600 bg-opacity-20 py-2 px-3 rounded-xl font-semibold items-center justify-center text-white">Map view <img src={map} /></div> */}
+
+                </div>
+
+                <div ref={mapRef} style={{ height: "400px " }} className="my-4" />
+              </div>
+              
+              </div>
+            </div>
           </div>
-          
-          <div ref={mapRef} style={{ height: "400px " }}  className="my-4"/>
         </div>
+      )}
+
+      {selectedAgency && (
+        <div>
+          <AgencyMoreInfo
+            agencyId={selectedAgency}
+            handleMoreInfoClickClose={handleMoreInfoClickClose} />
         </div>
-      </div>
+      )}
+
     </div>
   );
 };

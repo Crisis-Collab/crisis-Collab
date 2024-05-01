@@ -12,6 +12,7 @@ const Inventory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // New state for error handling
   const auth = getAuth();
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchEquipment = async () => {
@@ -97,7 +98,9 @@ const Inventory = () => {
       console.log("Please fill out all fields.");
     }
   };
-
+  const filteredItem = equipment.filter((inventory) =>
+    inventory.equipmentName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
 
     <div className="p-2 min-h-screen">
@@ -110,9 +113,14 @@ const Inventory = () => {
       {error && (
         <div className="error-message">{error}</div>
       )}
+      <div className=""> 
+            <h1 className="text-3xl font-bold text-gray-100  p-4">Add and Find your Equipments here - </h1>
+          </div>
       {!loading && !error && (
         <div className="flex justify-start item-center bg-zinc-900 p-4 ">
+    
         <div className="space-x-4 flex w-full">
+         
           <div className="flex flex-col lg:w-1/3">
           <label className="text-gray-200 font-semibold p-1">Equipment Name</label>
           <input
@@ -141,7 +149,22 @@ const Inventory = () => {
         </div>
       )}
       <div className="bg-zinc-900 mt-5 p-4">
-      {!loading && !error && equipment.map((item) => (
+      <div className="  text-center  flex items-center justify-center space-x-3">
+              <p className="text-lg text-red-600 font-normal">
+                Search for Equipment-{" "}
+              </p>
+              <input
+                type="text"
+                placeholder="Search "
+                className="lg:w-6/12 w-full bg-zinc-400 bg-opacity-25 border-none py-2 pl-3 border focus:outline-none "
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="bg-red-600 rounded-sm text-white cursor-pointer   px-8 py-2 font-semibold">
+                Search
+              </button>
+            </div>
+      {!loading && !error && filteredItem.map((item) => (
         <div key={item.id} className="bg-zinc-600  bg-opacity-25 mt-5  p-4 flex justify-between items-center">
           <div>
           <p className="text-red-600 font-semibold text-lg">Equipment Name: <span className="text-gray-200 font-normal">{item.equipmentName}</span></p>

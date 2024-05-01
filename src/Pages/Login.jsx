@@ -113,34 +113,38 @@ const Login = () => {
 
   return (
     <div
-      className=" bgLogin px-2 pl-32 pt-5 relative flex sm:flex-row flex-col  min-h-screen overflow-y-hidden h-screen pr-10  py-2 sm:py-8 bg-white "
+      className=" bgLogin bg-cover  px-2  pt-5 relative   min-h-screen overflow-y-hidden h-screen   py-2   "
       id="login"
-    >
-      <Navbar />
-      <div className="grid place-items-center">
-        <div className="sm:grid place-items-center hidden pr-20 w-4/5">
+    > 
+    <div className=""><Navbar  /></div>
+    
+      <div className="     mt-14  h-screen mb-14">
+      
+      <div className=" relative flex justify-between items-center px-24" >
+        {/* <div className="sm:grid place-items-center hidden pr-20 w-4/5">
           <img src={loginLogo} />
-        </div>
-        <div className="space-y-4 pt-8">
-          <h4 className="font-semibold text-5xl ">
+        </div> */}
+        
+        <div className="space-y-4 ">
+          <h4 className="font-bold text-5xl ">
             Welcome to{" "}
             <span className="text-6xl text-red-600">Crisis-Collab</span>
           </h4>
-          <h4 className="font-medium text-2xl text-red-600 font-serif">
+          <h4 className="font-medium text-2xl  text-yellow-600 font-serif">
             The Disaster Management Platform.
           </h4>
         </div>
-      </div>
+      
 
-      <div>
+    
         {/* {loading ? <LoadingSpinner /> : null} */}
-        <div className=" bg-opacity-10  bg-slate-500  shadow-2xl  px-8 py-12 mt-16 ml-28  justify-center  flex items-center flex-col  w-auto mx-4   ">
+        <div className=" bg-opacity-10 backdrop-blur-md bg-slate-500  shadow-2xl  px-8 py-12 mt-16 ml-28  justify-center  flex items-center flex-col  w-auto mx-4   ">
           <form
             onSubmit={requestOtp}
-            className="bg-gradient-to-r from-zinc-300 to-red-50 shadow-2xl  p-14 flex items-center justify-center"
+            className="bg-transparent  shadow-2xl  p-14 flex items-center justify-center"
           >
             {!isOtpRequested ? (
-              <div>
+              <div >
                 {/* Your login form content goes here */}
                 <div className="grid place-items-center">
                   <h1 className="text-4xl font-semibold space-y-6 mb-6 text-black">
@@ -154,7 +158,7 @@ const Login = () => {
 
                 <div className="  flex items-center justify-center">
                   <div className="flex items-center justify-center">
-                    <span className="text-gray-500 mr-2">+91</span>
+                    <span className="text-gray-950 font-semibold mr-2">+91</span>
                     <input
                       placeholder="XXXXXXXXXX"
                       value={phoneNumber}
@@ -171,7 +175,7 @@ const Login = () => {
                    disabled={loading}
                     onClick={requestOtp}
                     type="submit"
-                    className="bg-red-700 text-white    text-sm font-semibold px-8 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-red-900"
+                    className="bg-red-700 text-white  active:bg-red-900  text-sm font-semibold px-8 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-red-900"
                   // disabled={loading}
                   >
                     {/* {loading && (
@@ -245,8 +249,10 @@ const Login = () => {
                 </Modal>
               </div>
             </div>
+          </div> 
           </div>
         </div>
+     
       </div>
     </div>
   );

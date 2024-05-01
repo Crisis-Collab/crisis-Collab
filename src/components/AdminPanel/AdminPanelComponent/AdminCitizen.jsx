@@ -58,7 +58,7 @@ const AdminCitizen = () => {
 
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen">
       {loading && (
         <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
@@ -131,6 +131,7 @@ const AdminCitizen = () => {
                           <button
                             className="bg-yellow-500 text-white active:bg-yellow-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
+                            onCl
                           >
                             <FontAwesomeIcon icon={faEdit} />
                           </button>
