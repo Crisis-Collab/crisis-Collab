@@ -1,27 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../firebase/firebase.config';
-import Emp from '../../../assets/Eimg.jpg'
+import React, { useState, useEffect } from "react";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase/firebase.config";
+import Emp from "../../../assets/Eimg.jpg";
+import { useNavigate } from "react-router-dom";
+import MoreInfo from "./MoreInfo"; // Import MoreInfo component
 
 const Employees = () => {
   const [employeeData, setEmployeeData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showMoreInfo, setShowMoreInfo] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [employeesPerPage] = useState(6);
   const auth = getAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
       console.log("Fetching current user...");
 
       try {
-        const userRef = doc(db, 'users', auth.currentUser.uid);
+        const userRef = doc(db, "users", auth.currentUser.uid);
         const userSnap = await getDoc(userRef);
 
         if (userSnap.exists()) {
           console.log("User document exists.");
 
-          const employeeDocs = collection(db, 'users', auth.currentUser.uid, 'employees');
+          const employeeDocs = collection(
+            db,
+            "users",
+            auth.currentUser.uid,
+            "employees"
+          );
           const employeeQuerySnapshot = await getDocs(employeeDocs);
 
           if (employeeQuerySnapshot.empty) {
@@ -31,14 +42,9 @@ const Employees = () => {
 
             const employees = [];
 
-            employeeQuerySnapshot.forEach(employeeDoc => {
+            employeeQuerySnapshot.forEach((employeeDoc) => {
               const employee = employeeDoc.data();
               employees.push(employee);
-              // Initialize showMoreInfo state for each employee
-              setShowMoreInfo(prevState => ({
-                ...prevState,
-                [employee.uid]: false
-              }));
             });
 
             console.log("Employees:", employees);
@@ -51,134 +57,166 @@ const Employees = () => {
       } catch (error) {
         console.error("Error fetching user document:", error);
       } finally {
-        setLoading(false); // Move setLoading here to ensure it's always set to false after fetch
+        setLoading(false);
       }
     };
 
     fetchCurrentUser();
   }, [auth.currentUser.uid]);
 
-  const fetchMoreInfo = async (employeeId) => {
-    try {
-      const employeeRef = doc(db, 'users', auth.currentUser.uid, 'employees', employeeId);
-      const employeeSnap = await getDoc(employeeRef);
+  const filteredEmployees = employeeData.filter((employee) =>
+    employee.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-      if (employeeSnap.exists()) {
-        const employeeData = employeeSnap.data();
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+  const currentEmployees = filteredEmployees.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
+  );
 
-        // Update the employee's data in the state
-        setEmployeeData(prevState => {
-          const updatedEmployees = prevState.map(employee => {
-            if (employee.uid === employeeId) {
-              return {
-                ...employee,
-                ...employeeData
-              };
-            }
-            return employee;
-          });
-          return updatedEmployees;
-        });
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-        // Toggle showMoreInfo for the clicked employee
-        setShowMoreInfo(prevState => ({
-          ...prevState,
-          [employeeId]: !prevState[employeeId]
-        }));
-      } else {
-        console.log("No such document!");
-      }
-    } catch (error) {
-      console.error("Error fetching employee document:", error);
+  const nextPage = () => {
+    if (currentPage < Math.ceil(filteredEmployees.length / employeesPerPage)) {
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleMoreInfoClick = (employeeId) => {
+    setSelectedEmployee(employeeId);
+    navigate(`/userpannel/employees/${employeeId}/more-info`)
+  };
+
+  const handleMoreInfoClickClose = () => {
+    setSelectedEmployee(null);
+    navigate(`/userpannel/employees`)
+  };
+
   return (
-    <div className='  bg-fixed p-4 font-abc' >
+    <div className="bg-fixed p-4 font-abc">
       {loading && (
-        <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
-          <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50">
+          <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900" />
         </div>
       )}
 
-      {!loading && (
-        <div className=' ' >
-          {/* <div className='fixed top-0 right-0 left-0'>
-          <img src={Emp} className=''/> 
-          </div> */}
-          <div className=' bg-zinc-400 bg-opacity-25 p-16  '>
-            
-            <h1 className='text-5xl font-semibold text-center'>Employees Work here -</h1>
+      {!loading && !selectedEmployee && (
+        <div className="">
+          <div className="bg-zinc-900 p-4 shadow-inner rounded-md ">
+            <div className="text-center flex items-center justify-center space-x-3">
+              <p className="text-lg text-red-600 font-semibold">
+                Search for Employee -{" "}
+              </p>
+              <input
+                type="text"
+                placeholder="Search "
+                className="lg:w-6/12 w-full py-2 pl-3 border focus:outline-none"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="bg-red-600 rounded-sm text-white cursor-pointer px-8 py-2 font-semibold">
+                Search
+              </button>
+            </div>
           </div>
-   <div className='flex space-x-5'>
-          
-          <div className='w-1/2'>
-            {employeeData.map((employee) => (
-              <div key={employee.uid} className=''>
-                <div className='rounded-lg bg-gray-600 bg-opacity-25 shadow-lg my-6 p-4  backdrop-blur-lg '>
-                <div className='flex items-center justify-between'>
-                  <div className='flex'>
-                  <div className='rounded-full w-10 h-10 border  border-black'>
-                  <img src={employee.profileUrl} className='rounded-full' alt="Profile" /> 
-                  </div>
-               <div className='items-start'>
-                <h3 className='font-semibold text-black text-xl pl-4'>{employee.name}</h3>
-                <p className='text-lg font-medium text-red-600 pl-4 '>Work Profile: {employee.workProfile}</p>
+          <div className="flex space-x-5">
+          <div className="lg:w-1/2">
+              <div className="flex items-start justify-center space-x-5 lg:pt-7">
+                <div className="bg-red-600 px-2 py-2 rounded-lg font-bold text-center text-2xl">
+                  <h1>Total Number of Employees</h1>
+                  <h2 className="font-bold text-white text-5xl text-center">
+                    {employeeData.length}
+                  </h2>
                 </div>
-                </div>
-                <button onClick={() => { fetchMoreInfo(employee.uid); }} className='bg-red-600 bg-opacity-25 text-gray-100  px-4 py-2 rounded-lg mt-4  hover:bg-red-800  shadow-md'>More Info</button>
-
-                </div>
-                 
-                  
-                
-                  {!loading && showMoreInfo[employee.uid] && ( // Conditionally render more info
-                    <div className='p-4  text-black space-y-4  '>
-                        
-                      <p className='font-semiold'>Aadhar Number: {employee.aadharNumber}</p>
-                      <p>Full Address: {employee.fullAddress}</p>
-                      <p>Gender: {employee.gender}</p>
-                      <p>DOB: {employee.dob ? new Date(employee.dob.seconds * 1000).toLocaleDateString() : '-'}</p>
-                      <p className='text-blue-500'>Email: {employee.email}</p>
-                     
-                     <div className='flex flex-col'>
-                      <p>Aadhar Front:</p>
-                      <div >
-                      <img className='lg:w-1/2 lg:h-1/2' src={employee.aadharFrontUrl} alt="Aadhar Front" />
-                      </div>
-                      
-                      <p>Aadhar Back:</p>
-                      <div>
-                      <img className='lg:w-1/2 lg:h-1/2' src={employee.aadharBackUrl} alt="Aadhar Back" />
-                      </div>
-                     </div>
-                    </div>
-                  )}
+                <div className="bg-red-600 px-2 py-2 rounded-lg font-bold text-center text-2xl">
+                  <h1>Total Number of Employees</h1>
+                  <h2 className="font-bold text-white text-5xl text-center">
+                    {employeeData.length}
+                  </h2>
                 </div>
               </div>
-            ))}
+              <div className="grid place-items-center ">
+                <img src={Emp} className="mt-9 rounded-lg" alt="Employees" />
+              </div>
+            </div>
+            <div className="w-1/2 bg-zinc-900 p-4 mt-6 rounded-lg">
+              <h1 className="text-lg text-gray-100">Employees List</h1>
+              {currentEmployees.map((employee) => (
+                <div key={employee.uid} className="">
+                  <div className="rounded-lg bg-zinc-600  bg-opacity-25 shadow-lg my-6 p-2 backdrop-blur-lg">
+                    <div className="flex items-center justify-between">
+                      <div className="flex">
+                        <div className="rounded-full w-10 h-10 flex item-center justify-center border-black">
+                          <img
+                            src={employee.profileUrl}
+                            className="rounded-full w-9 h-9"
+                            alt="Profile"
+                          />
+                        </div>
+                        <div className="items-start">
+                          <h3 className="font-semibold text-gray-100 pl-4">
+                            {employee.name}
+                          </h3>
+                          <p className="font-semibold text-red-600 pl-4">
+                            Work Profile:{" "}
+                            <span className="text-gray-100">
+                              {employee.workProfile}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          handleMoreInfoClick(employee.uid);
+                        }}
+                        className="hover:bg-red-600 hover:bg-opacity-25 text-gray-100 px-4 py-2 rounded-lg mt-4 bg-red-600 shadow-md"
+                      >
+                        More Info
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={prevPage}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 bg-red-600 rounded-lg text-white disabled:opacity-50"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={nextPage}
+                  disabled={
+                    currentPage ===
+                    Math.ceil(filteredEmployees.length / employeesPerPage)
+                  }
+                  className="px-4 py-2 bg-red-600 rounded-lg text-white disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+            
           </div>
-          <div className='lg:w-1/2'>
-          <div className='flex  items-start justify-center space-x-5 lg:pt-7'>
-          <div className='bg-red-600 px-4 py-2 rounded-lg font-bold  text-2xl'>
-            <h1>Total Number of Employees</h1>
-              <h2 className='font-bold text-white text-5xl  text-center'></h2>
-          </div>
-          <div className='bg-red-600 px-2 py-2 rounded-lg font-bold  text-2xl'>
-            <h1>Total Number of Employees</h1>
-              <h2 className='font-bold text-white text-5xl text-center'>50+</h2>
-          </div>
-          </div>
-         <div className='grid place-items-center '>
-          <img src={Emp} className='mt-9 rounded-lg   '/>
-          
-         </div>
-          </div>
-        </div>
         </div>
       )}
+
+      {selectedEmployee && (
+        <MoreInfo
+          employee={selectedEmployee}
+          handleMoreInfoClickClose={handleMoreInfoClickClose}
+        />
+      )}
     </div>
-  )
+  );
 };
 
 export default Employees;

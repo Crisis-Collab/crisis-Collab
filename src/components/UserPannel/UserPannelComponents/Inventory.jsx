@@ -12,6 +12,7 @@ const Inventory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // New state for error handling
   const auth = getAuth();
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchEquipment = async () => {
@@ -97,45 +98,87 @@ const Inventory = () => {
       console.log("Please fill out all fields.");
     }
   };
-
+  const filteredItem = equipment.filter((inventory) =>
+    inventory.equipmentName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
 
-    <div className="p-2">
+    <div className="p-2 min-h-screen">
        {loading && (
 
-        <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
+        <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-baseline z-50'>
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
         </div>
       )}
       {error && (
         <div className="error-message">{error}</div>
       )}
+      <div className=""> 
+            <h1 className="text-3xl font-bold text-gray-100  p-4">Add and Find your Equipments here - </h1>
+          </div>
       {!loading && !error && (
-        <div>
+        <div className="flex justify-start item-center bg-zinc-900 p-4 ">
+    
+        <div className="space-x-4 flex w-full">
+         
+          <div className="flex flex-col lg:w-1/3">
+          <label className="text-gray-200 font-semibold p-1">Equipment Name</label>
           <input
+          className=" w-full mb-4  text-black  py-2 pl-3 border focus:outline-none "
             type="text"
             placeholder="Equipment Name"
             value={newEquipmentName}
             onChange={(e) => setNewEquipmentName(e.target.value)}
           />
-          <input
+          </div>
+        <div className="flex flex-col lg:w-1/3">
+          <label className="text-gray-200 font-semibold p-1">Quantity</label>
+        <input
+           className=" w-full mb-4  text-black  py-2 pl-3 border focus:outline-none "
             type="number"
             placeholder="Quantity"
             value={newEquipmentQuantity}
             onChange={(e) => setNewEquipmentQuantity(e.target.value)}
           />
-          <button onClick={handleAddEquipment}>Add Equipment</button>
+        </div>
+          
+        </div >
+        <div>
+        <button onClick={handleAddEquipment} className="bg-red-600  mt-9 px-6 py-2 rounded-sm font-semibold">Add  </button>
+        </div>
         </div>
       )}
-      {!loading && !error && equipment.map((item) => (
-        <div key={item.id}>
-          <p>Equipment Name: {item.equipmentName}</p>
-          <p>Quantity: {item.equipmentQuantity}</p>
-          <button onClick={() => handleIncrement(item.id, item.equipmentName)}><AiOutlinePlus /></button>
-          <button onClick={() => handleDecrement(item.id, item.equipmentName)}><AiOutlineMinus /></button>
-          <button onClick={() => handleDelete(item.id)}><RiDeleteBinLine /></button>
+      <div className="bg-zinc-900 mt-5 p-4">
+      <div className="  text-center  flex items-center justify-center space-x-3">
+              <p className="text-lg text-red-600 font-normal">
+                Search for Equipment-{" "}
+              </p>
+              <input
+                type="text"
+                placeholder="Search "
+                className="lg:w-6/12 w-full bg-zinc-400 bg-opacity-25 border-none py-2 pl-3 border focus:outline-none "
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="bg-red-600 rounded-sm text-white cursor-pointer   px-8 py-2 font-semibold">
+                Search
+              </button>
+            </div>
+      {!loading && !error && filteredItem.map((item) => (
+        <div key={item.id} className="bg-zinc-600  bg-opacity-25 mt-5  p-4 flex justify-between items-center">
+          <div>
+          <p className="text-red-600 font-semibold text-lg">Equipment Name: <span className="text-gray-200 font-normal">{item.equipmentName}</span></p>
+          <p className="text-red-600 font-semibold text-lg">Quantity: <span  className="text-gray-200 font-normal">{item.equipmentQuantity}</span></p>
+          </div>
+
+          <div className="space-x-3">
+          <button className=" bg-gray-100 rounded-md bg-opacity-35 px-4 py-2" onClick={() => handleIncrement(item.id, item.equipmentName)}><AiOutlinePlus /></button>
+          <button className=" bg-gray-100 rounded-md bg-opacity-35 px-4 py-2" onClick={() => handleDecrement(item.id, item.equipmentName)}><AiOutlineMinus /></button>
+          <button className=" bg-red-600   rounded-md px-6 py-2"onClick={() => handleDelete(item.id)}><RiDeleteBinLine /> </button>
+          </div>
         </div>
       ))}
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase.config';
+import BarChartComponent from './BarChartComponent';
 
 
 const AgencyProfile = () => {
@@ -45,12 +46,13 @@ const AgencyProfile = () => {
       {!loading && agencyData && (
         <div className='flex  space-x-4    items-start justify-between'>
          <div className='w-full'>
-         <div className='  flex justify-end space-x-2'>
+        
+          <div className='flex flex-col bg-zinc-900   space-y-4'>
+          <div className='  flex justify-end space-x-2 p-1'>
                 <h2 className='font-semibold text-red-500  text-sm'>Latitude- {agencyData.latitude}</h2>
                 <h2 className='font-semibold  text-red-500 text-sm'>Longitude- {agencyData.longitude}</h2>
                 </div>
-          <div className='flex flex-col   rounded-lg space-y-4'>
-            <div className='  lg:p-8 bg-zinc-900 backdrop-filter backdrop-blur-lg rounded-lg shadow-2xl  '>
+            <div className='  lg:p-8  backdrop-filter backdrop-blur-lg shadow-2xl  '>
               <div className='text-4xl font-semibold text-center text-red-600'>{agencyData.agencyName}</div>
               <div className='font-semibold text-center text-gray-100 lg:pt-4'>{agencyData.agencyType},</div>
               <div className='font-semibold text-center text-gray-100'>{agencyData.city}</div>
@@ -72,23 +74,19 @@ const AgencyProfile = () => {
              </div>
              </div>
             </div>
-            <div className='flex items-center justify-between lg:p-4  bg-zinc-900  rounded-lg shadow-2xl'>
-              <h1 className='font-semibold text-lg text-gray-100'>Inventory</h1>
-              <button  className='bg-gray-400 hover:bg-zinc-800 bg-opacity-30 text-red-600 font-semibold lg:px-4 lg:py-2 rounded-lg '>See All</button>
-              </div>
+            
             
           </div>
-         </div>
-         <div className='lg:p-4 bg-zinc-900  rounded-lg  shadow-2xl'>
-             
-
-               <div className='flex flex-col items-center'>
-                <p className='text-lg lg:pt-4  text-center text-gray-100'>Certificate</p>
+          <div className='flex flex-col items-center mt-4 bg-zinc-900'>
+                <p className='text-2xl lg:pt-4  text-center text-red-600'>Certificate</p>
                 <img src={agencyData.agencyCertificateUrl}/>
                 </div>
-                <div className='lg:pt-20 pb-10'>
-                 
-                </div> 
+                
+         </div>
+         <div className='lg:p-4 bg-zinc-900    shadow-2xl'>
+             <h1 className='text-red-600 text-3xl font-semibold text-center'>Yearly Rescue Activity Comparison </h1>
+             <h3 className='text-red-300 text-sm font-medium text-center'>This Year vs. Last Year</h3>
+             <BarChartComponent/>              
             </div>
 
 

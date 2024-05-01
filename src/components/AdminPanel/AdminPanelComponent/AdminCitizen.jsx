@@ -58,14 +58,14 @@ const AdminCitizen = () => {
 
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen">
       {loading && (
         <div className='fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50'>
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
         </div>
       )}
 
-      <div className='bg-zinc-600 bg-opacity-25 p-16'>
+      <div className='bg-zinc-900  p-16'>
         <h1 className='text-center text-3xl font-semibold'>Total Number of Citizens : {citizens.length}</h1>
       </div>
       <div className=' mt-5'> 
@@ -80,15 +80,15 @@ const AdminCitizen = () => {
           <button  className='bg-red-600 rounded-sm text-white cursor-pointer  px-8 py-2 font-semibold'>Search</button>
         </div>
         <section className="py-1">
-          <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-            <div className="relative flex flex-col min-w-0 break-words bg-zinc-600 bg-opacity-25 w-full mb-6 shadow-lg rounded ">
+          <div className="w-full  mb-12 xl:mb-0 px-4 mx-auto mt-24">
+            <div className="relative flex flex-col  break-words bg-zinc-900 bg-opacity-25 w-full mb-6 shadow-lg rounded ">
               <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                     <h3 className="font-semibold text-base text-white text-blueGray-700">All Citizens</h3>
                   </div>
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
+                    {/* <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button> */}
                   </div>
                 </div>
               </div>
@@ -118,19 +118,20 @@ const AdminCitizen = () => {
                   <tbody>
                     {!loading && filteredCitizens.map((citizen, index) => (
                       <tr key={index}>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-gray-100">
                           {citizen.name}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-gray-100">
                           {citizen.completeAddress}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-gray-100">
                           {citizen.city}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-gray-100">
                           <button
                             className="bg-yellow-500 text-white active:bg-yellow-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
+                            onCl
                           >
                             <FontAwesomeIcon icon={faEdit} />
                           </button>

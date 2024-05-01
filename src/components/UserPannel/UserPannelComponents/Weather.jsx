@@ -115,26 +115,28 @@ const Weather = () => {
           <div className='animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900' />
         </div>
       )}
-      <h2 className='text-xl font-semibold mb-2'>Current Forecast</h2>
+      <h2 className='text-2xl font-semibold mb-2 text-blue-600'>Current Forecast</h2>
       {weather ? (
-      <div className='bg-zinc-400 bg-opacity-25 shadow-lg rounded-xl m-auto relative px-6 top-[10%] '>
-        <div className=''>
-          <div className='flex justify-between w-full'>
-            <div className='w-1/2 my-4 mx-auto flex justify-between items-center'>
+      <div className='bg-zinc-900  shadow-lg rounded-xl w-full  relative   top-[10%] '>
+        <div className='w-full '>
+          <div className=''>
+            <div className=' my-4 mx-auto flex justify-between items-center p-4 space-x-8'>
               <div className='flex flex-col items-start justify-between h-full'>
                 <div>
-                  <p className='text-xl'>
+                  <p className='text-5xl text-blue-600 font-semibold'>
                     {weather.name}, {weather.sys.country}
                   </p>
-                  <p className='text-sm'>{weather.weather[0].description}</p>
+                  <p className='text-xl text-gray-100 font-semibold'>{weather.weather[0].description}</p>
                 </div>
                 {currentDateTime && (
-        <div className='text-lg font-semibold mb-2'>
+        <div className='text-lg font-semibold mb-2 text-red-600'>
           {currentDateTime}
         </div>
       )}
+      </div>
+      <div>
                 <div>
-                  <h1 className='text-6xl font-semibold'>{weather.main.temp.toFixed()}°C</h1>
+                  <h1 className='text-8xl text-red-600 font-semibold'>{weather.main.temp.toFixed()}°C</h1>
                 </div>
                 <div className='w-1/2 flex flex-col justify-between items-end'>
                   <div className='relative'>
@@ -147,7 +149,8 @@ const Weather = () => {
                 </div>
               </div>
               {weather.name !== undefined ? (
-                <div className='flex flex-col justify-evenly gap-y-2 my-4 mx-auto text-xs'>
+                <div className='flex bg-zinc-950 p-3 rounded-lg shadow-xl   justify-between space-x-10 my-4 mx-auto text-sm text-gray-100'>
+                  <div className='space-y-4 '>
                   <div className='flex-justify-between gap-x-8'>
                     <p>Feels Like</p>
                     <p className='font-bold w-20'>{weather.main.feels_like.toFixed()} °C</p>
@@ -164,6 +167,8 @@ const Weather = () => {
                     <p>Pressure</p>
                     <p className='font-bold w-20'>{weather.main.pressure} hPa</p>
                   </div>
+                  </div>
+                  <div  className='space-y-4 '>
                   <div className='flex-justify-between gap-x-8'>
                     <p>Min_Temp</p>
                     <p className='font-bold w-20'>{weather.main.temp_min} °C</p>
@@ -181,6 +186,7 @@ const Weather = () => {
                       })}
                     </p>
                   </div>
+                 
                   <div className='flex-justify-between gap-x-8'>
                     <p>Sunset</p>
                     <p className='font-bold w-20'>
@@ -189,6 +195,7 @@ const Weather = () => {
                         hour12: true
                       })}
                     </p>
+                  </div>
                   </div>
                 </div>
               ) : null}
@@ -204,47 +211,49 @@ const Weather = () => {
 
 {dailyForecast && (
         <div className='mt-8'>
-          <h2 className='text-xl font-semibold mb-2'>Daily Forecast</h2>
+          <h2 className='text-2xl font-semibold mb-2 text-blue-600 '>Daily Forecast</h2>
           <div className='flex flex-col'>
             <div className='flex justify-center gap-4'>
               {dailyForecast.map((forecast, index) => (
                 <button
                   key={index}
                   onClick={() => handleDaySelection(index)}
-                  className={`px-4 py-2 rounded-lg shadow-md ${index === selectedDayIndex ? 'bg-zinc-400 bg-opacity-25' : 'bg-zinc-300 bg-opacity-25'}`}
+                  className={`px-4 py-2 rounded-lg shadow-md active:bg-zinc-200 active:outline-double ${index === selectedDayIndex ? 'bg-zinc-600 text-gray-100 ' : 'bg-zinc-100 hover:bg-zinc-300 hover:text-black '}`}
                 >
                   {new Date(forecast.dt * 1000).toLocaleDateString()}
                 </button>
               ))}
             </div>
-            <div className='bg-zinc-400 bg-opacity-25 p-4 rounded-lg shadow-md flex flex-col items-center my-4'>
-              <div className='flex justify-between w-full'>
-                <div className='w-1/3 my-4 mx-auto flex flex-col justify-between items-center'>
-                  <div className='flex flex-col items-start justify-between h-full'>
+            <div className='bg-zinc-900 p-2 rounded-lg shadow-md flex flex-col items-center justify-between my-4'>
+              <div className='flex justify-between items-center w-full'>
+                <div className='w-1/2 my-4 mx-auto flex flex-col justify-between items-center'>
+                  <div className='flex flex-col items-center justify-between h-full'>
+                   
+                    <div>
+                      <h1 className='text-8xl font-semibold'>
+                        {dailyForecast[selectedDayIndex].temp.day.toFixed()}°C 
+                      </h1>
+                    </div>
                     <div> 
-                      <p className='text-xl'> 
+                      <p className='text-xl font-semibold text-red-600'> 
                         {dailyForecast[selectedDayIndex].weather[0].
                       description}
                       </p>
                     </div>
-                    <div>
-                      <h1 className='text-6xl font-semibold'>
-                        {dailyForecast[selectedDayIndex].temp.day.toFixed()}°C 
-                      </h1>
-                    </div>
-                    <div className='w-1/2 flex flex-col justify-between items-end'>
+                    <div className='w-1/2 flex flex-col justify-between items-center'>
                       <div className='relative'>
                         <img
                             src={`http://openweathermap.org/img/wn/${dailyForecast[selectedDayIndex].weather[0].icon}@2x.png`}
                             alt={dailyForecast[selectedDayIndex].weather[0].description}
-                            className="w-[100px]"
+                            className="w-[400px] "
                                 />
                       </div>
                     </div>
                   </div>
 
                 </div>
-                <div className='w-1/3 my-4 mx-auto flex flex-col justify-evenly gap-y-2 text-xs'>
+                <div className='flex bg-zinc-950 p-3 rounded-lg shadow-xl   justify-between space-x-10 my-4 mx-auto text-sm text-gray-100'>
+                  <div className='space-y-4 '>
                   <div className='flex-justify-between gap-x-8'>
                     <p>Feels Like</p>
                     <p className='font-bold w-20'>
@@ -269,6 +278,8 @@ const Weather = () => {
                       {dailyForecast[selectedDayIndex].pressure} hPa
                     </p>
                   </div>
+                  </div>
+                  <div className='space-y-4 '>
                   <div className='flex-justify-between gap-x-8'>
                     <p>Min_Temp</p>
                     <p className='font-bold w-20'>
@@ -293,6 +304,7 @@ const Weather = () => {
                       {new Date(dailyForecast[selectedDayIndex].sunset * 1000).toLocaleTimeString([], {hour: 'numeric', hour12: true})} 
                     </p>
                   </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -303,8 +315,8 @@ const Weather = () => {
 
 
 {hourlyForecast && (
-  <div className='mt-8'>
-    <h2 className='text-xl font-semibold mb-2'>Hourly Forecast</h2>
+  <div className='mt-8 font-semibold text-gray-100'>
+    <h2 className='text-2xl font-semibold mb-2 text-blue-600 '>Hourly Forecast</h2>
     <div className='grid grid-cols-4 gap-4'>
       {hourlyForecast.list
         .filter(forecast => {
@@ -314,8 +326,8 @@ const Weather = () => {
           return forecastDate.getDate() === selectedDay.getDate();
         })
         .map((forecast, index) => (
-          <div key={index} className='bg-zinc-400 bg-opacity-25 p-4 rounded-lg shadow-md flex flex-col items-center'>
-            <p>{new Date(forecast.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+          <div key={index} className='bg-zinc-900  p-4 rounded-lg shadow-md flex flex-col items-center'>
+            <p className='text-red-600'>{new Date(forecast.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
             <img
               src={`http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`}
               alt={forecast.weather[0].description}

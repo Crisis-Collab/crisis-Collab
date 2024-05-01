@@ -78,7 +78,7 @@ const Navbar = () => {
               <span className="text-red-500 font-semibold pt-2"> collab</span>
             </div>
           </Link>
-          <ul className="md:flex space-x-10 font-medium ml-42 text-base font-itim hidden">
+          <ul className="md:flex space-x-10 font-medium  text-base font-itim hidden">
            
               {navItems.map(({ link, path }) => (
                   <a
@@ -93,7 +93,7 @@ const Navbar = () => {
           <div className=" hidden lg:block">
          
           <Link to="/login">
-              <button className="bg-red-600 rounded-3xl    hover:bg-red-900   text-white    text-xs font-bold uppercase px-8 py-3  outline-none focus:outline-none mr-1 mb-1 ease-linear duration-150     hover:shadow-lg transform transition-transform hover:translate-y-1  ">
+              <button className="bg-red-600 rounded-3xl    hover:bg-red-900   text-white    text-sm font-semibold uppercase px-8 py-2  outline-none focus:outline-none  mb-1 ease-linear duration-150     hover:shadow-lg transform transition-transform hover:translate-y-1  ">
                Log in
               </button>
             </Link>
