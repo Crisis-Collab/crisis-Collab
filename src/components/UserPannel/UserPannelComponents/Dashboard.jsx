@@ -159,19 +159,42 @@ const Dashboard = () => {
           attribution: "© OpenStreetMap contributors",
         }).addTo(map);
 
-        otherAgencies.forEach((agency) => {
-          const markerIcon =
-            agency.id === auth.currentUser.uid ? greenIcon : redIcon;
-          const distance = calculateDistance(
-            userData.latitude,
-            userData.longitude,
-            agency.latitude,
-            agency.longitude
-          );
-          L.marker([agency.latitude, agency.longitude], { icon: markerIcon })
-            .addTo(map)
-            .bindPopup(`<b>${agency.agencyName}</b><br>Distance: ${distance}`);
-        });
+      // Inside the useEffect where you initialize the map and markers
+otherAgencies.forEach((agency) => {
+  const markerIcon =
+    agency.id === auth.currentUser.uid ? greenIcon : redIcon;
+  const distance = calculateDistance(
+    userData.latitude,
+    userData.longitude,
+    agency.latitude,
+    agency.longitude
+  );
+  const popupContent = `
+  <b>${agency.agencyName}</b><br>
+  Distance: ${distance}<br>
+  <button class="route-btn" data-agencyid="${agency.id}" style=" color: blue;">Get Directions</button>
+`;
+  const marker = L.marker([agency.latitude, agency.longitude], { icon: markerIcon })
+    .addTo(map)
+    .bindPopup(popupContent);
+  marker.on('popupopen', () => {
+    document.querySelector('.route-btn').addEventListener('click', () => {
+      handleGetDirections(agency.latitude, agency.longitude);
+    });
+  });
+});
+
+// Function to handle the click event of the "Get Directions" button
+const handleGetDirections = (destLat, destLng) => {
+  // Use the destLat and destLng to calculate the route from the user's location
+  // You can use a routing service like Google Maps Directions API or Mapbox Directions API
+  // For example, you can open a new window with a Google Maps URL to display the route
+  const origin = `${userData.latitude},${userData.longitude}`;
+  const destination = `${destLat},${destLng}`;
+  const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+  window.open(url, '_blank');
+};
+
 
         const markerIcon = greenIcon;
         const displayName =

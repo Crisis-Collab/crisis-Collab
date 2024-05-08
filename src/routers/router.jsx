@@ -68,57 +68,57 @@ const router = createBrowserRouter([
     element:<AdminLogin/>
   },
  {
-  path:'/userpannel/',
-  element:<DashboardLayout/>,
-//   element: <PrivateRoute>
-//   <DashboardLayout/>
-// </PrivateRoute>,
+  path:'/userpannel/*',
+  // element:<DashboardLayout/>,
+  element: <PrivateRoute>
+  <DashboardLayout/>
+</PrivateRoute>,
   children:[
     {
-      path:'/userpannel/agency-profile',
+      path:'agency-profile',
       element:<AgencyProfile/>
     },{
-       path:'/userpannel/dashboard',
+       path:'dashboard',
        element:<Dashboard/>,
       children:[
         {
-          path:'/userpannel/dashboard/:agencyId/more-info',
+          path:'dashboard/:agencyId/more-info',
           element:<AgencyMoreInfo/>,
         }
       ]
     },
     {
-      path:'/userpannel/weather',
+      path:'weather',
       element:<Weather/>
     },
     {
-      path:'/userpannel/inventory',
+      path:'inventory',
       element:<Inventory/>
     },
     {
-      path:'/userpannel/employees',
+      path:'employees',
       element:<Employees/>,
       children:[
         {
-          path:`/userpannel/employees/:employeeId/more-info`,
+          path:`employees/:employeeId/more-info`,
           element:<MoreInfo/>,
           
         }
       ]
     },
     {
-      path:'/userpannel/help',
+      path:'help',
       element:<Help/>
     },
     {
-      path:'/userpannel/profile',
+      path:'profile',
       element:<MyProfile/>
     },
     {
-      path:'/userpannel/weather',
+      path:'weather',
       element:<ContactUs/>
     },{
-      path:'/userpannel/sos',
+      path:'sos',
       element:<Sos/>
     }
    
@@ -126,22 +126,22 @@ const router = createBrowserRouter([
 
  },
  {
-  path:'/admin',
+  path:'/admin/*',
   // element:<AdminLayout/>,
-  element: <PrivateRoute role="admin" adminOnly>
+  element: <PrivateRoute >
   <AdminLayout/>
 </PrivateRoute>,
   children:[
     {
-      path:'/admin/citizen',
+      path:'citizen',
       element:<AdminCitizen/>
     },
     {
-      path:'/admin/agency',
+      path:'agency',
       element:<AdminAgency/>
     },
     {
-      path:'/admin/dashboard',
+      path:'dashboard',
       element:<AdminDashboard/>
     }
   ]
