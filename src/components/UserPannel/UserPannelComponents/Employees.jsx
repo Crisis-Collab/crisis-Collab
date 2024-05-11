@@ -109,7 +109,7 @@ const Employees = () => {
 
       {!loading && !selectedEmployee && (
         <div className="">
-          <div className="bg-zinc-900 p-4 shadow-inner rounded-md ">
+          <div className="bg-zinc-900 p-4 shadow-inner ">
             <div className="text-center flex items-center justify-center space-x-3">
               <p className="text-lg text-red-600 font-semibold">
                 Search for Employee -{" "}
@@ -121,7 +121,7 @@ const Employees = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button className="bg-red-600 rounded-sm text-white cursor-pointer px-8 py-2 font-semibold">
+              <button onClick={filteredEmployees} className="bg-red-600 rounded-sm text-white cursor-pointer px-8 py-2 font-semibold">
                 Search
               </button>
             </div>
@@ -129,13 +129,13 @@ const Employees = () => {
           <div className="flex space-x-5">
           <div className="lg:w-1/2">
               <div className="flex items-start justify-center space-x-5 lg:pt-7">
-                <div className="bg-red-600 px-2 py-2 rounded-lg font-bold text-center text-2xl">
+                <div className="bg-red-600 px-2 py-2 font-bold text-center text-2xl">
                   <h1>Total Number of Employees</h1>
                   <h2 className="font-bold text-white text-5xl text-center">
                     {employeeData.length}
                   </h2>
                 </div>
-                <div className="bg-red-600 px-2 py-2 rounded-lg font-bold text-center text-2xl">
+                <div className="bg-red-600 px-2 py-2  font-bold text-center text-2xl">
                   <h1>Total Number of Employees</h1>
                   <h2 className="font-bold text-white text-5xl text-center">
                     {employeeData.length}
@@ -146,8 +146,8 @@ const Employees = () => {
                 <img src={Emp} className="mt-9 rounded-lg" alt="Employees" />
               </div>
             </div>
-            <div className="w-1/2 bg-zinc-900 p-4 mt-6 rounded-lg">
-              <h1 className="text-lg text-gray-100">Employees List</h1>
+            <div className="w-1/2 bg-zinc-900 p-4 mt-7 rounded-lg">
+              <h1 className="text-lg text-red-600">Employees List</h1>
               {currentEmployees.map((employee) => (
                 <div key={employee.uid} className="">
                   <div className="rounded-lg bg-zinc-600  bg-opacity-25 shadow-lg my-6 p-2 backdrop-blur-lg">

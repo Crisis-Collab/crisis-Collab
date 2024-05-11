@@ -10,12 +10,18 @@ html,body{
 
 .bgMapImage{
     background-image: url(".../../assets/map3.jpg");
+    background-repeat: no-repeat;
 }
 .bgLogin{
-    background-image: url(".../../assets/Eimg.jpg");
+    background-image: url(".../../assets/firefighter.jpg");
+    background-repeat: no-repeat;
 }
-.bgWeather{
-    background-image: url(".../../assets/weather-black.jpeg");
+.bgWeather1{
+    background-image: url(".../../assets/w-6.jpg");
+    background-repeat: no-repeat;
+}
+.bgWeather2{
+    background-image: url(".../../assets/w-9.jpg");
     background-repeat: no-repeat;
 }
 .employeeBG{

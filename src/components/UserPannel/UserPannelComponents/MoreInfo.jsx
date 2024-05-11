@@ -41,12 +41,13 @@ const MoreInfo = ({ employee, handleMoreInfoClickClose }) => {
   
 
   return (
-    <div className="bg-fixed p-4 font-abc">
-      <div className="bg-zinc-900 p-4 shadow-inner rounded-md">
-        <button className="bg-zinc-800 bg-opacity-55  rounded-md font-semibold text-white px-4 py-2 flex items-center justify-center space-x-2" onClick={handleMoreInfoClickClose}>
+    <div className="bg-fixed p-2 font-abc">
+        <button className="bg-zinc-950 bg-opacity-25  my-2 rounded-md font-semibold text-white px-4 py-2 flex items-center justify-center space-x-2" onClick={handleMoreInfoClickClose}>
           <IoArrowBackOutline />
           back
         </button>
+      <div className="bg-zinc-900 p-4 shadow-inner rounded-md">
+      
         <div className="mt-6 p-4">
           <div className="flex justify-between items-center">
             <div>

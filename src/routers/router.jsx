@@ -68,57 +68,57 @@ const router = createBrowserRouter([
     element:<AdminLogin/>
   },
  {
-  path:'/userpannel/*',
+  path:'/userpannel',
   // element:<DashboardLayout/>,
   element: <PrivateRoute>
   <DashboardLayout/>
 </PrivateRoute>,
   children:[
     {
-      path:'agency-profile',
+      path:'/userpannel/agency-profile',
       element:<AgencyProfile/>
     },{
-       path:'dashboard',
+       path:'/userpannel/dashboard',
        element:<Dashboard/>,
       children:[
         {
-          path:'dashboard/:agencyId/more-info',
+          path:'/userpannel/dashboard/:agencyId/more-info',
           element:<AgencyMoreInfo/>,
         }
       ]
     },
     {
-      path:'weather',
+      path:'/userpannel/weather',
       element:<Weather/>
     },
     {
-      path:'inventory',
+      path:'/userpannel/inventory',
       element:<Inventory/>
     },
     {
-      path:'employees',
+      path:'/userpannel/employees',
       element:<Employees/>,
       children:[
         {
-          path:`employees/:employeeId/more-info`,
+          path:`/userpannel/employees/:employeeId/more-info`,
           element:<MoreInfo/>,
           
         }
       ]
     },
     {
-      path:'help',
+      path:'/userpannel/help',
       element:<Help/>
     },
     {
-      path:'profile',
+      path:'/userpannel/profile',
       element:<MyProfile/>
     },
     {
-      path:'weather',
+      path:'/userpannel/weather',
       element:<ContactUs/>
     },{
-      path:'sos',
+      path:'/userpannel/sos',
       element:<Sos/>
     }
    
@@ -126,22 +126,22 @@ const router = createBrowserRouter([
 
  },
  {
-  path:'/admin/*',
+  path:'/admin',
   // element:<AdminLayout/>,
   element: <PrivateRoute >
   <AdminLayout/>
 </PrivateRoute>,
   children:[
     {
-      path:'citizen',
+      path:'/admin/citizen',
       element:<AdminCitizen/>
     },
     {
-      path:'agency',
+      path:'/admin/agency',
       element:<AdminAgency/>
     },
     {
-      path:'dashboard',
+      path:'/admin/dashboard',
       element:<AdminDashboard/>
     }
   ]

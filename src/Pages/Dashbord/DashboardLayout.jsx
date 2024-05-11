@@ -18,12 +18,12 @@ const DashboardLayout = () => {
       <Sidebar isOpen={isOpen} handleDashboard={toggleSidebar} />
     </div>
      {/* Navbar+Outlet */}
-     <div className={`     ${isOpen?'w-5/6  ml-[248px] ' : 'w-11/12  ml-[120px] '} `}>
+     <div className={`     ${isOpen?'w-5/6  ml-[242px] ' : 'w-11/12  ml-[120px] '} `}>
       <div className={`  fixed top-0 right-0  z-10 ${isOpen?'w-5/6' : 'w-11/12 '}  `}><UserNavbar/></div>
    
      
       <div className={`flex flex-col flex-1 overflow-y-auto mt-16 p-2 bg-zinc-800  shadow-2xl  w-auto  transition-all }`} >
-<div className=' p-4   '>
+<div className='   '>
 <Outlet/>
 </div>
 

@@ -23,14 +23,7 @@ const AdminSidebarData = [
   
    
   },
-  {
-    id: "4",
-    name: "Setting",
-    path: "/admin/setting",
-    icon: IoSettings,
-   
-   
-  },
+ 
   
  
   
