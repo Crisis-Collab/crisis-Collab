@@ -4,6 +4,7 @@ import AdminSidebarData from '../../../Data/AdminSidebarData';
 import { Link,useLocation } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
 import { auth } from '../../../firebase/firebase.config';
+import { FiLogOut } from 'react-icons/fi';
 
 const AdminSidebar = () => {
     const defaultPath = "/admin/dashboard";
@@ -64,7 +65,7 @@ const AdminSidebar = () => {
 </div>
       
      <div>
-    <button className='w-full bg-zinc-950 hover:bg-zinc-700 text-white py-3 font-semibold' onClick={() => setOpenModal(true)}>Logout</button>
+    <button className='w-full items-center flex justify-center bg-red-600 hover:bg-red-700 text-white py-3 font-semibold' onClick={() => setOpenModal(true)}><FiLogOut className="mr-4 text-lg" />Logout</button>
     <div >
               <Modal show={openModal} onClose={() => setOpenModal(false)} className=" pt-52 px-[500px] w-full h-screen flex items-center justify-center bg-gray-900 bg-opacity-50">
          

@@ -27,30 +27,33 @@ function AdminLogin() {
   }
 
   return (
-    <div className="bgLogin px-2 pl-32 pt-5 relative flex sm:flex-row flex-col min-h-screen overflow-y-hidden h-screen pr-10 py-2 sm:py-8 bg-white" id="login">
+    <div className="   flex sm:flex-row flex-col  overflow-y-hidden min-h-screen w-full p-4 sm:py-8 " id="login">
       {loading && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50">
           <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900"></div>
         </div>
       )}
-      <Navbar />
-      <div className="grid place-items-center">
-        <div className="sm:grid place-items-center hidden pr-20 w-4/5">
-          <img src={loginLogo} />
-        </div>
-        <div className="space-y-4 pt-8">
-          <h4 className="font-semibold text-5xl">
-            Welcome to <span className="text-6xl text-red-600">Crisis-Collab</span>
+     
+      <div className="bgLogin bg-cover bg-center rounded-lg w-1/2">
+
+      </div>
+     
+       
+      <div className="w-1/2 justify-center pt-10  flex flex-col space-y-4 items-center">
+        <div className=" fixed top-5 ">
+          
+          <h4 className="font-bold text-5xl ">
+            Welcome to{" "}
+            <span className="text-6xl text-red-600">Crisis-Collab</span>
           </h4>
-          <h4 className="font-medium text-2xl text-red-600 font-serif">
+          <h4 className="font-medium text-2xl text-center text-red-600 font-serif">
             The Disaster Management Platform.
           </h4>
-        </div>
-      </div>
-
-      <div>
-        <div className="bg-opacity-10 bg-slate-500 shadow-2xl px-8 py-12 mt-16 ml-28 justify-center flex items-center flex-col w-96 mx-4">
-          <div className="bg-gradient-to-r from-zinc-300 to-red-50 shadow-2xl p-14 flex flex-col items-center justify-center">
+          </div>
+       
+      
+        <div className="bg-opacity-10 backdrop-blur-md bg-red-600 shadow-2xl px-8 py-12 mt-16 ml-28 justify-center flex items-center flex-col w-1/2 mx-4">
+          <div className=" backdrop-blur-md shadow-2xl p-14 flex flex-col items-center justify-center">
             <div className="grid place-items-center">
               <h1 className="text-4xl font-semibold space-y-6 mb-6 text-black">
                 Login
@@ -66,7 +69,7 @@ function AdminLogin() {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 p-2 w-55 border rounded-md"
+                className="mt-1 p-2 w-55 border  bg-gary-100"
                 placeholder="Email"
                 autoComplete="username"
               />
@@ -77,7 +80,7 @@ function AdminLogin() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 p-2 w-55 border rounded-md"
+                className="mt-1 p-2 w-55 border  bg-gray-100"
                 placeholder="Password"
                 autoComplete="current-password"
               />
@@ -91,7 +94,13 @@ function AdminLogin() {
             </div>
           </div>
         </div>
+     
+          
+      
+        
       </div>
+
+     
     </div>
   );
 }
