@@ -11,12 +11,15 @@ import {
 } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import EditCitizenForm from "./EditCitizenForm";
 
 const AdminCitizen = () => {
   const auth = getAuth();
   const [citizens, setCitizens] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showEditForm, setShowEditForm] = useState(false); 
+  const [selectedCitizen, setSelectedCitizen] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,11 +44,21 @@ const AdminCitizen = () => {
     fetchData();
   }, []);
 
+  const handleEdit = (citizen) => {
+    setSelectedCitizen(citizen); 
+    setShowEditForm(true); 
+  };
+
+  const handleCloseEditForm = () => {
+    setShowEditForm(false); 
+    setSelectedCitizen(null); 
+  };
+
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, "users", id));
       setCitizens(citizens.filter((citizen) => citizen.id !== id));
-      console.log("Agency deleted successfully!");
+      console.log("Citizen deleted successfully!");
     } catch (error) {
       console.error("Error deleting agency: ", error);
     }
@@ -69,6 +82,12 @@ const AdminCitizen = () => {
       </div>
       
       <div className=' mt-5'> 
+      {showEditForm && selectedCitizen && (
+          <EditCitizenForm
+            citizen={selectedCitizen}
+            handleCloseEditForm={handleCloseEditForm}
+          />
+        )}
         <div className=' p-2 text-center mb-2 space-x-2 flex items-center justify-center'>
           <input 
             type='text' 
@@ -128,11 +147,11 @@ const AdminCitizen = () => {
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0  whitespace-nowrap p-4 text-gray-100">
                           {citizen.city}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0  whitespace-nowrap p-4 text-gray-100">
-                          <button
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-gray-100">
+                        <button
+                            onClick={() => handleEdit(citizen)}
                             className="bg-zinc-500 bg-opacity-25 text-white active:bg-yellow-600  font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
-                            onCl
                           >
                             <FontAwesomeIcon icon={faEdit} className="w-4 h-4" />
                           </button>

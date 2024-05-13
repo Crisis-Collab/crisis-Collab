@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../../../firebase/firebase.config";
+import React, { useState, useEffect } from "react";
+import { updateDoc, doc, collection, getDocs, addDoc, deleteDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "../../../firebase/firebase.config";
 import { IoArrowBackOutline } from "react-icons/io5";
+import { RiDeleteBinLine } from 'react-icons/ri';
+import { getAuth } from "firebase/auth";
+
 
 const EditAgencyForm = ({ agency, handleCloseEditForm }) => {
   const [agencyName, setAgencyName] = useState(agency.agencyName);
@@ -15,6 +18,24 @@ const EditAgencyForm = ({ agency, handleCloseEditForm }) => {
   const [state, setState] = useState(agency.state);
   const [phoneNumber, setPhoneNumber] = useState(agency.agencyAdminPhoneNumber);
   const [showInventory, setShowInventory] = useState(false);
+  const [inventory, setInventory] = useState([]);
+  const [newInventoryName, setNewInventoryName] = useState("");
+  const [newInventoryQuantity, setNewInventoryQuantity] = useState("");
+  
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      const inventoryRef = collection(db, "users", agency.id, "inventoryList");
+      const querySnapshot = await getDocs(inventoryRef);
+      const inventoryData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setInventory(inventoryData);
+    };
+
+    fetchInventory();
+  }, [agency.id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +66,94 @@ const EditAgencyForm = ({ agency, handleCloseEditForm }) => {
   const toggleInventory = () => {
     setShowInventory(true);
   };
- 
+
+  const handleInventoryUpdate = async (itemId, newQuantity) => {
+    const inventoryRef = doc(db, "users", agency.id, "inventoryList", itemId);
+    await updateDoc(inventoryRef, { equipmentQuantity: newQuantity });
+  };
+
+  const handleAddInventory = async () => {
+    if (newInventoryName && newInventoryQuantity) {
+      try {
+        const inventoryId = `${auth.currentUser.uid}_${newInventoryName}`;
+        const docRef = doc(db, "users", agency.id, "inventoryList", inventoryId);
+        await setDoc(docRef, {
+          equipmentName: newInventoryName,
+          equipmentQuantity: parseInt(newInventoryQuantity)
+        });
+        // Update the inventory state by including the new item 
+        setInventory(prevInventory => [
+          ...prevInventory,{
+          id: inventoryId,
+          equipmentName: newInventoryName,
+          equipmentQuantity: parseInt(newInventoryQuantity)
+        }]);
+        // Clear the input fields
+        setNewInventoryName("");
+        setNewInventoryQuantity("");
+        console.log("New inventory item added to Firestore:", newInventoryName, newInventoryQuantity);
+      } catch (error) {
+        console.error("Error adding document to Firestore: ", error);
+        // Handle the error (e.g., display an error message to the user)
+      }
+    } else {
+      console.log("Please fill out all fields.");
+    }
+  };
+  
+  
+
+  const handleEditInventory = async (itemId, newQuantity) => {
+    // Update the local state first
+    const updatedInventory = inventory.map(item => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          equipmentQuantity: newQuantity
+        };
+      }
+      return item;
+    });
+    setInventory(updatedInventory);
+
+    // Update Firestore
+    const inventoryRef = doc(db, "users", agency.id, "inventoryList", itemId);
+    await updateDoc(inventoryRef, { equipmentQuantity: newQuantity });
+  };
+
+  const handleDeleteInventory = async (itemId) => {
+    const inventoryRef = doc(db, "users", agency.id, "inventoryList", itemId);
+    await deleteDoc(inventoryRef);
+    setInventory(inventory.filter((item) => item.id !== itemId));
+  };
+
+  const handleIncrement = async (itemId) => {
+    const updatedInventory = inventory.map(item => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          equipmentQuantity: item.equipmentQuantity + 1
+        };
+      }
+      return item;
+    });
+    setInventory(updatedInventory);
+    await handleInventoryUpdate(itemId, updatedInventory.find(item => item.id === itemId).equipmentQuantity);
+  };
+
+  const handleDecrement = async (itemId) => {
+    const updatedInventory = inventory.map(item => {
+      if (item.id === itemId && item.equipmentQuantity > 0) {
+        return {
+          ...item,
+          equipmentQuantity: item.equipmentQuantity - 1
+        };
+      }
+      return item;
+    });
+    setInventory(updatedInventory);
+    await handleInventoryUpdate(itemId, updatedInventory.find(item => item.id === itemId).equipmentQuantity);
+  };
 
   return (
     <div className=" fixed top-0 left-0 right-0 bottom-0 flex flex-col bg-zinc-900 w-full bg-opacity-50 backdrop-blur-lg z-50 overflow-y-auto">
@@ -79,14 +187,50 @@ const EditAgencyForm = ({ agency, handleCloseEditForm }) => {
         </div>
         
         {showInventory ? (
-          <div>
-            <form onSubmit={handleSubmit} className="p-8 text-gray-100  px-96 mx-32 my-4 bg-zinc-900 bg-opacity-55 min-h-screen">
-              Inventory
-            </form>
-          </div>
-        ) : (
-          <div>
-            <form onSubmit={handleSubmit} className="p-8 text-gray-100 px-96 mx-32 my-4 bg-zinc-900 bg-opacity-55">
+  <div>
+    <form onSubmit={handleSubmit} className="p-8 text-gray-100  px-96 mx-32 my-4 bg-zinc-900 bg-opacity-55 min-h-screen">
+      {/* Inventory Update Section */}
+      {inventory.map((item) => (
+        <div key={item.id}>
+          
+          <label className="block font-bold mb-2 text-gary-100 text-lg"><p>{item.equipmentName} </p> </label>
+          <input
+            type="number"
+            value={item.equipmentQuantity}
+            onChange={(e) => handleEditInventory(item.id, e.target.value)}
+            className="w-full border  rounded-md px-3 py-2 bg-zinc-900  bg-opactity-20 border-zinc-800"
+          />
+          <RiDeleteBinLine onClick={() => handleDeleteInventory(item.id)} className="ml-2 cursor-pointer text-red-600" style={{ fontSize: "1.5rem" }} />
+        </div>
+      ))}
+      <div>
+        <div>
+          <label className="block font-bold mb-2 text-gary-100 text-lg"><p>New Inventory Name</p></label>
+          <input type="text"
+            value={newInventoryName}
+            onChange={(e) => setNewInventoryName(e.target.value)}
+            className="w-full border  rounded-md px-3 py-2 bg-zinc-900  bg-opactity-20 border-zinc-800"
+            placeholder="New Inventory Name" />
+        </div>
+
+        <div>
+          <label className="block font-bold mb-2 text-gary-100 text-lg"><p>New Inventory Quantity</p></label>
+          <input type="number"
+            value={newInventoryQuantity}
+            onChange={(e) => setNewInventoryQuantity(e.target.value)}
+            className="w-full border  rounded-md px-3 py-2 bg-zinc-900  bg-opactity-20 border-zinc-800"
+            placeholder="New Inventory Quantity" />
+          <button onClick={handleAddInventory} className="bg-green-600 text-white px-8 py-2 rounded-md mt-4">Add Inventory</button>
+        </div>
+      </div>
+    </form>
+  </div>
+) : (
+
+
+  <div>
+    {/* Agency Details Update Section */}
+    <form onSubmit={handleSubmit} className="p-8 text-gray-100 px-96 mx-32 my-4 bg-zinc-900 bg-opacity-55">
         <div className="flex  w-full space-x-2">
           <div className="mb-4 w-1/2">
             <label className="block font-bold mb-2 text-gary-100 text-lg">Agency Name</label>
