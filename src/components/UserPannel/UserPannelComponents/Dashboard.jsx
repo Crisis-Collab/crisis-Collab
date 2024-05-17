@@ -274,13 +274,16 @@ const handleGetDirections = (destLat, destLng) => {
           <div>
             
             {!loading && !error && userType === "citizen" && (
-              <div>
-                <h2>Your Details</h2>
-                <p>Your Name: {userData.name}</p>
+             <div className="p-4 my-2 mx-4 bg-zinc-900 rounded-md flex items-center justify-between text-gray-100">
+               <div >
+                
+                <p className="text-red-600 text-xl">Your Name: <span className="text-gray-100">{userData.name}</span></p>
               </div>
+              <div className="text-red-600">Contact Number: {userData.phoneNumber}</div>
+             </div>
             )}
             {!loading && !error && userType === "agency-admin" && (
-              <div className="p-4 my-2 mx-4 bg-zinc-900 flex items-center justify-between text-gray-100">
+              <div className="p-4 my-2 mx-4 bg-zinc-900 rounded-md flex items-center justify-between text-gray-100">
                 <div>
                   <h1 className="font-semibold text-2xl text-red-600">{userData.agencyName}</h1>
                   <h2>Department : {userData.agencyType}</h2>
@@ -294,7 +297,7 @@ const handleGetDirections = (destLat, destLng) => {
           </div>
 
           <div className="flex justify-between space-x-3 p-4">
-            <div className="w-full bg-zinc-900 h-screen flex flex-col justify-between  text-white p-4">
+            <div className="w-full bg-zinc-900  rounded-md h-screen flex flex-col justify-between  text-white p-4">
               <div>
                 {!loading && !error && otherAgencies.length > 0 && (
                   <div className="pt-8">
@@ -311,12 +314,12 @@ const handleGetDirections = (destLat, destLng) => {
                       </button>
                     </div>
                     <h2 className="text-center text-xl font-semibold p-2">Other Agencies near you </h2>
-                    <div className="bg-zinc-600  bg-opacity-25 p-4">
+                    <div className="">
                       <ul>
                         {filteredItem.map((agency) => (
                           
                           <li key={agency.id}>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-center bg-zinc-600 m-2 rounded-md bg-opacity-25 p-4">
                               <div>
                             <p className="text-red-600 font-semibold">Agency Name: <span className="text-gray-100 font-semibold">{agency.agencyName}</span> </p>
                             <p className="text-red-600 font-semibold">
@@ -378,7 +381,7 @@ const handleGetDirections = (destLat, destLng) => {
               
               <div>
                 
-              <div className="bg-zinc-900 p-4 ">
+              <div className="bg-zinc-900 p-4 rounded-md">
                 
                 <div className="flex justify-between items-center ">
                   <h1 className="text-lg font-semibold text-red-600"> Other Agencies near you in </h1>

@@ -1,5 +1,6 @@
 import { IoPersonCircle,IoPeople,IoChatbubblesSharp  ,IoThunderstorm, IoNewspaper, IoPeopleSharp, IoSettings  } from 'react-icons/io5';
 import { LuLayoutDashboard } from "react-icons/lu";
+import { MdContactEmergency } from "react-icons/md";
 const SideBarData = [
   {
     id: "1",
@@ -19,7 +20,7 @@ const SideBarData = [
     id: "3",
     name: "My Profile",
     path: "/userpannel/profile",
-    icon: IoSettings,
+    icon:  IoPersonCircle,
     "userType":"citizen"
    
   },
@@ -45,17 +46,12 @@ const SideBarData = [
     
    
   },
+  
   {
     id: "7",
-    name: "Help & Support",
-    path: "/userpannel/help",
-    icon: IoChatbubblesSharp,
-  },
-  {
-    id: "8",
     name: "Emergency Number",
     path: "/userpannel/sos",
-    icon: IoSettings,
+    icon: MdContactEmergency,
     "userType":"citizen"
   },
 ];

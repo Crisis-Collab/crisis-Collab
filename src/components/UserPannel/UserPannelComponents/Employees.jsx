@@ -4,7 +4,7 @@ import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.config";
 import Emp from "../../../assets/Eimg.jpg";
 import { useNavigate } from "react-router-dom";
-import MoreInfo from "./MoreInfo"; // Import MoreInfo component
+import MoreInfo from "./MoreInfo"; 
 
 const Employees = () => {
   const [employeeData, setEmployeeData] = useState([]);
@@ -109,7 +109,7 @@ const Employees = () => {
 
       {!loading && !selectedEmployee && (
         <div className="">
-          <div className="bg-zinc-900 p-4 shadow-inner ">
+          <div className="bg-zinc-900 rounded-md p-4 shadow-inner ">
             <div className="text-center flex items-center justify-center space-x-3">
               <p className="text-lg text-red-600 font-semibold">
                 Search for Employee -{" "}
@@ -117,30 +117,25 @@ const Employees = () => {
               <input
                 type="text"
                 placeholder="Search "
-                className="lg:w-6/12 w-full py-2 pl-3 border focus:outline-none"
+                className="lg:w-6/12 w-full rounded-md py-2 pl-3 border focus:outline-none"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button onClick={filteredEmployees} className="bg-red-600 rounded-sm text-white cursor-pointer px-8 py-2 font-semibold">
+              <button onClick={filteredEmployees} className="bg-red-600 rounded-md text-white cursor-pointer px-8 py-2 font-semibold">
                 Search
               </button>
             </div>
           </div>
           <div className="flex space-x-5">
           <div className="lg:w-1/2">
-              <div className="flex items-start justify-center space-x-5 lg:pt-7">
-                <div className="bg-red-600 px-2 py-2 font-bold text-center text-2xl">
+              <div className="flex items-start justify-center space-x-5 lg:pt-4 ">
+                <div className="bg-red-600 rounded-md px-2 py-2 font-bold  shadow-lg text-center text-2xl">
                   <h1>Total Number of Employees</h1>
                   <h2 className="font-bold text-white text-5xl text-center">
                     {employeeData.length}
                   </h2>
                 </div>
-                <div className="bg-red-600 px-2 py-2  font-bold text-center text-2xl">
-                  <h1>Total Number of Employees</h1>
-                  <h2 className="font-bold text-white text-5xl text-center">
-                    {employeeData.length}
-                  </h2>
-                </div>
+                
               </div>
               <div className="grid place-items-center ">
                 <img src={Emp} className="mt-9 rounded-lg" alt="Employees" />

@@ -23,9 +23,7 @@ function App() {
     <Crisp/>
    </div>
    <Footer/>
-  {/* <CitizenDasboard/> */}
-  {/* <AdminLayout/> */}
-
+ 
     </>
   )
 }

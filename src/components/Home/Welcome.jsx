@@ -25,7 +25,7 @@ const Welcome = () => {
             initiative that brings together a tapestry of rescue relief agencies
             under one unified banner. Our mission is clear: to amplify the
             impact of humanitarian efforts by fostering collaboration, sharing
-            resources, and delivering rapid relief to those in need
+            resources, and delivering rapid relief to those in need.
           </p>
           {/* <img src={img2} alt="img" className="max-w-full h-40 md:mx-4" />
           <img src={img1} alt="img" className="max-w-full h-60 md:h-96" /> */}
