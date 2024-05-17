@@ -433,10 +433,7 @@ const AdminDashboard = () => {
   };
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    // console.log("lat1:", lat1);
-    // console.log("lon1:", lon1);
-    // console.log("lat2:", lat2);
-    // console.log("lon2:", lon2);
+   
     if (!lat1 || !lon1 || !lat2 || !lon2 || !userDataLocation) {
       return "Unknown";
     }

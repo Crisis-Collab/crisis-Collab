@@ -14,8 +14,8 @@ const Home = () => {
         <Landing/>
         <Welcome/>
         <LandService/>
-        <News/>
-        <LandContact/>
+       
+        {/* <LandContact/> */}
         
     </div>
   )

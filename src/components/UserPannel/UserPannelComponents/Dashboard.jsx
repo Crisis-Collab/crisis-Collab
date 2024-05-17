@@ -286,7 +286,7 @@ const handleGetDirections = (destLat, destLng) => {
               <div className="p-4 my-2 mx-4 bg-zinc-900 rounded-md flex items-center justify-between text-gray-100">
                 <div>
                   <h1 className="font-semibold text-2xl text-red-600">{userData.agencyName}</h1>
-                  <h2>Department : {userData.agencyType}</h2>
+                  <h2 className="text-red-600">Department : {userData.agencyType}</h2>
                 </div>
                 <div className="flex item-center justify-between space-x-2 ">
                   <IoCallSharp className="text-red-600 w-6 h-6" />

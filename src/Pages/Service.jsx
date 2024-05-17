@@ -1,6 +1,6 @@
 import React from 'react'
 import Map from '../assets/map.jpg'
-import img1 from '../assets/register3.png'
+import img1 from '../assets/register2.png'
 import communication from '../assets/chat.png'
 
 const Service = () => {
@@ -10,7 +10,7 @@ const Service = () => {
       <section className="text-gray-600 bg-white body-font">
         <div className="container mx-auto flex px-5 py-8 md:flex-row flex-col items-center">
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 md:mb-0 mb-10">
-            <img className=" object-center rounded shadow-lg" alt="hero" src={img1}  />
+            <img className=" object-center rounded " alt="hero" src={img1}  />
           </div>
           <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-black"> Unified Registration System
@@ -32,14 +32,14 @@ const Service = () => {
 
           </div>
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-            <img className="object-cover object-center rounded shadow-lg" alt="hero" src={Map} />
+            <img className="object-cover object-center rounded " alt="hero" src={Map} />
           </div>
         </div>
       </section>
       <section className="text-gray-600 bg-white body-font">
         <div className="container mx-auto flex px-5 py-8 md:flex-row flex-col items-center">
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 md:mb-0 mb-10">
-            <img className="object-cover object-center rounded shadow-lg" alt="hero" src={communication} />
+            <img className="object-cover object-center rounded " alt="hero" src={communication} />
           </div>
           <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-black">Real-time Communication

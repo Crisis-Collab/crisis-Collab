@@ -34,20 +34,17 @@ const LandContact = () => {
   ];
 
   return (
-    <div>
+    <>
       <div
-        className="bg-white container mx-auto flex px-5 py-6  flex-col items-center "
+        className="bg-white container mx-auto flex px-5 py-6 lg:mt-36  flex-col items-center "
         data-aos="zoom-in"
       >
         {/* FAQ section */}
         <div className="container mx-auto pl-4">
-          {/* {faqs.map((faq, index) => (
-        <FAQ key={index} question={faq.question} answer={faq.answer} />
-      ))} */}
+          
           <FAQ />
         </div>
 
-        {/* <img src={contact} alt="img" className="max-w-full h-96" /> */}
         <section
           className="text-gray-600 pt-8  bg-white body-font relative"
           id="connect"
@@ -126,7 +123,7 @@ const LandContact = () => {
           </div>
         </section>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -5,20 +5,15 @@ import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase.config";
 
-
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isClicked,setIsClicked] =useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const navigate = useNavigate();
-  const handelMenuToggler = () => {
+
+  const handleMenuToggler = () => {
     setIsMenuOpen(!isMenuOpen);
   };
- 
-
 
   const getUser = async () => {
     try {
@@ -28,9 +23,10 @@ const Navbar = () => {
       console.log(`User Data -${JSON.stringify(userData)}`);
       setUser(userData);
     } catch (error) {
-      console.log("error occured while fetching user");
+      console.log("error occurred while fetching user");
     }
   };
+
   useEffect(() => {
     getUser();
   }, []);
@@ -46,85 +42,85 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.addEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-
-
   const navItems = [
     { link: "Home", path: "/" },
-    { link: "About", path: "/#about" },
+    { link: "About", path: "/about" },
     { link: "Service", path: "/service" },
     { link: "Connect", path: "/#connect" },
   ];
 
- 
-
   return (
-    <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 max-w-screen-2xl container  px-4   ">
+    <header className="w-full fixed top-0 left-0 right-0 transition-all ease-in duration-300 z-50">
       <nav
-        className={`pt-4 pb-2  ${
+        className={`pt-4 pb-2 w-full ${
           isSticky
-            ? "sticky top-0 left-0 right-0 bg-transparent  backdrop-blur-sm  text-blue-900"
+            ? "sticky top-0 left-0 right-0 bg-white backdrop-blur-sm shadow-md text-blue-900"
             : ""
         }`}
       >
-        <div className="flex items-center justify-between container">
+        <div className="container mx-auto flex items-center justify-between px-4">
           <Link to="/">
-            <div className="flex items-center ">
-              <img src={Logo} alt="Logo" className="h-8 w-8 mr-2 " />
+            <div className="flex items-center">
+              <img src={Logo} alt="Logo" className="h-8 w-8 mr-2" />
               <span className="text-red-600 text-2xl font-medium">Crisis</span>
-              <span className="text-red-500 font-semibold pt-2"> collab</span>
+              <span className="text-red-500 font-semibold pt-2">collab</span>
             </div>
           </Link>
-          <ul className="md:flex space-x-10 font-medium  text-base font-itim hidden">
-           
-              {navItems.map(({ link, path }) => (
-                  <a
-                    key={path}
-                    href={path}
-                    className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl"
-                  >
-                    {link}
-                  </a>
-                ))}
+          <ul className="hidden md:flex space-x-10 font-medium text-base font-itim">
+            {navItems.map(({ link, path }) => (
+              <li key={path}>
+                <a
+                  href={path}
+                  className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl"
+                >
+                  {link}
+                </a>
+              </li>
+            ))}
           </ul>
-          <div className=" hidden lg:block">
-         
-          <Link to="/login">
-              <button className="bg-red-600 rounded-3xl    hover:bg-red-900   text-white    text-sm font-semibold uppercase px-8 py-2  outline-none focus:outline-none  mb-1 ease-linear duration-150     hover:shadow-lg transform transition-transform hover:translate-y-1  ">
-               Log in
+          <div className="hidden md:flex items-center space-x-4">
+            <Link to="/login">
+              <button className="bg-red-600 rounded-3xl hover:bg-red-900 text-white text-sm font-semibold uppercase px-8 py-2 outline-none focus:outline-none mb-1 ease-linear duration-150 hover:shadow-lg transform transition-transform hover:translate-y-1">
+                Log in
               </button>
             </Link>
-           
           </div>
           <div className="md:hidden block">
-            <button onClick={handelMenuToggler}>
+            <button onClick={handleMenuToggler}>
               {isMenuOpen ? (
-                <FaXmark className=" w-5 h-5 text-primary z-50" />
+                <FaXmark className="w-5 h-5 text-primary z-50" />
               ) : (
-                <FaBarsStaggered className=" w-5 h-5 text-primary" />
+                <FaBarsStaggered className="w-5 h-5 text-primary" />
               )}
             </button>
           </div>
         </div>
       </nav>
-      {/* navItems for mobile */}
-      <div
-        className={`px-4 bg-black  py-5 rounded-sm ${
-          isMenuOpen ? "" : "hidden"
-        }`}
-      >
-        <ul>
-       { navItems.map(({ link, path }) => (
-    <a key={path} href={path} className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl">{link}</a>
-  ))}
-          <li className="text-white py-1">
-            <Link to="/log-in">Log In</Link>
-          </li>
-        </ul>
-      </div>
+      {isMenuOpen && (
+        <div className="md:hidden bg-black text-white px-4 py-5 rounded-sm w-full">
+          <ul>
+            {navItems.map(({ link, path }) => (
+              <li key={path} className="py-1">
+                <a
+                  href={path}
+                  className="block text-base uppercase cursor-pointer text-red-700 font-semibold hover:text-red-600 hover:text-xl"
+                >
+                  {link}
+                </a>
+              </li>
+            ))}
+            <li className="py-1">
+              <Link to="/login" className="block uppercase text-red-700 font-semibold hover:text-red-600 hover:text-xl">
+                Log In
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </header>
   );
 };

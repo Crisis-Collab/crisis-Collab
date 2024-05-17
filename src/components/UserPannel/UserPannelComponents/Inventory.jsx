@@ -114,7 +114,7 @@ const Inventory = () => {
         <div className="error-message">{error}</div>
       )}
       <div className=""> 
-            <h1 className="text-3xl font-bold text-gray-100  p-4">Add and Find your Equipments here - </h1>
+            <h1 className="text-3xl font-bold text-red-600  p-4">Add and Find your Equipments here - </h1>
           </div>
       {!loading && !error && (
         <div className="flex justify-start item-center rounded-md bg-zinc-900 p-4 ">
@@ -124,7 +124,7 @@ const Inventory = () => {
           <div className="flex flex-col lg:w-1/3">
           <label className="text-gray-200 font-semibold p-1">Equipment Name</label>
           <input
-          className=" w-full mb-4  text-black  py-2 pl-3 border focus:outline-none "
+          className=" w-full mb-4  text-black rounded-md  py-2 pl-3 border focus:outline-none "
             type="text"
             placeholder="Equipment Name"
             value={newEquipmentName}
@@ -134,7 +134,7 @@ const Inventory = () => {
         <div className="flex flex-col lg:w-1/3">
           <label className="text-gray-200 font-semibold p-1">Quantity</label>
         <input
-           className=" w-full mb-4  text-black  py-2 pl-3 border focus:outline-none "
+           className=" w-full mb-4  text-black rounded-md  py-2 pl-3 border focus:outline-none "
             type="number"
             placeholder="Quantity"
             value={newEquipmentQuantity}
@@ -156,13 +156,13 @@ const Inventory = () => {
               <input
                 type="text"
                 placeholder="Search "
-                className="lg:w-6/12 w-full bg-zinc-400 bg-opacity-25 border-none py-2 pl-3 border focus:outline-none "
+                className="lg:w-6/12 w-full bg-zinc-200  rounded-md border-none py-2 pl-3 border focus:outline-none "
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button className="bg-red-600 rounded-sm text-white cursor-pointer   px-8 py-2 font-semibold">
+              {/* <button className="bg-red-600 rounded-sm text-white cursor-pointer   px-8 py-2 font-semibold">
                 Search
-              </button>
+              </button> */}
             </div>
       {!loading && !error && filteredItem.map((item) => (
         <div key={item.id} className="bg-zinc-600 rounded-md bg-opacity-25 mt-5  p-4 flex justify-between items-center">
@@ -172,8 +172,8 @@ const Inventory = () => {
           </div>
 
           <div className="space-x-3">
-          <button className=" bg-gray-100 rounded-md bg-opacity-35 px-4 py-2" onClick={() => handleIncrement(item.id, item.equipmentName)}><AiOutlinePlus /></button>
-          <button className=" bg-gray-100 rounded-md bg-opacity-35 px-4 py-2" onClick={() => handleDecrement(item.id, item.equipmentName)}><AiOutlineMinus /></button>
+          <button className=" bg-gray-100 rounded-md bg-opacity-35 px-4 py-2 hover:bg-zinc-700 active:bg-zinc-900" onClick={() => handleIncrement(item.id, item.equipmentName)}><AiOutlinePlus /></button>
+          <button className=" bg-gray-100 rounded-md bg-opacity-35 px-4 py-2 hover:bg-zinc-700 active:bg-zinc-900" onClick={() => handleDecrement(item.id, item.equipmentName)}><AiOutlineMinus /></button>
           <button className=" bg-red-600   rounded-md px-6 py-2"onClick={() => handleDelete(item.id)}><RiDeleteBinLine /> </button>
           </div>
         </div>
