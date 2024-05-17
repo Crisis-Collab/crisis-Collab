@@ -14,7 +14,7 @@ const Home = () => {
         <Landing/>
         <Welcome/>
         <LandService/>
-        <News/>
+       
         <LandContact/>
         
     </div>

@@ -42,24 +42,7 @@ const MyProfile = () => {
       )}
 
       {!loading && citizenData && (
-        // <div>
-        //   <h2>Name: {citizenData.name}</h2>
-        //   <p>Aadhar Number: {citizenData.aadharNumber}</p>
-        //   <p>Gender: {citizenData.gender}</p>
-        //   <p>Contact: {citizenData.phone}</p>
-        //   <p>Address: {citizenData.completeAddress}</p>
-        //   <p>City: {citizenData.city}</p>
-        //   <p>State: {citizenData.state}</p>
-        //   <p>Profile Picture: </p>
-        //           <img src={citizenData.profileUrl} alt="profilePic" />
-        //   <p>Aadhar Front: </p>
-        //           <img src={citizenData.aadharFrontUrl} alt="aadharFront" />
-        //   <p>Aadhar Back: </p>
-        //           <img src={citizenData.aadharBackUrl} alt="aadharBack" />
-
-        //   {/* Add more fields as needed */}
-
-        // </div>
+      
         <div className=" bg-zinc-900 backdrop-blur-2xl  rounded-md m-4 p-4">
               
               <h2 className=" text-red-600 text-4xl font-semibold text-center p-4">
