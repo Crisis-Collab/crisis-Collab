@@ -116,8 +116,8 @@ const AgencyProfile = () => {
                 <img src={agencyData.agencyCertificateUrl} className='p-2'/>
                 </div>
                 <div className=' bg-zinc-900 w-2/3 h-full p-4   shadow-2xl rounded-md'>
-             <h1 className='text-red-600 text-3xl font-semibold text-center'>Yearly Rescue Activity Comparison </h1>
-             <h3 className='text-red-300 text-sm font-medium text-center'>This Year vs. Last Year</h3>
+             <h1 className='text-red-600 text-3xl font-semibold text-center'>Yearly Rescue Activity </h1>
+             <h3 className='text-red-300 text-sm font-medium text-center'>Lives Saved and Solved Alerts</h3>
              <BarChartComponent/>              
             </div>
 
