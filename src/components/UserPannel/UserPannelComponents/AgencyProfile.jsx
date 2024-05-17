@@ -47,7 +47,7 @@ const AgencyProfile = () => {
         <div className='   '>
          <div className='w-full'>
         
-          <div className='flex flex-col bg-zinc-900   space-y-4'>
+          <div className='flex flex-col bgAgencyProfile rounded-md bg-cover bg-center bg-zinc-900   space-y-4'>
           <div className='  flex justify-end space-x-2 p-2'>
                 <h2 className='font-semibold text-red-500  text-sm'>Latitude- {agencyData.latitude}</h2>
                 <h2 className='font-semibold  text-red-500 text-sm'>Longitude- {agencyData.longitude}</h2>
@@ -76,20 +76,20 @@ const AgencyProfile = () => {
             </div> */}
 
             <div className='p-4 flex justify-between items-center'>
-              <div>
+              <div className=''>
               <div className='text-5xl font-semibold  text-red-600'>{agencyData.agencyName}</div>
-            <div className='font-semibold   text-gray-100 lg:pt-2'>{agencyData.agencyType},</div>
-            <div className='font-semibold  text-gray-100'>{agencyData.city}</div>
+            <div className='font-bold   text-gray-900 lg:pt-2'>{agencyData.agencyType},</div>
+            <div className='font-bold  text-gray-900'>{agencyData.city}</div>
               </div>
             
           
               </div>
-              <div className='p-4 flex justify-between items-center'>
+              <div className=' flex justify-between items-center bg-zinc-800 rounded-md backdrop-blur-lg bg-opacity-10 p-4'>
               <div className=''>
-            <div className='font-semibold  text-red-600 lg:pt-16' >Address- {agencyData.completeAddress},</div>
+            <div className='font-bold  text-gray-100 lg:pt-16' >Address- {agencyData.completeAddress},</div>
             <div className='flex space-x-4'>
-              <div className='font-semibold  text-gray-400 ' >{agencyData.state}</div>
-              <div className='font-semibold  text-gray-400 ' > {agencyData.pincode}</div>
+              <div className='font-bold  text-gray-100 ' >{agencyData.state}</div>
+              <div className='font-bold  text-gray-100 ' > {agencyData.pincode}</div>
              </div>
              </div>
              <div className='flex space-x-3'>
@@ -111,11 +111,11 @@ const AgencyProfile = () => {
                 
          </div>
          <div className='flex items-center justify-between w-full space-x-4'>
-         <div className=' w-1/3 h-full flex flex-col items-center justify-center mt-4 bg-zinc-900'>
+         <div className=' w-1/3 h-full flex flex-col items-center justify-center mt-4 bg-zinc-900 rounded-md'>
                 <p className='text-2xl lg:pt-4  text-center text-red-600'>Certificate</p>
                 <img src={agencyData.agencyCertificateUrl} className='p-2'/>
                 </div>
-                <div className=' bg-zinc-900 w-2/3 h-full p-4   shadow-2xl'>
+                <div className=' bg-zinc-900 w-2/3 h-full p-4   shadow-2xl rounded-md'>
              <h1 className='text-red-600 text-3xl font-semibold text-center'>Yearly Rescue Activity Comparison </h1>
              <h3 className='text-red-300 text-sm font-medium text-center'>This Year vs. Last Year</h3>
              <BarChartComponent/>              

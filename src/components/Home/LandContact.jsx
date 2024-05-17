@@ -114,7 +114,7 @@ const LandContact = () => {
                   </button>
                 </div>
                 <div className="p-2 w-full pt-8 mt-8 border-t border-gray-800 text-center">
-                  <a className="text-blue-700">example@email.com</a>
+                  <a className="text-blue-700">collabcrisis@email.com</a>
                   <p className="leading-normal my-5">
                     Bundelkhan University,
                     <br />

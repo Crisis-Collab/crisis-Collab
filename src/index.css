@@ -13,15 +13,16 @@ html,body{
     background-repeat: no-repeat;
 }
 .bgLogin{
-    background-image: url(".../../assets/firefighter.jpg");
+    background-image: url(".../../assets/Eimg.jpg");
     background-repeat: no-repeat;
 }
 .bgWeather1{
     background-image: url(".../../assets/w-6.jpg");
     background-repeat: no-repeat;
 }
-.bgWeather2{
-    background-image: url(".../../assets/w-9.jpg");
+
+.bgAgencyProfile{
+    background-image: url(".../../assets/fire.jpg");
     background-repeat: no-repeat;
 }
 .employeeBG{

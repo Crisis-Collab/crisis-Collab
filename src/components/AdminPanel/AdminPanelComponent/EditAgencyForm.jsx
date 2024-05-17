@@ -194,17 +194,22 @@ const EditAgencyForm = ({ agency, handleCloseEditForm }) => {
         <div key={item.id}>
           
           <label className="block font-bold mb-2 text-gary-100 text-lg"><p>{item.equipmentName} </p> </label>
+          <div className="flex justify-between items-center">
           <input
             type="number"
             value={item.equipmentQuantity}
             onChange={(e) => handleEditInventory(item.id, e.target.value)}
             className="w-full border  rounded-md px-3 py-2 bg-zinc-900  bg-opactity-20 border-zinc-800"
           />
-          <RiDeleteBinLine onClick={() => handleDeleteInventory(item.id)} className="ml-2 cursor-pointer text-red-600" style={{ fontSize: "1.5rem" }} />
-        </div>
+          <div>
+          <RiDeleteBinLine onClick={() => handleDeleteInventory(item.id)} className="ml-2 cursor-pointer text-red-600 hover:w-8 h-8" style={{ fontSize: "1.5rem" }} />
+          </div>
+          </div>
+          </div>
       ))}
       <div>
-        <div>
+        <div className="mt-8">
+          <div className="text-center font-bold m-8 text-red-600 text-lg">Add New Inventory</div>
           <label className="block font-bold mb-2 text-gary-100 text-lg"><p>New Inventory Name</p></label>
           <input type="text"
             value={newInventoryName}
@@ -220,7 +225,9 @@ const EditAgencyForm = ({ agency, handleCloseEditForm }) => {
             onChange={(e) => setNewInventoryQuantity(e.target.value)}
             className="w-full border  rounded-md px-3 py-2 bg-zinc-900  bg-opactity-20 border-zinc-800"
             placeholder="New Inventory Quantity" />
+            <div className="flex items-center justify-center">
           <button onClick={handleAddInventory} className="bg-green-600 text-white px-8 py-2 rounded-md mt-4">Add Inventory</button>
+        </div>
         </div>
       </div>
     </form>

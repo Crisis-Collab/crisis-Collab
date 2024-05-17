@@ -106,10 +106,7 @@ const router = createBrowserRouter([
         }
       ]
     },
-    {
-      path:'/userpannel/help',
-      element:<Help/>
-    },
+
     {
       path:'/userpannel/profile',
       element:<MyProfile/>

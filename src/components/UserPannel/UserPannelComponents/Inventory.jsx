@@ -117,7 +117,7 @@ const Inventory = () => {
             <h1 className="text-3xl font-bold text-gray-100  p-4">Add and Find your Equipments here - </h1>
           </div>
       {!loading && !error && (
-        <div className="flex justify-start item-center bg-zinc-900 p-4 ">
+        <div className="flex justify-start item-center rounded-md bg-zinc-900 p-4 ">
     
         <div className="space-x-4 flex w-full">
          
@@ -148,7 +148,7 @@ const Inventory = () => {
         </div>
         </div>
       )}
-      <div className="bg-zinc-900 mt-5 p-4">
+      <div className="bg-zinc-900 rounded-md mt-5 p-4">
       <div className="  text-center  flex items-center justify-center space-x-3">
               <p className="text-lg text-red-600 font-normal">
                 Search for Equipment-{" "}
@@ -165,7 +165,7 @@ const Inventory = () => {
               </button>
             </div>
       {!loading && !error && filteredItem.map((item) => (
-        <div key={item.id} className="bg-zinc-600  bg-opacity-25 mt-5  p-4 flex justify-between items-center">
+        <div key={item.id} className="bg-zinc-600 rounded-md bg-opacity-25 mt-5  p-4 flex justify-between items-center">
           <div>
           <p className="text-red-600 font-semibold text-lg">Equipment Name: <span className="text-gray-200 font-normal">{item.equipmentName}</span></p>
           <p className="text-red-600 font-semibold text-lg">Quantity: <span  className="text-gray-200 font-normal">{item.equipmentQuantity}</span></p>

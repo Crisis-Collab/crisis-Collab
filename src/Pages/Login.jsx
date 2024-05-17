@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import loginLogo from "../assets/log2.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebase.config";
 import { Modal } from "flowbite-react";
 import Navbar from "../Common/Navbar";
@@ -29,77 +22,46 @@ const Login = () => {
   const requestOtp = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     // Ensure phoneNumber has +91 prefix if missing
-    const formattedPhoneNumber = phoneNumber.startsWith("+91")
-      ? phoneNumber
-      : `+91${phoneNumber}`;
-
+    const formattedPhoneNumber = phoneNumber.startsWith('+91') ? phoneNumber : `+91${phoneNumber}`;
+  
     if (phoneNumber === "" || phoneNumber === undefined) {
       console.log("Please enter a valid phone number!");
       setLoading(false);
       return;
     }
-
+  
     try {
       const usersRef = collection(db, "users");
-
-      const citizenQuery = query(
-        usersRef,
-        where("phoneNumber", "in", [phoneNumber, formattedPhoneNumber])
-      );
+  
+      const citizenQuery = query(usersRef, where("phoneNumber", "in", [phoneNumber, formattedPhoneNumber]));
       const citizenSnapshot = await getDocs(citizenQuery);
-
+  
       if (!citizenSnapshot.empty) {
         const citizenData = citizenSnapshot.docs[0].data();
-        if (
-          citizenData.userType === "citizen" &&
-          (citizenData.phoneNumber === formattedPhoneNumber ||
-            citizenData.phoneNumber === phoneNumber)
-        ) {
+        if (citizenData.userType === "citizen" && (citizenData.phoneNumber === formattedPhoneNumber || citizenData.phoneNumber === phoneNumber)) {
           setResult(await setUpRecaptcha(formattedPhoneNumber));
           setIsOtpRequested(true);
           return;
-        } else if (
-          citizenData.userType === "citizen" &&
-          (citizenData.phoneNumber === formattedPhoneNumberWithPlus ||
-            citizenData.phoneNumber === phoneNumberWithPlus)
-        ) {
-          setResult(await setUpRecaptcha(phoneNumber));
+        } else if (citizenData.userType === "citizen" && (citizenData.phoneNumber === formattedPhoneNumberWithPlus || citizenData.phoneNumber === phoneNumberWithPlus)) {
+          setResult(await setUpRecaptcha(phoneNumber)); 
           setIsOtpRequested(true);
           return;
         }
       }
-
-      const agencyAdminQuery = query(
-        usersRef,
-        where("agencyConatct", "in", [phoneNumber, formattedPhoneNumber]),
-        where("agencyAdminPhoneNumber", "in", [
-          phoneNumber,
-          formattedPhoneNumber,
-        ])
-      );
+  
+      const agencyAdminQuery = query(usersRef, where("agencyConatct", "in", [phoneNumber, formattedPhoneNumber]), where("agencyAdminPhoneNumber", "in", [phoneNumber, formattedPhoneNumber]));
       const agencyAdminSnapshot = await getDocs(agencyAdminQuery);
-
+  
       if (!agencyAdminSnapshot.empty) {
         const adminData = agencyAdminSnapshot.docs[0].data();
-        if (
-          adminData.userType === "agency-admin" &&
-          (adminData.agencyConatct === formattedPhoneNumber ||
-            adminData.agencyAdminPhoneNumber === formattedPhoneNumber ||
-            adminData.agencyConatct === phoneNumber ||
-            adminData.agencyAdminPhoneNumber === phoneNumber)
-        ) {
+        if (adminData.userType === "agency-admin" && (adminData.agencyConatct === formattedPhoneNumber || adminData.agencyAdminPhoneNumber === formattedPhoneNumber || adminData.agencyConatct === phoneNumber || adminData.agencyAdminPhoneNumber === phoneNumber)) {
           setResult(await setUpRecaptcha(formattedPhoneNumber));
           setIsOtpRequested(true);
           return;
-        } else if (
-          adminData.userType === "agency-admin" &&
-          (adminData.agencyConatct === formattedPhoneNumber ||
-            adminData.agencyAdminPhoneNumber === formattedPhoneNumber ||
-            adminData.agencyConatct === phoneNumber ||
-            adminData.agencyAdminPhoneNumber === phoneNumber)
-        ) {
+        }
+        else if (adminData.userType === "agency-admin" && (adminData.agencyConatct === formattedPhoneNumber || adminData.agencyAdminPhoneNumber === formattedPhoneNumber || adminData.agencyConatct === phoneNumber || adminData.agencyAdminPhoneNumber === phoneNumber)) {
           setResult(await setUpRecaptcha(phoneNumber));
           setIsOtpRequested(true);
           return;
@@ -107,7 +69,7 @@ const Login = () => {
       } else {
         console.log("No agency admin user found.");
       }
-
+  
       alert("User not found. Please sign up using the App");
     } catch (error) {
       console.error("Error requesting OTP:", error);
@@ -116,6 +78,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+  
 
   const verifyOtp = async (e) => {
     e.preventDefault();
@@ -150,54 +113,49 @@ const Login = () => {
 
   return (
     <div
-      className="    p-4 relative   min-h-screen overflow-y-hidden h-screen      "
+      className=" bgLogin bg-cover bg-center   relative   min-h-screen overflow-y-hidden "
       id="login"
     >
-      {/* <div>
-        <Navbar />
-      </div> */}
-      <div className="  flex justify-between items-center   w-full    mb-14">
-
-        <div className=" bgLogin bg- bg-cover bg-center rounded-lg   space-y-4 w-1/2 min-h-screen ">
-          
-        </div>
-
-        {/* {loading ? <LoadingSpinner /> : null} */}
-        <div className="w-1/2 justify-center  flex flex-col space-y-4 items-center">
-        <div className=" fixed top-5 ">
-          
-          <h4 className="font-bold text-5xl ">
+      <div className="  bg-slate-500  shadow-2xl  w-full"> <Navbar /></div>
+      <div className="flex items-center justify-between lg:px-24 px-4 pt-10">
+      <div className="grid place-items-center">
+        {/* <div className="sm:grid place-items-center hidden pr-20 w-4/5">
+          <img src={loginLogo} />
+        </div> */}
+        <div className="space-y-4 pt-8 text-red-600">
+          <h4 className="font-bold text-6xl ">
             Welcome to{" "}
             <span className="text-6xl text-red-600">Crisis-Collab</span>
           </h4>
-          <h4 className="font-medium text-2xl  text-red-600 font-serif">
+          <h4 className="font-medium text-2xl text-red-600 font-serif">
             The Disaster Management Platform.
           </h4>
-          </div>
-        <div className=" bg-opacity-10 backdrop-blur-md bg-red-600 lg:py-4 lg:px-14 shadow-2xl  justify-center  flex items-center flex-col    ">
-           
+        </div>
+      </div>
+
+      <div>
+        {/* {loading ? <LoadingSpinner /> : null} */}
+        <div className=" bg-opacity-10  bg-slate-500  shadow-2xl  backdrop-blur-lg px-8 py-12 mt-16 ml-28  justify-center  flex items-center flex-col  w-auto mx-4   ">
           <form
             onSubmit={requestOtp}
-            className="bg-transparent  shadow-2xl  p-8 flex items-center justify-center"
+            className="  backdrop-blur-md shadow-2xl  p-14 flex items-center justify-center"
           >
             {!isOtpRequested ? (
-              <div >
+              <div>
                 {/* Your login form content goes here */}
                 <div className="grid place-items-center">
-                  <h1 className="text-4xl font-semibold space-y-6 mb-6 text-black">
+                  <h1 className="text-4xl font-bold space-y-6 mb-6 text-black">
                     Login
                   </h1>
                 </div>
                 <div className=" flex items-center justify-center text-semibold  font-medium ">
                   {" "}
-                  <div className="text-black">Enter your Phone Number</div>
+                  <div className="text-white">Enter your Phone Number</div>
                 </div>
 
                 <div className="  flex items-center justify-center">
                   <div className="flex items-center justify-center">
-                    <span className="text-gray-950 font-semibold mr-2">
-                      +91
-                    </span>
+                    <span className="text-white mr-2">+91</span>
                     <input
                       placeholder="XXXXXXXXXX"
                       value={phoneNumber}
@@ -211,11 +169,11 @@ const Login = () => {
 
                 <div className="flex pt-6 items-center justify-center">
                   <button
-                    disabled={loading}
+                   disabled={loading}
                     onClick={requestOtp}
                     type="submit"
-                    className="bg-red-700 text-white  active:bg-red-900  text-sm font-semibold px-8 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-red-900"
-                    // disabled={loading}
+                    className="bg-red-700 text-white font-medium px-4 py-2  rounded-md hover:bg-red-900"
+                  // disabled={loading}
                   >
                     {/* {loading && (
                     <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50">
@@ -229,7 +187,7 @@ const Login = () => {
               </div>
             ) : (
               <div className="flex flex-col font-medium ">
-                <div className="text-black">Enter the OTP:</div>
+                <div className="text-white">Enter the OTP:</div>
                 <div className="flex mb-4 pt-4">
                   <input
                     className="mt-1 p-2 w-45 border rounded-md flex items-center justify-center"
@@ -290,8 +248,11 @@ const Login = () => {
             </div>
           </div>
         </div>
-        </div>
       </div>
+      </div>
+     
+     
+
     </div>
   );
 };
