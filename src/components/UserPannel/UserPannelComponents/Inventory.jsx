@@ -160,9 +160,7 @@ const Inventory = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              {/* <button className="bg-red-600 rounded-sm text-white cursor-pointer   px-8 py-2 font-semibold">
-                Search
-              </button> */}
+              
             </div>
       {!loading && !error && filteredItem.map((item) => (
         <div key={item.id} className="bg-zinc-600 rounded-md bg-opacity-25 mt-5  p-4 flex justify-between items-center">
